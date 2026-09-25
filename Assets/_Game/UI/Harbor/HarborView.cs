@@ -49,9 +49,7 @@ namespace PirateGame.UI.Harbor
             var equipment = Section(actions, "Equipment");
             loadout = new LoadoutView(session, definitions, ShowResult); equipment.Add(loadout);
             stats = new Label { name = "stats" }; equipment.Add(stats);
-            travel = hubName != null ? new TravelView(session, definitions, hubName, ShowResult) : null;
-            if (travel != null) equipment.Add(travel);
-            var upgrades = Section(actions, "Harbor & ship");
+            var upgrades = Section(actions, "Harbor & ship"); upgrades.AddToClassList("upgrades");
             // Tracks in tier order; each row: name and effect, cost, then the button.
             foreach (var upgrade in definitions.Upgrades.Values.OrderBy(u => u.TrackId, StringComparer.Ordinal).ThenBy(u => u.Tier))
             {
@@ -68,7 +66,11 @@ namespace PirateGame.UI.Harbor
                     { text = "Purchase", name = "buy-" + upgrade.Id });
             }
             unlocks = new Label { name = "unlocks" }; upgrades.Add(unlocks);
-            actions.Add(new Button(Embark) { text = "Embark", name = "embark" });
+            // Third column: fast travel (production only) above the departure button.
+            var side = new VisualElement(); side.AddToClassList("side"); actions.Add(side);
+            travel = hubName != null ? new TravelView(session, definitions, hubName, ShowResult) : null;
+            if (travel != null) side.Add(travel); else side.Add(new VisualElement());
+            side.Add(new Button(Embark) { text = "Embark", name = "embark" });
             status = new Label("Docked. Ready to refit.") { name = "status" }; root.Add(status);
             retry = new Button(() => ShowResult(session.PendingSave != null ? session.RetrySave() : session.RetryArrival()))
                 { text = "Retry", name = "retry" }; root.Add(retry);

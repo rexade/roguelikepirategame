@@ -34,7 +34,7 @@
 .enemy-bar-fill { height: 100%; background-color: rgb(236, 88, 64); }
 .home-arrow { position: absolute; width: 52px; height: 52px; align-items: center; justify-content: center; }
 .home-glyph { width: 0; height: 0; border-left-width: 11px; border-right-width: 11px; border-bottom-width: 22px; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-bottom-color: rgb(234, 202, 113); }
-#home-label { position: absolute; top: 44px; width: 120px; left: -34px; -unity-text-align: upper-center; font-size: 13px; color: rgb(250, 232, 170); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9); }
+#home-label { position: absolute; top: -8px; width: 180px; left: -64px; -unity-text-align: lower-center; font-size: 13px; color: rgb(250, 232, 170); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9); }
 
 .menus { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(6, 12, 14, 0.62); justify-content: center; align-items: center; color: rgb(238, 236, 224); }
 .menu-card { width: 520px; background-color: rgba(18, 30, 32, 0.96); border-radius: 8px; border-width: 1px; border-color: rgba(140, 207, 180, 0.6); padding: 26px 30px; }

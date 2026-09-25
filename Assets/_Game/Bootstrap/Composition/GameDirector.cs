@@ -674,7 +674,7 @@ namespace PirateGame.Composition
             var dir = direction.normalized;
             // Keep clear of the HUD: ability slots below, vitals/voyage panels above.
             float halfX = Screen.width * 0.45f;
-            float halfY = Screen.height * 0.3f;
+            float halfY = Screen.height * 0.24f;
             float scale = Mathf.Min(halfX / Mathf.Max(0.001f, Mathf.Abs(dir.x)), halfY / Mathf.Max(0.001f, Mathf.Abs(dir.y)));
             var edge = center + dir * scale;
             float degrees = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;

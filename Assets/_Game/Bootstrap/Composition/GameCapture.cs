@@ -117,6 +117,26 @@ namespace PirateGame.Composition
             yield return Relocate(new Vector3(30, 0, 70), 30);
             yield return Drive(1, 0.2f, 2.5f);
             yield return Shot("open-water");
+
+            // Second harbor: sight it, sail into its berth, raise the flag and moor.
+            var outpost = director.Definitions.Hubs.Values.FirstOrDefault(h => h.Id != director.homeHub);
+            if (outpost != null)
+            {
+                yield return Relocate(new Vector3((float)outpost.Dock.X - 4, 0, (float)outpost.Dock.Z - 30), 10);
+                yield return Drive(0.8f, 0, 2.5f);
+                yield return Shot("land-ho");
+                yield return Relocate(new Vector3((float)outpost.Dock.X, 0, (float)outpost.Dock.Z - 1.5f), 0);
+                yield return Wait(0.3f);
+                yield return Shot("claim-prompt");
+                director.RequestInteract();
+                for (int i = 0; i < 400 && director.Session.Lifecycle != Lifecycle.Docked; i++) yield return null;
+                Log("outpost docked " + director.Session.Snapshot.Campaign.CurrentHub);
+                yield return Wait(1f);
+                yield return Shot("outpost-docked");
+                director.menus.Activate("continue");
+                yield return Wait(0.6f);
+                yield return Shot("outpost-harbor");
+            }
             Log("capture done");
             yield return Wait(0.5f);
             Application.Quit();
