@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Player, editor and test sources together, compiled as the editor would. -->
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_INCLUDE_TESTS</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(ProjectRoot)/Assets/_Game/**/*.cs" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEditor.*Module.dll" Private="false" />
+    <Reference Include="$(ScriptAssemblies)/Unity.RenderPipelines.Core.Editor.dll" Private="false" />
+    <Reference Include="$(ScriptAssemblies)/Unity.RenderPipelines.HighDefinition.Editor.dll" Private="false" />
+    <Reference Include="$(ScriptAssemblies)/UnityEngine.TestRunner.dll" Private="false" />
+    <Reference Include="$(ScriptAssemblies)/UnityEditor.TestRunner.dll" Private="false" />
+    <Reference Include="$(ScriptAssemblies)/Unity.InputSystem.TestFramework.dll" Private="false" />
+    <Reference Include="$(PackageCache)/com.unity.ext.nunit@d8c07649098d/net40/unity-custom/nunit.framework.dll" Private="false" />
+  </ItemGroup>
+</Project>

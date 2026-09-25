@@ -1,0 +1,36 @@
+<Project>
+  <!-- Fast compile check of project C# against the pinned editor's assemblies.
+       Mirrors Unity's netstandard2.1 profile; it does not replace Unity's own
+       per-asmdef compilation, which remains the authoritative check. -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <NoStdLib>true</NoStdLib>
+    <NoWarn>CS0649;CS0169;CS0414;CS1701;CS1702;MSB3277;CS0436</NoWarn>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputType>Library</OutputType>
+    <UnityEditorDir>D:/u6-t01/Editor/Data</UnityEditorDir>
+    <ProjectRoot>$(MSBuildThisFileDirectory)../..</ProjectRoot>
+    <ScriptAssemblies>$(ProjectRoot)/Library/ScriptAssemblies</ScriptAssemblies>
+    <PackageCache>$(ProjectRoot)/Library/PackageCache</PackageCache>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)obj/$(MSBuildProjectName)/</BaseIntermediateOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)bin/$(MSBuildProjectName)/</OutputPath>
+    <DefineConstants>UNITY_6000_3_OR_NEWER;UNITY_6000_0_OR_NEWER;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_INPUT_SYSTEM;UNITY_64</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="$(UnityEditorDir)/NetStandard/ref/2.1.0/netstandard.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/NetStandard/compat/2.1.0/shims/netfx/*.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.*Module.dll" Private="false" />
+    <Reference Include="$(ScriptAssemblies)/Unity.InputSystem.dll" Private="false" />
+    <Reference Include="$(ScriptAssemblies)/Unity.RenderPipelines.Core.Runtime.dll" Private="false" />
+    <Reference Include="$(ScriptAssemblies)/Unity.RenderPipelines.HighDefinition.Runtime.dll" Private="false" />
+    <Reference Include="$(ScriptAssemblies)/Unity.RenderPipelines.HighDefinition.Config.Runtime.dll" Private="false" />
+    <Reference Include="$(ScriptAssemblies)/Unity.Mathematics.dll" Private="false" />
+    <Reference Include="$(ScriptAssemblies)/Unity.Collections.dll" Private="false" />
+    <Reference Include="$(PackageCache)/com.unity.nuget.newtonsoft-json@4dfd81071c64/Runtime/Newtonsoft.Json.dll" Private="false" />
+  </ItemGroup>
+</Project>

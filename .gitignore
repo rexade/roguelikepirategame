@@ -32,3 +32,7 @@ crashlytics-build.properties
 /docs/evidence/**/*.csv
 /docs/evidence/**/bin/
 /docs/evidence/**/obj/
+
+# Fast compile check output
+/tools/FastCheck/bin/
+/tools/FastCheck/obj/

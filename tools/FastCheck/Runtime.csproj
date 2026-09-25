@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- All player code: no editor or test sources. -->
+  <ItemGroup>
+    <Compile Include="$(ProjectRoot)/Assets/_Game/**/*.cs" Exclude="$(ProjectRoot)/Assets/_Game/**/Editor/**;$(ProjectRoot)/Assets/_Game/Tests/**;$(ProjectRoot)/Assets/_Game/Bootstrap/Tests/**" />
+  </ItemGroup>
+</Project>
