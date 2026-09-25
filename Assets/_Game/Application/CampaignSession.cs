@@ -133,12 +133,16 @@ namespace PirateGame.Rules.Application
             return request == Guid.Empty ? new RuleResult() : Dock(request, hub);
         }
 
+        private static bool InZone(HubDefinition hub, SeaPosition position)
+        {
+            double dx = position.X - hub.Dock.X, dz = position.Z - hub.Dock.Z;
+            return position.RegionId == hub.Dock.RegionId && (dx / hub.Radius) * (dx / hub.Radius) + (dz / hub.Radius) * (dz / hub.Radius) <= 1;
+        }
+
         private RuleResult Dock(Guid requestId, string hubId)
         {
             var hub = definitions.Hubs[hubId]; var expedition = state.Expedition;
-            double dx = expedition.Position.X - hub.Dock.X, dz = expedition.Position.Z - hub.Dock.Z;
-            if (expedition.Position.RegionId != hub.Dock.RegionId || (dx / hub.Radius) * (dx / hub.Radius) + (dz / hub.Radius) * (dz / hub.Radius) > 1)
-                return new RuleResult(RuleError.NotInDockZone);
+            if (!InZone(hub, expedition.Position)) return new RuleResult(RuleError.NotInDockZone);
             if (expedition.Speed > hub.MaximumSpeed) return new RuleResult(RuleError.TooFast);
             try
             {
@@ -182,6 +186,22 @@ namespace PirateGame.Rules.Application
             var valid = ValidateLoadout(loadout); if (!valid.IsSuccess) return valid;
             var draft = new CampaignDraft(state.Campaign); draft.Loadout = Values.Copy(loadout);
             return Prepare(requestId, "SetLoadout", draft.Freeze(), null, Lifecycle.Resolving, false);
+        }
+
+        // T09 extension: raise the flag at a newly found harbor. At sea, inside its
+        // authored docking zone, marks it discovered and activated in one save. It
+        // neither docks nor banks, and the last safe hub changes only on docking.
+        public RuleResult ActivateHub(Guid requestId, Guid expeditionId, string hubId)
+        {
+            var gate = SeaGate(requestId, expeditionId); if (!gate.IsSuccess) return gate;
+            if (dockRequest != Guid.Empty) return new RuleResult(RuleError.Busy);
+            if (hubId == null || !definitions.Hubs.TryGetValue(hubId, out var hub)) return new RuleResult(RuleError.UnknownId);
+            var current = state.Campaign.Hubs[hubId];
+            if (current.Activated) return new RuleResult(RuleError.AlreadyActivated);
+            if (!InZone(hub, state.Expedition.Position)) return new RuleResult(RuleError.NotInDockZone);
+            var draft = new CampaignDraft(state.Campaign);
+            draft.Hubs[hubId] = new HubState(true, true, current.StoryFlags);
+            return Prepare(requestId, "ActivateHub", draft.Freeze(), state.Expedition, Lifecycle.Resolving, false);
         }
 
         public RuleResult FastTravel(Guid requestId, string destinationHub)
@@ -347,16 +367,18 @@ namespace PirateGame.Rules.Application
         public string CurrentHub, LastSafeHub;
         public Dictionary<string, int> Bank, Tiers;
         public Dictionary<string, string> Loadout;
+        public Dictionary<string, HubState> Hubs;
         public List<string> Unlocks;
         public Dictionary<Guid, Outcome> Resolved;
         public CampaignDraft(CampaignState source)
         {
             this.source = source; CurrentHub = source.CurrentHub; LastSafeHub = source.LastSafeHub;
             Bank = Values.Copy(source.Bank); Tiers = Values.Copy(source.Tiers); Loadout = Values.Copy(source.Loadout);
+            Hubs = Values.Copy(source.Hubs);
             Unlocks = source.Unlocks.ToList(); Resolved = source.ResolvedExpeditions.ToDictionary(p => p.Key, p => p.Value);
         }
         public CampaignState Freeze() => new CampaignState(source.HullId, CurrentHub, LastSafeHub, Bank, Tiers, source.OwnedEquipment,
-            Loadout, source.Hubs, Unlocks, Resolved);
+            Loadout, Hubs, Unlocks, Resolved);
     }
 
     internal sealed class ExpeditionDraft

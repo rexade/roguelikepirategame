@@ -14,9 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: PirateGame.FirstRegion::PirateGame.Content.World.FirstRegionAsset
   regionId: first-region
   homeId: home-harbor
+  homeName: Homeward Harbor
   dock: {x: 0, y: -12}
   dockRadius: 5
   dockMaximumSpeed: 1
+  homeLandmass: {x: -8, y: -33}
+  homeLandmassSize: {x: 30, y: 20}
+  outposts:
+  - id: saltmarsh-harbor
+    name: Saltmarsh Harbor
+    dock: {x: 58, y: 124}
+    dockRadius: 5
+    dockMaximumSpeed: 1
+    landmass: {x: 66, y: 145}
+    landmassSize: {x: 26, y: 18}
   islands:
   - id: first:needle
     position: {x: -20, y: 20}

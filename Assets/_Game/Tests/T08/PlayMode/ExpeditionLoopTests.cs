@@ -205,18 +205,24 @@ namespace PirateGame.Tests.T08
 
             director = null;
             yield return Load(LaunchMode.Continue);
-            var restored = director.Session.Snapshot.Expedition;
+            // The resumed world keeps simulating; freeze it, then account for any ticks it ran.
+            director.player.SetPaused(true);
+            var restored = director.Session.LastCommitted.Expedition;
+            long elapsed = director.Session.Tick - saved.Tick;
             Assert.That(restored.Id, Is.EqualTo(saved.Id));
-            Assert.That(restored.Tick, Is.EqualTo(saved.Tick));
+            Assert.That(restored.Tick, Is.EqualTo(saved.Tick), "Loaded exactly the checkpoint");
+            Assert.That(elapsed, Is.InRange(0, 10));
             Assert.That(restored.Health, Is.EqualTo(saved.Health), "Health is not refilled");
+            Assert.That(director.Session.Snapshot.Expedition.Health, Is.EqualTo(saved.Health));
             Assert.That(restored.Cargo["wood"], Is.EqualTo(3));
             Assert.That(director.salvage.Sources.Single(s => s.Id.Equals(EntityId.Authored("first:barrel-01"))).Depleted, Is.True, "Loot is not restocked");
             var again = director.Enemies.Single(e => e.Id.Equals(enemy.Id));
             Assert.That(again.Target.Health, Is.EqualTo(enemy.Definition.Health - 20), "Enemy damage persists");
-            Assert.That(director.CombatWorld.WeaponCooldown, Is.EqualTo(weapon).Within(1e-9), "Cooldown is not reset");
+            Assert.That(director.CombatWorld.WeaponCooldown, Is.EqualTo(Math.Max(0, weapon - elapsed * director.Session.FixedDeltaSeconds)).Within(1e-6),
+                "Cooldown resumes where it was saved, not reset");
             var position = director.player.motor.Body.position;
-            Assert.That(position.x, Is.EqualTo((float)saved.Position.X).Within(0.001f));
-            Assert.That(position.z, Is.EqualTo((float)saved.Position.Z).Within(0.001f));
+            Assert.That(position.x, Is.EqualTo((float)saved.Position.X).Within(0.01f));
+            Assert.That(position.z, Is.EqualTo((float)saved.Position.Z).Within(0.01f));
         }
     }
 }

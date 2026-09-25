@@ -58,6 +58,12 @@ MonoBehaviour:
     z: -12
     radius: 5
     maximumSpeed: 1
+  - id: saltmarsh-harbor
+    regionId: first-region
+    x: 58
+    z: 124
+    radius: 5
+    maximumSpeed: 1
   upgrades:
   - id: harbor-storehouse
     trackId: harbor
@@ -115,8 +121,21 @@ MonoBehaviour:
     - statId: damage-scale
       operation: 1
       value: 0.35
+  - id: navigators-charts
+    trackId: charts
+    tier: 1
+    cost:
+    - id: wood
+      quantity: 6
+    - id: iron
+      quantity: 3
+    requiredUnlocks: []
+    grants:
+    - fast-travel
+    modifiers: []
   unlockIds:
   - storehouse
+  - fast-travel
   entityDefinitionIds:
   - barrel
   - wreck
@@ -128,6 +147,8 @@ MonoBehaviour:
   worldIdentities:
   - id: home-harbor
     origin: Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/harbor
+  - id: saltmarsh-harbor
+    origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/outposts[0]'
   - id: first:needle
     origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/islands[0]'
   - id: first:lookout

@@ -21,7 +21,7 @@ namespace PirateGame.Tests.T06
             new Dictionary<string, int> { ["wood"] = 1, ["iron"] = 2 },
             new[] { new HullDefinition("starter", new Dictionary<string, SlotKind>(), new[] {
                 new StatDefinition("health", 100, 1, 100), new StatDefinition("cargo", capacity, 0, 100), new StatDefinition("speed", 8, 1, 50) }) },
-            Array.Empty<EquipmentDefinition>(), new[] { region.Home }, Array.Empty<UpgradeDefinition>(), Array.Empty<string>(),
+            Array.Empty<EquipmentDefinition>(), region.Hubs, Array.Empty<UpgradeDefinition>(), Array.Empty<string>(),
             region.Identities(region.name), new[] { "barrel", "wreck" }, new[] { region.regionId });
         public static CampaignSession CreateSession(FirstRegionAsset region, ISaveStore store = null, double capacity = 10)
         {

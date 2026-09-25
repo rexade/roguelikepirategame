@@ -39,14 +39,12 @@ namespace PirateGame.Composition
         public string homeHub = "home-harbor";
         public string startingHull = "cutter";
         public string regionTitle = "Homeward Reach";
-        public string harborTitle = "Homeward Harbor";
 
         [Header("Player")]
         public ShipSimulation player;
         public ShipKeyboardMouse playerInput;
         public CombatTarget playerTarget;
         public SalvageInteraction interaction;
-        public float dockYaw;
 
         [Header("World")]
         public SalvageRegion salvage;
@@ -92,6 +90,10 @@ namespace PirateGame.Composition
         private long lastCheckpointTick;
         private IReadOnlyDictionary<string, int> voyageCargo = new Dictionary<string, int>();
         private Vector3 lastSeaPosition;
+        private readonly HashSet<string> sighted = new HashSet<string>();
+
+        public string HubName(string id) => region.HubName(id);
+        private string CurrentHarbor => HubName(Session.Snapshot.Campaign.CurrentHub);
 
         private static readonly Dictionary<string, string> StartingEquipment = new Dictionary<string, string>
         { ["cannon-1"] = "cannon", ["repeater-1"] = "repeater", ["brace-1"] = "brace" };
@@ -156,7 +158,7 @@ namespace PirateGame.Composition
                 return;
             }
             Open(snapshot);
-            ShowCard(harborTitle, "A modest cutter, an empty storehouse, and a sea full of other people's cargo.", Lines(
+            ShowCard(HubName(homeHub), "A modest cutter, an empty storehouse, and a sea full of other people's cargo.", Lines(
                 "Sail out, salvage barrels and wrecks, and sink raiders for their plunder.",
                 "Cargo is only yours once you dock and bank it. If your ship goes down, the hold is lost; your bank, upgrades and equipment are kept.",
                 "W/S sail  ·  A/D steer  ·  Space brake  ·  Mouse aim  ·  LMB fire  ·  RMB brace  ·  E salvage / dock  ·  Esc pause",
@@ -168,7 +170,7 @@ namespace PirateGame.Composition
         {
             Session = new CampaignSession(Definitions, snapshot, Store, this);
             player.Bind(Session);
-            harbor.Bind(Session, Definitions, PlanEmbark);
+            harbor.Bind(Session, Definitions, PlanEmbark, HubName);
             var arrived = Session.RetryArrival();
             if (!arrived.IsSuccess) ShowRecovery();
         }
@@ -198,7 +200,7 @@ namespace PirateGame.Composition
         {
             if (!Definitions.Hubs.TryGetValue(request.HubId ?? "", out var hub)) return new RuleResult(RuleError.ArrivalFailed, detail: "Unknown harbor.");
             TeardownExpedition();
-            Place(hub.Dock, dockYaw, 0);
+            Place(hub.Dock, region.DockYaw(hub.Id), 0);
             if (followCamera.FocusOverride == null) followCamera.Snap();
             return new RuleResult();
         }
@@ -236,11 +238,12 @@ namespace PirateGame.Composition
                 var restored = world.Restore(voyage);
                 if (!restored.IsSuccess) return new RuleResult(RuleError.ArrivalFailed, detail: "Combat state: " + restored.Detail);
             }
-            else Place(voyage.Position, dockYaw, voyage.Speed);
+            else Place(voyage.Position, region.DockYaw(Session.Snapshot.Campaign.CurrentHub), voyage.Speed);
             presenter.Bind(world);
             lastCheckpointTick = voyage.Tick;
             voyageCargo = voyage.Cargo;
             lastSeaPosition = player.motor.Body.position;
+            sighted.Clear();
             followCamera.FocusOverride = null;
             followCamera.Snap();
             return new RuleResult();
@@ -330,7 +333,16 @@ namespace PirateGame.Composition
                 {
                     case "Embark":
                         voyageCargo = new Dictionary<string, int>();
-                        hud.Toast("Cast off from " + harborTitle + ".", ToastKind.Info);
+                        hud.Toast("Cast off from " + CurrentHarbor + ".", ToastKind.Info);
+                        break;
+                    case "ActivateHub":
+                        var raised = snapshot.Campaign.Hubs.Where(h => h.Value.Activated).Select(h => h.Key)
+                            .FirstOrDefault(id => id == dockTarget) ?? dockTarget;
+                        hud.Toast("Your flag flies over " + HubName(raised) + ". Bank and upgrades are shared there.", ToastKind.Gain, 4.5f);
+                        break;
+                    case "FastTravel":
+                        hud.Toast("Arrived at " + HubName(snapshot.Campaign.CurrentHub) + ".", ToastKind.Info);
+                        LastNotice = "Travelled to " + HubName(snapshot.Campaign.CurrentHub) + ".";
                         break;
                     case "CollectLoot":
                         var cargo = snapshot.Expedition?.Cargo ?? new Dictionary<string, int>();
@@ -343,7 +355,7 @@ namespace PirateGame.Composition
                         SyncGeneratedSalvage();
                         break;
                     case "Dock":
-                        ShowCard("Safe harbor", "Docked at " + harborTitle + ". Cargo is banked and the voyage is over.",
+                        ShowCard("Safe harbor", "Docked at " + HubName(snapshot.Campaign.CurrentHub) + ". Cargo is banked and the voyage is over.",
                             Lines(voyageCargo.Count == 0 || voyageCargo.Values.All(v => v == 0) ? "Banked: nothing this time." : "Banked: " + Describe(voyageCargo),
                                 "Bank now holds " + Describe(snapshot.Campaign.Bank) + "."),
                             new MenuAction("Enter the harbor", "continue", CloseCard, true));
@@ -352,7 +364,7 @@ namespace PirateGame.Composition
                     case "Sink":
                         followCamera.FocusOverride = lastSeaPosition;
                         presenter.SinkCopy(player.transform, lastSeaPosition);
-                        ShowCard("Your ship went down", "The crew is fished out and brought back to " + harborTitle + ".",
+                        ShowCard("Your ship went down", "The crew is fished out and brought back to " + HubName(snapshot.Campaign.CurrentHub) + ".",
                             Lines(voyageCargo.Count == 0 || voyageCargo.Values.All(v => v == 0) ? "Lost cargo: none." : "Lost cargo: " + Describe(voyageCargo),
                                 "Your bank, upgrades and equipment are safe. The ship is refitted at no cost."),
                             new MenuAction("Return to harbor", "continue", () => { followCamera.FocusOverride = null; followCamera.Snap(); CloseCard(); }, true));
@@ -443,6 +455,16 @@ namespace PirateGame.Composition
             var hub = HubInReach(voyage.Position);
             if (hub != null)
             {
+                if (!Session.Snapshot.Campaign.Hubs[hub.Id].Activated)
+                {
+                    // Raise the flag first (a coherent at-sea save), then moor as usual.
+                    var boundary = Checkpoint();
+                    if (!boundary.IsSuccess) return;
+                    dockTarget = hub.Id;
+                    var activated = Session.ActivateHub(Guid.NewGuid(), voyage.Id, hub.Id);
+                    if (activated.Error == RuleError.SaveFailed) { ShowRecovery(); return; }
+                    if (!activated.IsSuccess) { dockTarget = null; hud.Toast("Cannot claim this harbor: " + activated.Error, ToastKind.Warning); return; }
+                }
                 dockTarget = hub.Id; dockRequestedTick = -1;
                 return;
             }
@@ -458,11 +480,12 @@ namespace PirateGame.Composition
             else if (result.Error == RuleError.SaveFailed) ShowRecovery();
         }
 
+        // Any harbor whose berth contains the position; inactive ones can be claimed.
         private HubDefinition HubInReach(SeaPosition position)
         {
             foreach (var hub in Definitions.Hubs.Values)
             {
-                if (!Session.Snapshot.Campaign.Hubs[hub.Id].Activated || hub.Dock.RegionId != position.RegionId) continue;
+                if (hub.Dock.RegionId != position.RegionId) continue;
                 double dx = position.X - hub.Dock.X, dz = position.Z - hub.Dock.Z;
                 if (dx * dx + dz * dz <= hub.Radius * hub.Radius) return hub;
             }
@@ -513,7 +536,7 @@ namespace PirateGame.Composition
 
         private void ShowHarborMenu()
         {
-            ShowCard(harborTitle, "Everything in harbor is already saved.", null,
+            ShowCard(CurrentHarbor, "Everything in harbor is already saved.", null,
                 new MenuAction("Back to the harbor", "resume", CloseCard, true),
                 new MenuAction("Exit to title", "exit", ExitToTitle),
                 new MenuAction("Quit game", "quit", QuitGame));
@@ -572,9 +595,10 @@ namespace PirateGame.Composition
             model.AbilityActive = CombatWorld.BraceRemaining;
             model.Region = regionTitle.ToUpperInvariant();
             bool full = model.CargoUsed >= model.CargoCapacity;
-            model.Objective = full ? "Hold full: return to " + harborTitle + " to bank it."
-                : model.CargoUsed > 0 ? "Bring your cargo home to " + harborTitle + " to bank it."
+            model.Objective = full ? "Hold full: return to a harbor to bank it."
+                : model.CargoUsed > 0 ? "Bring your cargo to a friendly harbor to bank it."
                 : "Salvage barrels and wrecks. Sink raiders for plunder.";
+            Sightings(voyage);
             Prompt(voyage);
             hud.Render(model);
 
@@ -603,7 +627,9 @@ namespace PirateGame.Composition
             if (hub != null)
             {
                 bool cargo = voyage.Cargo.Values.Any(v => v > 0);
-                model.Prompt = "[E]  Dock at " + harborTitle + (cargo ? "  —  bank " + Describe(voyage.Cargo) : "");
+                model.Prompt = !Session.Snapshot.Campaign.Hubs[hub.Id].Activated
+                    ? "[E]  Raise your flag at " + HubName(hub.Id) + " and moor"
+                    : "[E]  Dock at " + HubName(hub.Id) + (cargo ? "  —  bank " + Describe(voyage.Cargo) : "");
                 return;
             }
             var source = interaction.Nearest();
@@ -620,14 +646,28 @@ namespace PirateGame.Composition
             else model.Prompt = "[E]  Salvage " + what + "  —  " + Describe(loot);
         }
 
+        private void Sightings(ExpeditionState voyage)
+        {
+            foreach (var hub in Definitions.Hubs.Values)
+            {
+                if (Session.Snapshot.Campaign.Hubs[hub.Id].Activated || sighted.Contains(hub.Id) || hub.Dock.RegionId != voyage.Position.RegionId) continue;
+                double dx = voyage.Position.X - hub.Dock.X, dz = voyage.Position.Z - hub.Dock.Z;
+                if (dx * dx + dz * dz > 45 * 45) continue;
+                sighted.Add(hub.Id);
+                hud.Toast("Land ho! " + HubName(hub.Id) + " — sail into its berth to raise your flag.", ToastKind.Info, 5f);
+            }
+        }
+
         private void RenderHomeMarker(ExpeditionState voyage)
         {
-            var hub = Definitions.Hubs[Session.Snapshot.Campaign.LastSafeHub];
+            var ship = player.motor.Body.position;
+            var hub = Definitions.Hubs.Values.Where(h => Session.Snapshot.Campaign.Hubs[h.Id].Activated && h.Dock.RegionId == voyage.Position.RegionId)
+                .OrderBy(h => (h.Dock.X - ship.x) * (h.Dock.X - ship.x) + (h.Dock.Z - ship.z) * (h.Dock.Z - ship.z)).FirstOrDefault();
+            if (hub == null) { hud.RenderHome(false, default, 0, null); return; }
             var target = new Vector3((float)hub.Dock.X, 0, (float)hub.Dock.Z);
             var screen = worldCamera.WorldToScreenPoint(target);
             bool onScreen = screen.z > 0 && screen.x > 0 && screen.x < Screen.width && screen.y > 0 && screen.y < Screen.height;
             if (onScreen) { hud.RenderHome(false, default, 0, null); return; }
-            var ship = player.motor.Body.position;
             var direction = new Vector2(target.x - ship.x, target.z - ship.z);
             float distance = direction.magnitude;
             var center = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
@@ -638,7 +678,7 @@ namespace PirateGame.Composition
             float scale = Mathf.Min(halfX / Mathf.Max(0.001f, Mathf.Abs(dir.x)), halfY / Mathf.Max(0.001f, Mathf.Abs(dir.y)));
             var edge = center + dir * scale;
             float degrees = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-            hud.RenderHome(true, edge, degrees, "Harbor " + Mathf.RoundToInt(distance) + " m");
+            hud.RenderHome(true, edge, degrees, HubName(hub.Id) + " " + Mathf.RoundToInt(distance) + " m");
         }
 
         private string Describe(IReadOnlyDictionary<string, int> bundle)

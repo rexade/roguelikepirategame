@@ -3,6 +3,7 @@ using System.Linq;
 using PirateGame.Core;
 using PirateGame.Rules.Application;
 using PirateGame.UI.Loadout;
+using PirateGame.UI.Travel;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,6 +16,9 @@ namespace PirateGame.UI.Harbor
         private CampaignSession session;
         private DefinitionCatalog definitions;
         private Func<EmbarkPlan> plan;
+        private Func<string, string> hubName;
+        private TravelView travel;
+        private Label title;
         private Label bank, stats, status, location, unlocks;
         private VisualElement actions;
         private Button retry;
@@ -23,8 +27,10 @@ namespace PirateGame.UI.Harbor
         private bool displayedLock;
         public VisualElement Root => GetComponent<UIDocument>().rootVisualElement;
 
-        public void Bind(CampaignSession owner, DefinitionCatalog catalog, Func<EmbarkPlan> embarkPlan)
+        // hubName enables production naming and the fast-travel section (T09).
+        public void Bind(CampaignSession owner, DefinitionCatalog catalog, Func<EmbarkPlan> embarkPlan, Func<string, string> hubName = null)
         {
+            this.hubName = hubName;
             session = owner ?? throw new ArgumentNullException(nameof(owner));
             definitions = catalog ?? throw new ArgumentNullException(nameof(catalog));
             plan = embarkPlan ?? throw new ArgumentNullException(nameof(embarkPlan));
@@ -36,13 +42,15 @@ namespace PirateGame.UI.Harbor
             var root = Root; root.Clear(); root.AddToClassList("harbor");
             if (stylesheet != null && !root.styleSheets.Contains(stylesheet)) root.styleSheets.Add(stylesheet);
             var header = new VisualElement(); header.AddToClassList("header"); root.Add(header);
-            header.Add(new Label("HOMEWARD HARBOR") { name = "title" });
+            title = new Label("HOMEWARD HARBOR") { name = "title" }; header.Add(title);
             location = new Label(); header.Add(location);
             bank = new Label { name = "bank" }; root.Add(bank);
             actions = new VisualElement(); actions.AddToClassList("columns"); root.Add(actions);
             var equipment = Section(actions, "Equipment");
             loadout = new LoadoutView(session, definitions, ShowResult); equipment.Add(loadout);
             stats = new Label { name = "stats" }; equipment.Add(stats);
+            travel = hubName != null ? new TravelView(session, definitions, hubName, ShowResult) : null;
+            if (travel != null) equipment.Add(travel);
             var upgrades = Section(actions, "Harbor & ship");
             // Tracks in tier order; each row: name and effect, cost, then the button.
             foreach (var upgrade in definitions.Upgrades.Values.OrderBy(u => u.TrackId, StringComparer.Ordinal).ThenBy(u => u.Tier))
@@ -110,7 +118,9 @@ namespace PirateGame.UI.Harbor
         {
             var campaign = session.Snapshot.Campaign;
             bank.text = "BANK     " + string.Join("     ", definitions.ResourceWeights.Keys.Select(id => Values.Amount(campaign.Bank, id) + " " + id));
-            location.text = Title(campaign.CurrentHub) + "  /  " + session.Lifecycle;
+            location.text = (hubName != null ? hubName(campaign.CurrentHub) : Title(campaign.CurrentHub)) + "  /  " + session.Lifecycle;
+            if (hubName != null) title.text = hubName(campaign.CurrentHub).ToUpperInvariant();
+            travel?.Refresh();
             stats.text = "SHIP\n" + string.Join("\n", session.ShipStats().Select(p => Title(p.Key) + "   " + p.Value.ToString("0.##")));
             unlocks.text = "Unlocks: " + (campaign.Unlocks.Count == 0 ? "None" : string.Join(", ", campaign.Unlocks.Select(Title)));
             foreach (var upgrade in definitions.Upgrades.Values)

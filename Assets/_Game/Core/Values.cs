@@ -88,7 +88,8 @@ namespace PirateGame.Core
         None, InvalidRequest, WrongLifecycle, Busy, Paused, UnknownId, WrongExpedition,
         DuplicateRequest, AlreadyResolved, Depleted, CargoFull, Overflow, InsufficientBank,
         PrerequisiteMissing, TierAlreadyOwned, InvalidLoadout, NotInDockZone, TooFast,
-        HubInactive, TravelLocked, NotSunk, SaveFailed, ArrivalFailed, StaleTick
+        HubInactive, TravelLocked, NotSunk, SaveFailed, ArrivalFailed, StaleTick,
+        AlreadyActivated
     }
 
     public sealed class RuleResult

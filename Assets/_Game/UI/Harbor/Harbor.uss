@@ -30,3 +30,8 @@ Button:disabled { opacity: 0.5; }
 #status { min-height: 54px; padding-top: 12px; }
 #retry { width: 180px; }
 #unlocks { font-size: 16px; color: rgb(174, 189, 181); }
+.travel { margin-top: 18px; }
+.travel .heading { margin-bottom: 6px; }
+.travel Button { height: 34px; }
+.travel .muted { min-height: 0; margin-bottom: 4px; }
+#stats { margin-top: 12px; font-size: 18px; }

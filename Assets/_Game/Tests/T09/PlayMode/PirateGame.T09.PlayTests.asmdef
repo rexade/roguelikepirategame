@@ -1,0 +1,7 @@
+{
+  "name": "PirateGame.T09.PlayTests",
+  "references": ["PirateGame.Core", "PirateGame.Composition", "PirateGame.Ships", "PirateGame.Persistence", "PirateGame.Harbor", "PirateGame.Definitions", "PirateGame.FirstRegion", "PirateGame.GameUI"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"]
+}

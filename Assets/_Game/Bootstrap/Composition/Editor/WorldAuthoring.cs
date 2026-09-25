@@ -66,6 +66,10 @@ namespace PirateGame.Composition.Editor
         {
             // Second encounter is an escorted pair; everything else keeps T06's layout.
             foreach (var site in region.encounters) site.ships = site.id == "first:encounter-02" ? 2 : 1;
+            region.homeName = "Homeward Harbor";
+            // T09: a second harbor in the same region, north-east beyond the escorted pair.
+            region.outposts = new[] { new HarborSite { id = "saltmarsh-harbor", name = "Saltmarsh Harbor", dock = new Vector2(58, 124),
+                dockRadius = 5, dockMaximumSpeed = 1, landmass = new Vector2(66, 145), landmassSize = new Vector2(26, 18) } };
             EditorUtility.SetDirty(region);
         }
 
@@ -78,14 +82,14 @@ namespace PirateGame.Composition.Editor
                 stats = new[] { Stat("health", 100, 1, 1000), Stat("cargo", 10, 0, 1000), Stat("speed", 8, 1, 30), Stat("damage-scale", 1, 0.1, 4) } } };
             rules.equipment = new[] { new EquipmentRow { id = "cannon", kind = SlotKind.Weapon },
                 new EquipmentRow { id = "repeater", kind = SlotKind.Weapon }, new EquipmentRow { id = "brace", kind = SlotKind.Ability } };
-            var home = region.Home;
-            rules.hubs = new[] { new HubRow { id = home.Id, regionId = home.Dock.RegionId, x = home.Dock.X, z = home.Dock.Z, radius = home.Radius, maximumSpeed = home.MaximumSpeed } };
+            rules.hubs = region.Hubs.Select(h => new HubRow { id = h.Id, regionId = h.Dock.RegionId, x = h.Dock.X, z = h.Dock.Z, radius = h.Radius, maximumSpeed = h.MaximumSpeed }).ToArray();
             rules.upgrades = new[] {
                 Upgrade("harbor-storehouse", "harbor", 1, new[] { Cost("wood", 5) }, new string[0], new[] { "storehouse" }, Mod("cargo", ModifierOperation.Flat, 5)),
                 Upgrade("shipwright-slip", "harbor", 2, new[] { Cost("wood", 8), Cost("iron", 3) }, new[] { "storehouse" }, new string[0], Mod("speed", ModifierOperation.Percent, 0.15)),
                 Upgrade("reinforced-hull", "ship", 1, new[] { Cost("wood", 6), Cost("iron", 2) }, new string[0], new string[0], Mod("health", ModifierOperation.Percent, 0.5)),
-                Upgrade("iron-bound-guns", "ship", 2, new[] { Cost("wood", 8), Cost("iron", 4) }, new string[0], new string[0], Mod("damage-scale", ModifierOperation.Percent, 0.35)) };
-            rules.unlockIds = new[] { "storehouse" };
+                Upgrade("iron-bound-guns", "ship", 2, new[] { Cost("wood", 8), Cost("iron", 4) }, new string[0], new string[0], Mod("damage-scale", ModifierOperation.Percent, 0.35)),
+                Upgrade("navigators-charts", "charts", 1, new[] { Cost("wood", 6), Cost("iron", 3) }, new string[0], new[] { "fast-travel" }) };
+            rules.unlockIds = new[] { "storehouse", "fast-travel" };
             rules.entityDefinitionIds = new[] { "barrel", "wreck", "raider", "gunner", CombatCatalog.ContextDefinition };
             rules.regionIds = new[] { region.regionId };
             rules.worldIdentities = region.Identities(RegionAsset).Select(i => new IdentityRow { id = i.Id, origin = i.Origin }).ToArray();
@@ -224,14 +228,23 @@ namespace PirateGame.Composition.Editor
 
             var world = new GameObject("World").transform;
             var art = new GameObject("Region art").transform; art.SetParent(world);
-            BuildHarbor(art, region, kit);
+            BuildHarbor(art, region.homeName, region.homeLandmass, region.homeLandmassSize, region.dock, kit, kit.Amber, 1);
             int seed = 3;
             foreach (var island in region.islands) BuildIsland(art, island.id, island.position, island.size, kit, seed++, true);
             var dock = new Vector3(region.dock.x, 0, region.dock.y);
             DockRing(art, dock, region.dockRadius, kit);
             var probe = GameObject.Find("Harbor reflection").transform; probe.SetParent(world); probe.position = new Vector3(-4, 5, -22);
-            var lamp = GameObject.Find("Harbor light"); lamp.transform.SetParent(world); lamp.transform.position = new Vector3(-4.6f, 3.9f, -12.6f);
+            var lamp = GameObject.Find("Harbor light"); lamp.transform.SetParent(world);
+            lamp.transform.position = LampLight(region.homeLandmass, region.dock);
             var light = lamp.GetComponent<Light>(); light.intensity = 3000; light.range = 16;
+            foreach (var outpost in region.outposts)
+            {
+                BuildHarbor(art, outpost.name, outpost.landmass, outpost.landmassSize, outpost.dock, kit, kit.Cloth, seed++);
+                DockRing(art, new Vector3(outpost.dock.x, 0, outpost.dock.y), outpost.dockRadius, kit);
+                var outpostLamp = Object.Instantiate(lamp, world);
+                outpostLamp.name = outpost.name + " light";
+                outpostLamp.transform.position = LampLight(outpost.landmass, outpost.dock);
+            }
 
             var salvageRoot = new GameObject("Salvage").AddComponent<SalvageRegion>();
             salvageRoot.transform.SetParent(world);
@@ -277,7 +290,7 @@ namespace PirateGame.Composition.Editor
 
             var director = new GameObject("Game director").AddComponent<GameDirector>();
             director.rules = rules; director.combatContent = combat; director.region = region;
-            director.homeHub = region.homeId; director.dockYaw = 0;
+            director.homeHub = region.homeId;
             director.player = simulation; director.playerInput = input; director.playerTarget = target; director.interaction = interaction;
             director.salvage = salvageRoot; director.raiderPrefab = raider; director.gunnerPrefab = gunner;
             director.followCamera = follow; director.worldCamera = camera; director.presenter = effects; director.aimMarker = aim;
@@ -380,35 +393,45 @@ namespace PirateGame.Composition.Editor
             }
         }
 
-        private static void BuildHarbor(Transform parent, FirstRegionAsset region, Kit kit)
+        // A harbor is a landmass with a pier running out to its berth. Layout is
+        // expressed relative to the landmass and mirrored so the waterfront faces the dock.
+        private static Transform BuildHarbor(Transform parent, string name, Vector2 landmass, Vector2 size, Vector2 dock, Kit kit, Material flag, int seed)
         {
-            BuildIsland(parent, region.homeId + " landmass", new Vector2(-8, -33), new Vector2(30, 20), kit, 1, false);
-            var harbor = new GameObject("Harbor").transform; harbor.SetParent(parent);
-            // Pier from the landmass out to the docking point (the ship moors on its east side).
-            for (int i = 0; i < 20; i++)
-                Part("Pier plank", harbor, new Vector3(-7, 0.95f, -23.6f + i * 0.62f), new Vector3(2.6f, 0.2f, 0.58f), kit.Deck);
-            foreach (float z in new[] { -23f, -19.5f, -16f, -12.8f })
-                foreach (float x in new[] { -8.1f, -5.9f })
-                    Part("Pier piling", harbor, new Vector3(x, 0, z), new Vector3(0.28f, 3.2f, 0.28f), kit.Timber, PrimitiveType.Cylinder);
+            BuildIsland(parent, name + " landmass", landmass, size, kit, seed, false);
+            var harbor = new GameObject(name).transform; harbor.SetParent(parent);
+            float front = dock.y >= landmass.y ? 1 : -1, side = dock.x >= landmass.x ? 1 : -1;
+            Vector3 At(float dx, float y, float dz) => new Vector3(landmass.x + dx * side, y, landmass.y + dz * front);
+            float pierX = dock.x - 7 * side;
+            float pierStart = landmass.y + front * (size.y * 0.5f - 1), pierEnd = dock.y + front * 0.2f;
+            int planks = Mathf.Max(4, Mathf.RoundToInt(Mathf.Abs(pierEnd - pierStart) / 0.62f));
+            for (int i = 0; i < planks; i++)
+                Part("Pier plank", harbor, new Vector3(pierX, 0.95f, Mathf.Lerp(pierStart, pierEnd, (i + 0.5f) / planks)), new Vector3(2.6f, 0.2f, 0.58f), kit.Deck);
+            for (int i = 0; i < 4; i++)
+                foreach (float x in new[] { -1.1f, 1.1f })
+                    Part("Pier piling", harbor, new Vector3(pierX + x, 0, Mathf.Lerp(pierStart + front * 0.6f, pierEnd - front * 0.6f, i / 3f)),
+                        new Vector3(0.28f, 3.2f, 0.28f), kit.Timber, PrimitiveType.Cylinder);
             var pierCollision = new GameObject("Pier collision");
             pierCollision.transform.SetParent(harbor, false);
-            pierCollision.transform.localPosition = new Vector3(-7, 0.5f, -18);
-            pierCollision.AddComponent<BoxCollider>().size = new Vector3(2.8f, 1.4f, 12.6f);
-            Part("Harbor lamp post", harbor, new Vector3(-5.9f, 2.4f, -12.6f), new Vector3(0.18f, 3, 0.18f), kit.Iron);
-            Part("Lantern", harbor, new Vector3(-5.9f, 3.95f, -12.6f), new Vector3(0.55f, 0.7f, 0.55f), kit.Lamp);
-            Part("Crate", harbor, new Vector3(-7.6f, 1.45f, -21.8f), new Vector3(0.9f, 0.8f, 0.9f), kit.Deck, rotation: Quaternion.Euler(0, 20, 0));
-            Part("Crate", harbor, new Vector3(-6.5f, 1.4f, -20.9f), new Vector3(0.7f, 0.7f, 0.7f), kit.Deck, rotation: Quaternion.Euler(0, -12, 0));
-            Part("Mooring barrel", harbor, new Vector3(-7.8f, 1.45f, -14.3f), new Vector3(0.7f, 0.45f, 0.7f), kit.Timber, PrimitiveType.Cylinder);
-            // Waterfront: storehouse, cottages and an awning, grouped above the shore.
-            Building(harbor, "Storehouse", new Vector3(-9, 2.2f, -29.5f), new Vector3(8, 3.2f, 5), kit.Deck, kit.Roof, 0);
-            Building(harbor, "Harbor master", new Vector3(-1.5f, 2.2f, -31), new Vector3(4.2f, 2.8f, 3.6f), kit.Plaster, kit.Roof, 8);
-            Building(harbor, "Cottage", new Vector3(-16, 2.3f, -34), new Vector3(3.6f, 2.6f, 3.4f), kit.Plaster, kit.Roof, -14);
-            Building(harbor, "Cottage", new Vector3(-12.5f, 2.5f, -38), new Vector3(3.2f, 2.4f, 3.2f), kit.Plaster, kit.Roof, 21);
-            Part("Awning", harbor, new Vector3(-4.2f, 3.1f, -26.8f), new Vector3(3.2f, 0.12f, 2.2f), kit.Cloth, rotation: Quaternion.Euler(-12, 0, 0));
-            Part("Awning post", harbor, new Vector3(-5.6f, 2.2f, -25.9f), new Vector3(0.12f, 1.8f, 0.12f), kit.Timber);
-            Part("Awning post", harbor, new Vector3(-2.8f, 2.2f, -25.9f), new Vector3(0.12f, 1.8f, 0.12f), kit.Timber);
-            Part("Flag pole", harbor, new Vector3(1.8f, 4.2f, -28.4f), new Vector3(0.12f, 4.4f, 0.12f), kit.Iron);
-            Part("Flag", harbor, new Vector3(2.45f, 6.1f, -28.4f), new Vector3(1.2f, 0.7f, 0.05f), kit.Amber);
+            pierCollision.transform.localPosition = new Vector3(pierX, 0.5f, (pierStart + pierEnd) * 0.5f);
+            pierCollision.AddComponent<BoxCollider>().size = new Vector3(2.8f, 1.4f, Mathf.Abs(pierEnd - pierStart) + 0.6f);
+            var lampAt = new Vector3(pierX + 1.1f * side, 0, dock.y - front * 0.6f);
+            Part("Harbor lamp post", harbor, lampAt + Vector3.up * 2.4f, new Vector3(0.18f, 3, 0.18f), kit.Iron);
+            Part("Lantern", harbor, lampAt + Vector3.up * 3.95f, new Vector3(0.55f, 0.7f, 0.55f), kit.Lamp);
+            Part("Crate", harbor, new Vector3(pierX - 0.6f * side, 1.45f, pierStart + front * 2.2f), new Vector3(0.9f, 0.8f, 0.9f), kit.Deck, rotation: Quaternion.Euler(0, 20, 0));
+            Part("Crate", harbor, new Vector3(pierX + 0.5f * side, 1.4f, pierStart + front * 3.1f), new Vector3(0.7f, 0.7f, 0.7f), kit.Deck, rotation: Quaternion.Euler(0, -12, 0));
+            Part("Mooring barrel", harbor, new Vector3(pierX - 0.8f * side, 1.45f, pierEnd - front * 2.1f), new Vector3(0.7f, 0.45f, 0.7f), kit.Timber, PrimitiveType.Cylinder);
+            // Waterfront: storehouse, cottages and an awning above the shore.
+            float turn = front > 0 ? 0 : 180;
+            Building(harbor, "Storehouse", At(-1, 2.2f, 3.5f), new Vector3(8, 3.2f, 5), kit.Deck, kit.Roof, turn);
+            Building(harbor, "Harbor master", At(6.5f, 2.2f, 2), new Vector3(4.2f, 2.8f, 3.6f), kit.Plaster, kit.Roof, turn + 8 * side);
+            Building(harbor, "Cottage", At(-8, 2.3f, -1), new Vector3(3.6f, 2.6f, 3.4f), kit.Plaster, kit.Roof, turn - 14 * side);
+            Building(harbor, "Cottage", At(-4.5f, 2.5f, -5), new Vector3(3.2f, 2.4f, 3.2f), kit.Plaster, kit.Roof, turn + 21 * side);
+            Part("Awning", harbor, At(3.8f, 3.1f, 6.2f), new Vector3(3.2f, 0.12f, 2.2f), kit.Cloth, rotation: Quaternion.Euler(-12 * front, 0, 0));
+            Part("Awning post", harbor, At(2.4f, 2.2f, 7.1f), new Vector3(0.12f, 1.8f, 0.12f), kit.Timber);
+            Part("Awning post", harbor, At(5.2f, 2.2f, 7.1f), new Vector3(0.12f, 1.8f, 0.12f), kit.Timber);
+            Part("Flag pole", harbor, At(9.8f, 4.2f, 4.6f), new Vector3(0.12f, 4.4f, 0.12f), kit.Iron);
+            Part("Flag", harbor, At(10.45f, 6.1f, 4.6f), new Vector3(1.2f, 0.7f, 0.05f), flag);
+            return harbor;
         }
 
         private static void Building(Transform parent, string name, Vector3 position, Vector3 size, Material wall, Material roof, float yaw)
@@ -422,6 +445,12 @@ namespace PirateGame.Composition.Editor
             Part("Roof", root, new Vector3(-half * 0.5f, size.y * 0.5f + half * 0.28f, 0), slab, roof, rotation: Quaternion.Euler(0, 0, 32));
             Part("Roof", root, new Vector3(half * 0.5f, size.y * 0.5f + half * 0.28f, 0), slab, roof, rotation: Quaternion.Euler(0, 0, -32));
             Part("Door", root, new Vector3(0, -size.y * 0.5f + 0.8f, size.z * 0.5f + 0.02f), new Vector3(0.8f, 1.6f, 0.05f), roof);
+        }
+
+        private static Vector3 LampLight(Vector2 landmass, Vector2 dock)
+        {
+            float front = dock.y >= landmass.y ? 1 : -1, side = dock.x >= landmass.x ? 1 : -1;
+            return new Vector3(dock.x - 7 * side + 1.1f * side + 0.2f * side, 3.9f, dock.y - front * 0.6f);
         }
 
         private static void DockRing(Transform parent, Vector3 center, float radius, Kit kit)
