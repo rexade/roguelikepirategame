@@ -632,9 +632,10 @@ namespace PirateGame.Composition
             float distance = direction.magnitude;
             var center = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
             var dir = direction.normalized;
-            float margin = 70;
-            float scale = Mathf.Min((Screen.width * 0.5f - margin) / Mathf.Max(0.001f, Mathf.Abs(dir.x)),
-                (Screen.height * 0.5f - margin) / Mathf.Max(0.001f, Mathf.Abs(dir.y)));
+            // Keep clear of the HUD: ability slots below, vitals/voyage panels above.
+            float halfX = Screen.width * 0.45f;
+            float halfY = Screen.height * 0.3f;
+            float scale = Mathf.Min(halfX / Mathf.Max(0.001f, Mathf.Abs(dir.x)), halfY / Mathf.Max(0.001f, Mathf.Abs(dir.y)));
             var edge = center + dir * scale;
             float degrees = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
             hud.RenderHome(true, edge, degrees, "Harbor " + Mathf.RoundToInt(distance) + " m");

@@ -176,8 +176,8 @@ namespace PirateGame.Presentation.Combat
             SetRenderers(target.transform, false);
             StopWake(target);
             sinking.Add(new Sinking { Target = target, Model = copy.transform, Start = copy.transform.position, StartRotation = copy.transform.rotation });
-            Spawn(model.position + Vector3.up, flash, 1.2f, 4.5f, 0.25f, Vector3.zero);
-            Spawn(model.position + Vector3.up, smoke, 1.5f, 5f, 1.6f, Vector3.up * 1.5f);
+            Spawn(model.position + Vector3.up, flash, 0.8f, 2.6f, 0.22f, Vector3.zero);
+            Spawn(model.position + Vector3.up * 1.5f, smoke, 1f, 3.2f, 1.8f, Vector3.up * 1.2f);
         }
 
         // Presentation-only wreck of the player's hull at the place it went down.

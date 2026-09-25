@@ -5,7 +5,16 @@
 .columns { flex-direction: row; flex-grow: 1; }
 .section { width: 42%; padding-right: 32px; }
 .heading { font-size: 22px; margin-bottom: 14px; color: rgb(140, 207, 180); }
-.upgrade { margin-bottom: 14px; border-bottom-width: 1px; border-bottom-color: rgb(75, 86, 82); padding-bottom: 10px; }
+.upgrade { flex-direction: row; align-items: center; margin-bottom: 8px; border-bottom-width: 1px; border-bottom-color: rgb(75, 86, 82); padding-bottom: 6px; }
+.upgrade-info { flex-grow: 1; flex-shrink: 1; }
+.upgrade-heading { flex-direction: row; align-items: flex-end; }
+.upgrade-name { font-size: 17px; -unity-font-style: bold; margin-right: 10px; }
+.upgrade-effect { font-size: 15px; color: rgb(140, 207, 180); }
+.upgrade-cost { font-size: 15px; color: rgb(234, 202, 113); }
+.upgrade-cost.unaffordable { color: rgb(200, 140, 120); }
+.upgrade Button { width: 118px; height: 32px; margin-top: 0; margin-left: 10px; }
+.upgrade Button.owned { opacity: 0.55; }
+.upgrade Button.unaffordable { opacity: 0.75; }
 Label { white-space: normal; }
 Button { height: 36px; margin-top: 8px; margin-bottom: 3px; background-color: rgb(57, 75, 69); color: rgb(249, 249, 240); border-radius: 3px; border-width: 1px; border-color: rgb(105, 136, 120); }
 Button:hover { background-color: rgb(73, 100, 88); }

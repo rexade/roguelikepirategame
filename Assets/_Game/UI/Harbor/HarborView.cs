@@ -44,14 +44,18 @@ namespace PirateGame.UI.Harbor
             loadout = new LoadoutView(session, definitions, ShowResult); equipment.Add(loadout);
             stats = new Label { name = "stats" }; equipment.Add(stats);
             var upgrades = Section(actions, "Harbor & ship");
-            foreach (var upgrade in definitions.Upgrades.Values)
+            // Tracks in tier order; each row: name and effect, cost, then the button.
+            foreach (var upgrade in definitions.Upgrades.Values.OrderBy(u => u.TrackId, StringComparer.Ordinal).ThenBy(u => u.Tier))
             {
                 var row = new VisualElement(); row.AddToClassList("upgrade"); upgrades.Add(row);
-                row.Add(new Label(Title(upgrade.Id)) { name = "name-" + upgrade.Id });
-                row.Add(new Label(string.Join("  /  ", upgrade.Cost.Select(p => p.Value + " " + p.Key))) { name = "cost-" + upgrade.Id });
+                var info = new VisualElement(); info.AddToClassList("upgrade-info"); row.Add(info);
+                var heading = new VisualElement(); heading.AddToClassList("upgrade-heading"); info.Add(heading);
+                var name = new Label(Title(upgrade.Id)) { name = "name-" + upgrade.Id }; name.AddToClassList("upgrade-name"); heading.Add(name);
                 var effects = string.Join(", ", upgrade.Modifiers.Select(m =>
                     (m.Value >= 0 ? "+" : "") + (m.Operation == ModifierOperation.Percent ? (m.Value * 100).ToString("0.#") + "%" : m.Value.ToString("0.#")) + " " + m.StatId));
-                row.Add(new Label(effects) { name = "effect-" + upgrade.Id });
+                var effect = new Label(effects) { name = "effect-" + upgrade.Id }; effect.AddToClassList("upgrade-effect"); heading.Add(effect);
+                var cost = new Label(string.Join("  /  ", upgrade.Cost.Select(p => p.Value + " " + p.Key))) { name = "cost-" + upgrade.Id };
+                cost.AddToClassList("upgrade-cost"); info.Add(cost);
                 row.Add(new Button(() => ShowResult(session.PurchaseUpgrade(Guid.NewGuid(), upgrade.Id)))
                     { text = "Purchase", name = "buy-" + upgrade.Id });
             }
@@ -110,7 +114,17 @@ namespace PirateGame.UI.Harbor
             stats.text = "SHIP\n" + string.Join("\n", session.ShipStats().Select(p => Title(p.Key) + "   " + p.Value.ToString("0.##")));
             unlocks.text = "Unlocks: " + (campaign.Unlocks.Count == 0 ? "None" : string.Join(", ", campaign.Unlocks.Select(Title)));
             foreach (var upgrade in definitions.Upgrades.Values)
-                Root.Q<Button>("buy-" + upgrade.Id).text = Values.Amount(campaign.Tiers, upgrade.TrackId) >= upgrade.Tier ? "Owned" : "Purchase";
+            {
+                int tier = Values.Amount(campaign.Tiers, upgrade.TrackId);
+                bool owned = tier >= upgrade.Tier;
+                bool locked = !owned && (tier != upgrade.Tier - 1 || upgrade.RequiredUnlocks.Any(u => !campaign.Unlocks.Contains(u)));
+                bool affordable = upgrade.Cost.All(c => Values.Amount(campaign.Bank, c.Key) >= c.Value);
+                var button = Root.Q<Button>("buy-" + upgrade.Id);
+                button.text = owned ? "Owned" : locked ? "Locked" : "Purchase";
+                button.EnableInClassList("owned", owned);
+                button.EnableInClassList("unaffordable", !owned && !locked && !affordable);
+                Root.Q<Label>("cost-" + upgrade.Id).EnableInClassList("unaffordable", !owned && !affordable);
+            }
             actions.SetEnabled(!session.InputLocked && session.Lifecycle == Lifecycle.Docked);
             retry.style.display = session.InputLocked ? DisplayStyle.Flex : DisplayStyle.None;
             loadout.RefreshValidation(); displayedRevision = session.Snapshot.Revision; displayedLock = session.InputLocked;

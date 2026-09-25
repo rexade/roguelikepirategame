@@ -23,8 +23,60 @@
   <ItemGroup>
     <Reference Include="$(UnityEditorDir)/NetStandard/ref/2.1.0/netstandard.dll" Private="false" />
     <Reference Include="$(UnityEditorDir)/NetStandard/compat/2.1.0/shims/netfx/*.dll" Private="false" />
-    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.dll" Private="false" />
-    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.*Module.dll" Private="false" />
+    <!-- Only the engine modules enabled for this project (from Unity's own response file). -->
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.ARModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.AnimationModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.AudioModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.ContentLoadModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.DSPGraphModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.GIModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.GameCenterModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.GraphicsStateCollectionSerializerModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.GridModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.HierarchyCoreModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.HotReloadModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.IMGUIModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.IdentifiersModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.InputForUIModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.InputLegacyModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.InputModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.InsightsModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.LocalizationModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.MarshallingModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.MultiplayerModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.PhysicsBackendPhysXModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.PhysicsModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.PropertiesModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.ShaderRuntimeModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.ShaderVariantAnalyticsModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.StreamingModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.SubstanceModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.TLSModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.TerrainModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.TextCoreFontEngineModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.TextCoreTextEngineModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.UIElementsModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.UIModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.UnityAnalyticsCommonModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.UnityConsentModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.UnityCurlModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.VFXModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.VideoModule.dll" Private="false" />
+    <Reference Include="$(UnityEditorDir)/Managed/UnityEngine/UnityEngine.VirtualTexturingModule.dll" Private="false" />
     <Reference Include="$(ScriptAssemblies)/Unity.InputSystem.dll" Private="false" />
     <Reference Include="$(ScriptAssemblies)/Unity.RenderPipelines.Core.Runtime.dll" Private="false" />
     <Reference Include="$(ScriptAssemblies)/Unity.RenderPipelines.HighDefinition.Runtime.dll" Private="false" />
