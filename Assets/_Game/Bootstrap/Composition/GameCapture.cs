@@ -117,6 +117,17 @@ namespace PirateGame.Composition
             yield return Relocate(new Vector3(30, 0, 70), 30);
             yield return Drive(1, 0.2f, 2.5f);
             yield return Shot("open-water");
+            if (director.weather != null)
+            {
+                var voyageWeather = director.weather.Current;
+                director.weather.Apply(PirateGame.Presentation.Weather.SeaCondition.Dusk);
+                yield return Wait(1.5f);
+                yield return Shot("weather-dusk");
+                director.weather.Apply(PirateGame.Presentation.Weather.SeaCondition.Rough);
+                yield return Wait(2.5f);
+                yield return Shot("weather-rough");
+                director.weather.Apply(voyageWeather);
+            }
 
             // Second harbor: sight it, sail into its berth, raise the flag and moor.
             var outpost = director.Definitions.Hubs.Values.FirstOrDefault(h => h.Id != director.homeHub);

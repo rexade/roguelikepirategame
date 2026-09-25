@@ -13,6 +13,9 @@ namespace PirateGame.Presentation.Combat
         public Material friendlyShot, hostileShot, flash, smoke, splash, braceRing;
         [Min(0.05f)] public float shotScale = 0.42f;
         public CombatWorld World { get; private set; }
+        // Presentation events for sound: where a shot ended and whether it struck something.
+        public event System.Action<Vector3, bool> ShotRetired;
+        public event System.Action<Vector3> HullSank;
 
         private sealed class ShotView { public GameObject Root; public TrailRenderer Trail; public bool WasActive; public long Generation; public Vector3 Last; public float Remaining; }
         private sealed class Puff { public Transform Root; public float Age, Duration, From, To; public Vector3 Drift; }
@@ -85,11 +88,15 @@ namespace PirateGame.Presentation.Combat
                 {
                     // Retired: out of range means a splash on open water; otherwise it struck something.
                     if (view.Remaining <= 0.05f || (!relaunched && shot.Remaining <= 0.05f))
+                    {
                         Spawn(Surface(view.Last), splash, 0.4f, 2.4f, 0.45f, Vector3.up * 0.6f);
+                        ShotRetired?.Invoke(view.Last, false);
+                    }
                     else
                     {
                         Spawn(view.Last, flash, 0.5f, 2.2f, 0.16f, Vector3.zero);
                         Spawn(view.Last, smoke, 0.6f, 2.6f, 0.8f, Vector3.up * 1.2f);
+                        ShotRetired?.Invoke(view.Last, true);
                     }
                 }
                 if (shot.Active && (!view.WasActive || relaunched))
@@ -175,6 +182,7 @@ namespace PirateGame.Presentation.Combat
             foreach (var behaviour in copy.GetComponentsInChildren<MonoBehaviour>()) behaviour.enabled = false;
             SetRenderers(target.transform, false);
             StopWake(target);
+            HullSank?.Invoke(model.position);
             sinking.Add(new Sinking { Target = target, Model = copy.transform, Start = copy.transform.position, StartRotation = copy.transform.rotation });
             Spawn(model.position + Vector3.up, flash, 0.8f, 2.6f, 0.22f, Vector3.zero);
             Spawn(model.position + Vector3.up * 1.5f, smoke, 1f, 3.2f, 1.8f, Vector3.up * 1.2f);

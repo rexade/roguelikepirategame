@@ -11,7 +11,9 @@ using PirateGame.Gameplay.Combat;
 using PirateGame.Gameplay.Input;
 using PirateGame.Gameplay.Ships;
 using PirateGame.Gameplay.World;
+using PirateGame.Presentation.Audio;
 using PirateGame.Presentation.Cameras;
+using PirateGame.Presentation.Weather;
 using PirateGame.Presentation.Combat;
 using PirateGame.Presentation.Ships;
 using PirateGame.UI.Game;
@@ -274,6 +276,10 @@ namespace PirateGame.Composition.Editor
             effects.smoke = kit.Smoke; effects.splash = kit.Splash; effects.braceRing = kit.Brace;
             var aim = new GameObject("Aim marker").AddComponent<AimMarker>();
             aim.ringMaterial = kit.Amber; aim.lineMaterial = kit.AimLine;
+            var audio = new GameObject("Audio").AddComponent<GameAudio>();
+            if (!camera.TryGetComponent<AudioListener>(out _)) camera.gameObject.AddComponent<AudioListener>();
+            var skies = new GameObject("Weather").AddComponent<SeaConditions>();
+            skies.sun = sun; skies.volume = volume; skies.ocean = ocean;
 
             var panel = AssetDatabase.LoadAssetAtPath<PanelSettings>("Assets/_Game/UI/Harbor/PanelSettings.asset");
             var style = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/_Game/UI/Game/Game.uss");
@@ -294,6 +300,7 @@ namespace PirateGame.Composition.Editor
             director.player = simulation; director.playerInput = input; director.playerTarget = target; director.interaction = interaction;
             director.salvage = salvageRoot; director.raiderPrefab = raider; director.gunnerPrefab = gunner;
             director.followCamera = follow; director.worldCamera = camera; director.presenter = effects; director.aimMarker = aim;
+            director.sound = audio; director.weather = skies;
             director.harbor = harborObject.GetComponent<HarborView>(); director.hud = hud; director.menus = menus;
 
             EditorSceneManager.MarkSceneDirty(scene);

@@ -6,6 +6,7 @@
 #vitals { left: 18px; top: 16px; width: 330px; }
 #voyage { right: 18px; top: 16px; width: 300px; align-items: flex-end; }
 .region { font-size: 18px; -unity-font-style: bold; color: rgb(140, 207, 180); letter-spacing: 2px; }
+.condition { font-size: 13px; color: rgb(234, 202, 113); letter-spacing: 1px; margin-bottom: 4px; }
 .objective { font-size: 14px; color: rgb(214, 214, 196); white-space: normal; -unity-text-align: upper-right; }
 .meter-row { flex-direction: row; align-items: center; height: 26px; }
 .meter-caption { width: 54px; font-size: 14px; -unity-font-style: bold; color: rgb(190, 205, 196); }

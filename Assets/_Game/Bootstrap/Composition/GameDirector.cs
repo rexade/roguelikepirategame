@@ -12,8 +12,10 @@ using PirateGame.Gameplay.Input;
 using PirateGame.Gameplay.Ships;
 using PirateGame.Gameplay.World;
 using PirateGame.Persistence;
+using PirateGame.Presentation.Audio;
 using PirateGame.Presentation.Cameras;
 using PirateGame.Presentation.Combat;
+using PirateGame.Presentation.Weather;
 using PirateGame.Rules.Application;
 using PirateGame.UI.Game;
 using PirateGame.UI.Harbor;
@@ -53,6 +55,8 @@ namespace PirateGame.Composition
         public Camera worldCamera;
         public CombatPresenter presenter;
         public AimMarker aimMarker;
+        public GameAudio sound;
+        public SeaConditions weather;
 
         [Header("UI")]
         public HarborView harbor;
@@ -91,6 +95,8 @@ namespace PirateGame.Composition
         private IReadOnlyDictionary<string, int> voyageCargo = new Dictionary<string, int>();
         private Vector3 lastSeaPosition;
         private readonly HashSet<string> sighted = new HashSet<string>();
+        private bool braced;
+        public SeaCondition Weather => weather != null ? weather.Current : SeaCondition.Daylight;
 
         public string HubName(string id) => region.HubName(id);
         private string CurrentHarbor => HubName(Session.Snapshot.Campaign.CurrentHub);
@@ -111,6 +117,11 @@ namespace PirateGame.Composition
             Store = new JsonSaveStore(LaunchOptions.SaveDirectory, Definitions);
             interaction.collectOnInteractIntent = false;
             player.TickStarted += OnTickStarted;
+            if (sound != null)
+            {
+                presenter.ShotRetired += (at, struck) => sound.Play(struck ? Sfx.Impact : Sfx.Splash, at, struck ? 0.9f : 0.55f);
+                presenter.HullSank += at => sound.Play(Sfx.Sink, at, 0.9f);
+            }
             hud.SetVisible(false);
             harbor.gameObject.SetActive(true);
             started = true;
@@ -201,6 +212,7 @@ namespace PirateGame.Composition
             if (!Definitions.Hubs.TryGetValue(request.HubId ?? "", out var hub)) return new RuleResult(RuleError.ArrivalFailed, detail: "Unknown harbor.");
             TeardownExpedition();
             Place(hub.Dock, region.DockYaw(hub.Id), 0);
+            ApplyWeather(SeaCondition.Daylight);
             if (followCamera.FocusOverride == null) followCamera.Snap();
             return new RuleResult();
         }
@@ -233,6 +245,8 @@ namespace PirateGame.Composition
             var world = expeditionRoot.AddComponent<CombatWorld>();
             world.Bind(player, Combat, playerTarget, enemies.Cast<ICombatEnemy>(), ContextId(voyage.Id));
             CombatWorld = world;
+            world.ShotFired += OnShotFired;
+            ApplyWeather(SeaConditions.ForSeed(voyage.Seed));
             if (voyage.Entities.ContainsKey(ContextId(voyage.Id)))
             {
                 var restored = world.Restore(voyage);
@@ -280,6 +294,19 @@ namespace PirateGame.Composition
         private void OnTickStarted(InputIntent intent)
         {
             if (intent.Interact) interactRequested = true;
+        }
+
+        private void OnShotFired(SweptProjectile shot)
+        {
+            if (sound == null) return;
+            bool mine = CombatWorld != null && CombatWorld.Player != null && shot.Owner == CombatWorld.Player.Key;
+            sound.Play(shot.Weapon.Id == "repeater" ? Sfx.Repeater : Sfx.Cannon, shot.Position, mine ? 0.8f : 0.6f);
+        }
+
+        private void ApplyWeather(SeaCondition condition)
+        {
+            if (weather != null) weather.Apply(condition);
+            if (sound != null) sound.SetAmbience(condition == SeaCondition.Rough ? 0.55f : condition == SeaCondition.Dusk ? 0.3f : 0.35f);
         }
 
         private void OnEnemyDied(CombatTarget target)
@@ -339,6 +366,7 @@ namespace PirateGame.Composition
                         var raised = snapshot.Campaign.Hubs.Where(h => h.Value.Activated).Select(h => h.Key)
                             .FirstOrDefault(id => id == dockTarget) ?? dockTarget;
                         hud.Toast("Your flag flies over " + HubName(raised) + ". Bank and upgrades are shared there.", ToastKind.Gain, 4.5f);
+                        sound?.PlayUi(Sfx.Flag, 0.8f);
                         break;
                     case "FastTravel":
                         hud.Toast("Arrived at " + HubName(snapshot.Campaign.CurrentHub) + ".", ToastKind.Info);
@@ -350,11 +378,13 @@ namespace PirateGame.Composition
                             .Select(p => "+" + (p.Value - Values.Amount(voyageCargo, p.Key)) + " " + p.Key).ToArray();
                         voyageCargo = cargo;
                         if (gained.Length > 0) hud.Toast("Salvaged " + string.Join(", ", gained), ToastKind.Gain);
+                        sound?.PlayUi(Sfx.Pickup, 0.7f);
                         break;
                     case "Checkpoint":
                         SyncGeneratedSalvage();
                         break;
                     case "Dock":
+                        sound?.PlayUi(Sfx.Bell, 0.7f);
                         ShowCard("Safe harbor", "Docked at " + HubName(snapshot.Campaign.CurrentHub) + ". Cargo is banked and the voyage is over.",
                             Lines(voyageCargo.Count == 0 || voyageCargo.Values.All(v => v == 0) ? "Banked: nothing this time." : "Banked: " + Describe(voyageCargo),
                                 "Bank now holds " + Describe(snapshot.Campaign.Bank) + "."),
@@ -362,6 +392,7 @@ namespace PirateGame.Composition
                         voyageCargo = new Dictionary<string, int>();
                         break;
                     case "Sink":
+                        sound?.Play(Sfx.Sink, lastSeaPosition, 1f, 0);
                         followCamera.FocusOverride = lastSeaPosition;
                         presenter.SinkCopy(player.transform, lastSeaPosition);
                         ShowCard("Your ship went down", "The crew is fished out and brought back to " + HubName(snapshot.Campaign.CurrentHub) + ".",
@@ -474,7 +505,11 @@ namespace PirateGame.Composition
             var saved = Checkpoint();
             if (!saved.IsSuccess) return;
             var result = interaction.TryCollect(Guid.NewGuid());
-            if (result.Error == RuleError.CargoFull) hud.Toast("The hold is too full for that. Bank your cargo in harbor.", ToastKind.Warning);
+            if (result.Error == RuleError.CargoFull)
+            {
+                hud.Toast("The hold is too full for that. Bank your cargo in harbor.", ToastKind.Warning);
+                sound?.PlayUi(Sfx.CargoFull, 0.7f);
+            }
             else if (!result.IsSuccess && !result.IsPending && result.Error != RuleError.SaveFailed)
                 hud.Toast("Could not salvage: " + result.Error, ToastKind.Warning);
             else if (result.Error == RuleError.SaveFailed) ShowRecovery();
@@ -593,7 +628,10 @@ namespace PirateGame.Composition
             model.AbilityName = Title(Combat.AbilityId).ToUpperInvariant();
             model.AbilityCooldown = CombatWorld.AbilityCooldown; model.AbilityCooldownMax = Combat.AbilityCooldown;
             model.AbilityActive = CombatWorld.BraceRemaining;
+            if (CombatWorld.BraceRemaining > 0 && !braced) sound?.Play(Sfx.Brace, player.transform.position, 0.8f, 0.02f);
+            braced = CombatWorld.BraceRemaining > 0;
             model.Region = regionTitle.ToUpperInvariant();
+            model.Condition = SeaConditions.Describe(Weather).ToUpperInvariant();
             bool full = model.CargoUsed >= model.CargoCapacity;
             model.Objective = full ? "Hold full: return to a harbor to bank it."
                 : model.CargoUsed > 0 ? "Bring your cargo to a friendly harbor to bank it."

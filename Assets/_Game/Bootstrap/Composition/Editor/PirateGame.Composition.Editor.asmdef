@@ -2,12 +2,30 @@
   "name": "PirateGame.Composition.Editor",
   "rootNamespace": "PirateGame.Composition.Editor",
   "references": [
-    "PirateGame.Composition", "PirateGame.Core", "PirateGame.Definitions", "PirateGame.CombatContent", "PirateGame.FirstRegion",
-    "PirateGame.Ships", "PirateGame.ShipInput", "PirateGame.Combat", "PirateGame.CombatAI", "PirateGame.Salvage",
-    "PirateGame.ShipCamera", "PirateGame.ShipPresentation", "PirateGame.CombatPresentation",
-    "PirateGame.Harbor", "PirateGame.Loadout", "PirateGame.GameUI", "PirateGame.Persistence",
-    "Unity.RenderPipelines.HighDefinition.Runtime", "Unity.RenderPipelines.Core.Runtime"
+    "PirateGame.Composition",
+    "PirateGame.Core",
+    "PirateGame.Definitions",
+    "PirateGame.CombatContent",
+    "PirateGame.FirstRegion",
+    "PirateGame.Ships",
+    "PirateGame.ShipInput",
+    "PirateGame.Combat",
+    "PirateGame.CombatAI",
+    "PirateGame.Salvage",
+    "PirateGame.ShipCamera",
+    "PirateGame.ShipPresentation",
+    "PirateGame.CombatPresentation",
+    "PirateGame.Harbor",
+    "PirateGame.Loadout",
+    "PirateGame.GameUI",
+    "PirateGame.Persistence",
+    "Unity.RenderPipelines.HighDefinition.Runtime",
+    "Unity.RenderPipelines.Core.Runtime",
+    "PirateGame.Audio",
+    "PirateGame.Weather"
   ],
-  "includePlatforms": ["Editor"],
+  "includePlatforms": [
+    "Editor"
+  ],
   "autoReferenced": false
 }

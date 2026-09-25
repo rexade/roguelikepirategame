@@ -18,7 +18,7 @@ namespace PirateGame.UI.Game
         public double AbilityCooldown, AbilityCooldownMax = 1, AbilityActive;
         public string Prompt = "";
         public bool PromptWarning;
-        public string Region = "", Objective = "";
+        public string Region = "", Condition = "", Objective = "";
     }
 
     public struct HudMarker
@@ -35,7 +35,7 @@ namespace PirateGame.UI.Game
     {
         public StyleSheet stylesheet;
         private VisualElement root, hullFill, cargoFill, weaponFill, abilityFill, weaponSlot, abilitySlot, markers, toasts, homeArrow;
-        private Label hullValue, cargoValue, cargoDetail, weaponName, abilityName, weaponKey, abilityKey, prompt, region, objective, homeLabel;
+        private Label hullValue, cargoValue, cargoDetail, weaponName, abilityName, weaponKey, abilityKey, prompt, region, condition, objective, homeLabel;
         private readonly List<VisualElement> bars = new List<VisualElement>();
         public VisualElement Root => root;
         public bool Visible { get; private set; }
@@ -70,8 +70,9 @@ namespace PirateGame.UI.Game
 
             var header = Panel("voyage", root);
             region = new Label { name = "region" }.WithClass("region");
+            condition = new Label { name = "condition" }.WithClass("condition");
             objective = new Label { name = "objective" }.WithClass("objective");
-            header.Add(region); header.Add(objective);
+            header.Add(region); header.Add(condition); header.Add(objective);
 
             toasts = new VisualElement { name = "toasts", pickingMode = PickingMode.Ignore };
             toasts.AddToClassList("toasts");
@@ -149,6 +150,8 @@ namespace PirateGame.UI.Game
             cargoValue.text = model.CargoUsed + " / " + model.CargoCapacity;
             cargoDetail.text = model.CargoDetail;
             region.text = model.Region;
+            condition.text = model.Condition;
+            condition.style.display = string.IsNullOrEmpty(model.Condition) ? DisplayStyle.None : DisplayStyle.Flex;
             objective.text = model.Objective;
             weaponKey.text = model.WeaponKey; weaponName.text = model.WeaponName;
             abilityKey.text = model.AbilityKey; abilityName.text = model.AbilityName;
