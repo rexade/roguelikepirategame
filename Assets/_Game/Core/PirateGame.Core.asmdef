@@ -1,0 +1,7 @@
+{
+  "name": "PirateGame.Core",
+  "rootNamespace": "PirateGame",
+  "references": [],
+  "noEngineReferences": true,
+  "autoReferenced": true
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-18 13:03:51Z" end-time="2026-09-18 13:03:52Z" duration="0.9560019">
+  <test-suite type="TestSuite" id="1010" name="Pirate Prototype" fullname="Pirate Prototype" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-18 13:03:51Z" end-time="2026-09-18 13:03:52Z" duration="0.956002" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1003" name="PirateGame.Bootstrap.PlayModeTests.dll" fullname="C:/Users/henri/Documents/roguelikepirategame/Library/ScriptAssemblies/PirateGame.Bootstrap.PlayModeTests.dll" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-18 13:03:51Z" end-time="2026-09-18 13:03:52Z" duration="0.948447" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="35172" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1004" name="PirateGame" fullname="PirateGame" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-18 13:03:51Z" end-time="2026-09-18 13:03:52Z" duration="0.947954" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1005" name="Bootstrap" fullname="PirateGame.Bootstrap" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-18 13:03:51Z" end-time="2026-09-18 13:03:52Z" duration="0.947642" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1006" name="Tests" fullname="PirateGame.Bootstrap.Tests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-18 13:03:51Z" end-time="2026-09-18 13:03:52Z" duration="0.947375" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1001" name="KeyboardNavigationTests" fullname="PirateGame.Bootstrap.Tests.KeyboardNavigationTests" classname="PirateGame.Bootstrap.Tests.KeyboardNavigationTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-18 13:03:51Z" end-time="2026-09-18 13:03:52Z" duration="0.945524" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1002" name="KeyboardFocusAndSceneNavigation" fullname="PirateGame.Bootstrap.Tests.KeyboardNavigationTests.KeyboardFocusAndSceneNavigation" methodname="KeyboardFocusAndSceneNavigation" classname="PirateGame.Bootstrap.Tests.KeyboardNavigationTests" runstate="Runnable" seed="1209318605" result="Failed" start-time="2026-09-18 13:03:51Z" end-time="2026-09-18 13:03:52Z" duration="0.933126" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Tab advances focus
+  Expected string length 4 but was 10. Strings differ at index 0.
+  Expected: "Quit"
+  But was:  "Open ocean"
+  -----------^
+]]></message>
+                  <stack-trace><![CDATA[at PirateGame.Bootstrap.Tests.KeyboardNavigationTests+<KeyboardFocusAndSceneNavigation>d__5.MoveNext () [0x000ee] in C:\Users\henri\Documents\roguelikepirategame\Assets\_Game\Bootstrap\Tests\KeyboardNavigationTests.cs:41
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@bd7f943e9647\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: C:/Users/henri/AppData/LocalLow/PiratePrototype/Pirate Prototype\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

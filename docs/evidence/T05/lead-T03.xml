@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="33" result="Passed" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-18 17:21:42Z" end-time="2026-09-18 17:21:43Z" duration="0.1755827">
+  <test-suite type="TestSuite" id="1000" name="Pirate Prototype" fullname="Pirate Prototype" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-09-18 17:21:42Z" end-time="2026-09-18 17:21:43Z" duration="0.175583" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1037" name="PirateGame.T03.Tests.dll" fullname="C:/Users/henri/Documents/roguelikepirategame/Library/ScriptAssemblies/PirateGame.T03.Tests.dll" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-09-18 17:21:42Z" end-time="2026-09-18 17:21:43Z" duration="0.164920" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="8648" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1038" name="PirateGame" fullname="PirateGame" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-09-18 17:21:42Z" end-time="2026-09-18 17:21:43Z" duration="0.164472" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1039" name="Tests" fullname="PirateGame.Tests" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-09-18 17:21:42Z" end-time="2026-09-18 17:21:43Z" duration="0.164294" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1040" name="T03" fullname="PirateGame.Tests.T03" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-09-18 17:21:42Z" end-time="2026-09-18 17:21:43Z" duration="0.163887" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1001" name="CampaignRulesTests" fullname="PirateGame.Tests.T03.CampaignRulesTests" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" testcasecount="25" result="Passed" start-time="2026-09-18 17:21:42Z" end-time="2026-09-18 17:21:43Z" duration="0.141222" total="25" passed="25" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1002" name="AC01_DoubleDockBanksSevenOnce" fullname="PirateGame.Tests.T03.CampaignRulesTests.AC01_DoubleDockBanksSevenOnce" methodname="AC01_DoubleDockBanksSevenOnce" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="1496105499" result="Passed" start-time="2026-09-18 17:21:42Z" end-time="2026-09-18 17:21:43Z" duration="0.066962" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1003" name="AC02_LethalDamageWinsOverQueuedDockAndFailureFreezesSink" fullname="PirateGame.Tests.T03.CampaignRulesTests.AC02_LethalDamageWinsOverQueuedDockAndFailureFreezesSink" methodname="AC02_LethalDamageWinsOverQueuedDockAndFailureFreezesSink" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="853824829" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.003384" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1004" name="AC03_UnaffordableUpgradeLeavesBankAndTierUnchanged" fullname="PirateGame.Tests.T03.CampaignRulesTests.AC03_UnaffordableUpgradeLeavesBankAndTierUnchanged" methodname="AC03_UnaffordableUpgradeLeavesBankAndTierUnchanged" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="381888680" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001782" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1005" name="AC04_WholeBundleRejectsWithoutDepletionAndDuplicateCannotCredit" fullname="PirateGame.Tests.T03.CampaignRulesTests.AC04_WholeBundleRejectsWithoutDepletionAndDuplicateCannotCredit" methodname="AC04_WholeBundleRejectsWithoutDepletionAndDuplicateCannotCredit" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="1549827344" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.002418" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1006" name="AC06_SinkWithEmptyBankPreservesUpgradedLoadoutAndFreeEmbark" fullname="PirateGame.Tests.T03.CampaignRulesTests.AC06_SinkWithEmptyBankPreservesUpgradedLoadoutAndFreeEmbark" methodname="AC06_SinkWithEmptyBankPreservesUpgradedLoadoutAndFreeEmbark" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="1102961034" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.007016" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1007" name="AC08_TravelAtSeaOrInactiveDestinationChangesNothing" fullname="PirateGame.Tests.T03.CampaignRulesTests.AC08_TravelAtSeaOrInactiveDestinationChangesNothing" methodname="AC08_TravelAtSeaOrInactiveDestinationChangesNothing" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="219238720" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001389" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1020" name="AC16_HarborAndEmbarkUseTheSameOwnedCompatibleLoadoutValidation" fullname="PirateGame.Tests.T03.CampaignRulesTests.AC16_HarborAndEmbarkUseTheSameOwnedCompatibleLoadoutValidation" methodname="AC16_HarborAndEmbarkUseTheSameOwnedCompatibleLoadoutValidation" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="788280088" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.005218" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1011" name="ArrivalFailureKeepsCommittedDestinationLockedAndRetriesWithoutAnotherSave" fullname="PirateGame.Tests.T03.CampaignRulesTests.ArrivalFailureKeepsCommittedDestinationLockedAndRetriesWithoutAnotherSave" methodname="ArrivalFailureKeepsCommittedDestinationLockedAndRetriesWithoutAnotherSave" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="2096057374" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001556" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1019" name="BankingOverflowCannotPartiallyTransfer" fullname="PirateGame.Tests.T03.CampaignRulesTests.BankingOverflowCannotPartiallyTransfer" methodname="BankingOverflowCannotPartiallyTransfer" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="1438416433" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001893" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1009" name="DockFailureRetriesIdenticalCandidateAndPublishesOnlyAfterCommit" fullname="PirateGame.Tests.T03.CampaignRulesTests.DockFailureRetriesIdenticalCandidateAndPublishesOnlyAfterCommit" methodname="DockFailureRetriesIdenticalCandidateAndPublishesOnlyAfterCommit" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="607596931" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.002311" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1018" name="DockRejectsOtherRegionEvenAtMatchingCoordinates" fullname="PirateGame.Tests.T03.CampaignRulesTests.DockRejectsOtherRegionEvenAtMatchingCoordinates" methodname="DockRejectsOtherRegionEvenAtMatchingCoordinates" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="1036965421" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.000961" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1017" name="DockUsesAuthoredRadiusAndSpeed" fullname="PirateGame.Tests.T03.CampaignRulesTests.DockUsesAuthoredRadiusAndSpeed" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.008139" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1013" name="DockUsesAuthoredRadiusAndSpeed(0,0,0,None)" fullname="PirateGame.Tests.T03.CampaignRulesTests.DockUsesAuthoredRadiusAndSpeed(0,0,0,None)" methodname="DockUsesAuthoredRadiusAndSpeed" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="1695736026" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001670" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1014" name="DockUsesAuthoredRadiusAndSpeed(5,0,1,None)" fullname="PirateGame.Tests.T03.CampaignRulesTests.DockUsesAuthoredRadiusAndSpeed(5,0,1,None)" methodname="DockUsesAuthoredRadiusAndSpeed" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="1913925334" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001166" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1015" name="DockUsesAuthoredRadiusAndSpeed(5.01d,0,0,NotInDockZone)" fullname="PirateGame.Tests.T03.CampaignRulesTests.DockUsesAuthoredRadiusAndSpeed(5.01d,0,0,NotInDockZone)" methodname="DockUsesAuthoredRadiusAndSpeed" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="1136121515" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.000888" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1016" name="DockUsesAuthoredRadiusAndSpeed(0,0,1.01d,TooFast)" fullname="PirateGame.Tests.T03.CampaignRulesTests.DockUsesAuthoredRadiusAndSpeed(0,0,1.01d,TooFast)" methodname="DockUsesAuthoredRadiusAndSpeed" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="543097739" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.000939" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1010" name="EmbarkFailureDoesNotPublishExpeditionOrEnableInput" fullname="PirateGame.Tests.T03.CampaignRulesTests.EmbarkFailureDoesNotPublishExpeditionOrEnableInput" methodname="EmbarkFailureDoesNotPublishExpeditionOrEnableInput" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="959837626" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001587" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1026" name="LootFailureRetainsCargoAndSourceUntilCommit" fullname="PirateGame.Tests.T03.CampaignRulesTests.LootFailureRetainsCargoAndSourceUntilCommit" methodname="LootFailureRetainsCargoAndSourceUntilCommit" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="131210221" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001273" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1021" name="MalformedLoadoutAndUnknownCommandsReturnErrorsWithoutMutation" fullname="PirateGame.Tests.T03.CampaignRulesTests.MalformedLoadoutAndUnknownCommandsReturnErrorsWithoutMutation" methodname="MalformedLoadoutAndUnknownCommandsReturnErrorsWithoutMutation" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="64233911" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001450" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1022" name="MixedResourceWeightsRejectWholeBundleAndOverflow" fullname="PirateGame.Tests.T03.CampaignRulesTests.MixedResourceWeightsRejectWholeBundleAndOverflow" methodname="MixedResourceWeightsRejectWholeBundleAndOverflow" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="1908812163" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001307" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1024" name="PausedClockAndInvalidTicksCannotChangeSimulation" fullname="PirateGame.Tests.T03.CampaignRulesTests.PausedClockAndInvalidTicksCannotChangeSimulation" methodname="PausedClockAndInvalidTicksCannotChangeSimulation" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="205783401" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001838" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1023" name="PurchaseFailureCannotDeductOrGrantUntilRetry" fullname="PirateGame.Tests.T03.CampaignRulesTests.PurchaseFailureCannotDeductOrGrantUntilRetry" methodname="PurchaseFailureCannotDeductOrGrantUntilRetry" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="264259832" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.000848" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1025" name="RestoredSnapshotRetainsDamageCooldownsModifiersEntitiesAndRng" fullname="PirateGame.Tests.T03.CampaignRulesTests.RestoredSnapshotRetainsDamageCooldownsModifiersEntitiesAndRng" methodname="RestoredSnapshotRetainsDamageCooldownsModifiersEntitiesAndRng" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="2130910622" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.002676" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1012" name="SavePortRejectsOlderCheckpointAfterNewPurchaseAndReentrancyIsLocked" fullname="PirateGame.Tests.T03.CampaignRulesTests.SavePortRejectsOlderCheckpointAfterNewPurchaseAndReentrancyIsLocked" methodname="SavePortRejectsOlderCheckpointAfterNewPurchaseAndReentrancyIsLocked" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="178855334" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001196" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1008" name="UpgradeAndTravelShareCampaignButPreserveLocalFlags" fullname="PirateGame.Tests.T03.CampaignRulesTests.UpgradeAndTravelShareCampaignButPreserveLocalFlags" methodname="UpgradeAndTravelShareCampaignButPreserveLocalFlags" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="1546923586" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.000843" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1027" name="WorldCaptureCommitsCoherentStateButCannotRefillLootOrLoseHistory" fullname="PirateGame.Tests.T03.CampaignRulesTests.WorldCaptureCommitsCoherentStateButCannotRefillLootOrLoseHistory" methodname="WorldCaptureCommitsCoherentStateButCannotRefillLootOrLoseHistory" classname="PirateGame.Tests.T03.CampaignRulesTests" runstate="Runnable" seed="691571906" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.003390" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1028" name="DefinitionTests" fullname="PirateGame.Tests.T03.DefinitionTests" classname="PirateGame.Tests.T03.DefinitionTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.019490" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1029" name="AC15_DuplicateAuthoredIdentityReportsBothRegions" fullname="PirateGame.Tests.T03.DefinitionTests.AC15_DuplicateAuthoredIdentityReportsBothRegions" methodname="AC15_DuplicateAuthoredIdentityReportsBothRegions" classname="PirateGame.Tests.T03.DefinitionTests" runstate="Runnable" seed="1650373157" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.002140" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1033" name="AuthoredAdapterAndSnapshotsAreDetachedAndImmutable" fullname="PirateGame.Tests.T03.DefinitionTests.AuthoredAdapterAndSnapshotsAreDetachedAndImmutable" methodname="AuthoredAdapterAndSnapshotsAreDetachedAndImmutable" classname="PirateGame.Tests.T03.DefinitionTests" runstate="Runnable" seed="496075128" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.007729" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1036" name="CoreAssemblyHasNoEngineOrAdapterReferences" fullname="PirateGame.Tests.T03.DefinitionTests.CoreAssemblyHasNoEngineOrAdapterReferences" methodname="CoreAssemblyHasNoEngineOrAdapterReferences" classname="PirateGame.Tests.T03.DefinitionTests" runstate="Runnable" seed="2130824463" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.000410" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1034" name="EntityIdentityIsStableAndExpeditionScoped" fullname="PirateGame.Tests.T03.DefinitionTests.EntityIdentityIsStableAndExpeditionScoped" methodname="EntityIdentityIsStableAndExpeditionScoped" classname="PirateGame.Tests.T03.DefinitionTests" runstate="Runnable" seed="1057842136" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.000888" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1035" name="InputIntentRejectsNonfiniteAndOutOfRangeAxes" fullname="PirateGame.Tests.T03.DefinitionTests.InputIntentRejectsNonfiniteAndOutOfRangeAxes" methodname="InputIntentRejectsNonfiniteAndOutOfRangeAxes" classname="PirateGame.Tests.T03.DefinitionTests" runstate="Runnable" seed="1541235063" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.000690" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1031" name="InvalidNumbersOperationsAndWeightsAreRejected" fullname="PirateGame.Tests.T03.DefinitionTests.InvalidNumbersOperationsAndWeightsAreRejected" methodname="InvalidNumbersOperationsAndWeightsAreRejected" classname="PirateGame.Tests.T03.DefinitionTests" runstate="Runnable" seed="126222237" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.001207" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1032" name="MissingReferencesAndDuplicateDefinitionsFailBeforeSessionCreation" fullname="PirateGame.Tests.T03.DefinitionTests.MissingReferencesAndDuplicateDefinitionsFailBeforeSessionCreation" methodname="MissingReferencesAndDuplicateDefinitionsFailBeforeSessionCreation" classname="PirateGame.Tests.T03.DefinitionTests" runstate="Runnable" seed="527412052" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.002745" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1030" name="StatsUseFlatThenAdditivePercentThenClamp" fullname="PirateGame.Tests.T03.DefinitionTests.StatsUseFlatThenAdditivePercentThenClamp" methodname="StatsUseFlatThenAdditivePercentThenClamp" classname="PirateGame.Tests.T03.DefinitionTests" runstate="Runnable" seed="1554772015" result="Passed" start-time="2026-09-18 17:21:43Z" end-time="2026-09-18 17:21:43Z" duration="0.000668" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/henri/AppData/LocalLow/PiratePrototype/Pirate Prototype\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

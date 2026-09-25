@@ -1,0 +1,1 @@
+{"name":"PirateGame.T07.Tests","references":["PirateGame.Core","PirateGame.Definitions","PirateGame.T07.Fixture","PirateGame.Harbor","PirateGame.Loadout"],"includePlatforms":["Editor"],"optionalUnityReferences":["TestAssemblies"],"autoReferenced":false}

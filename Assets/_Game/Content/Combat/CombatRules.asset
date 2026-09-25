@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 069e25af1fc68a64eb6f65d5151417ef, type: 3}
+  m_Name: CombatRules
+  m_EditorClassIdentifier: PirateGame.Definitions::PirateGame.Content.Definitions.DefinitionCatalogAsset
+  resources:
+  - id: wood
+    weight: 1
+  hulls:
+  - id: cutter
+    slots:
+    - id: weapon
+      kind: 0
+    - id: ability
+      kind: 1
+    stats:
+    - id: health
+      value: 100
+      minimum: 1
+      maximum: 200
+    - id: cargo
+      value: 10
+      minimum: 0
+      maximum: 100
+    - id: speed
+      value: 8
+      minimum: 1
+      maximum: 30
+    - id: damage-scale
+      value: 1
+      minimum: 0.1
+      maximum: 4
+  equipment:
+  - id: cannon
+    kind: 0
+    modifiers: []
+  - id: repeater
+    kind: 0
+    modifiers: []
+  - id: brace
+    kind: 1
+    modifiers: []
+  hubs:
+  - id: home
+    regionId: test-region
+    x: 7
+    z: -9
+    radius: 5
+    maximumSpeed: 1
+  upgrades: []
+  unlockIds: []
+  entityDefinitionIds:
+  - raider
+  - gunner
+  - combat-context-v1
+  regionIds:
+  - test-region
+  worldIdentities: []

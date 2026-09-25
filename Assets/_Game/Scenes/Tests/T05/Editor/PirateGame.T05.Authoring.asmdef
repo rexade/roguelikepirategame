@@ -1,0 +1,1 @@
+{"name":"PirateGame.T05.Authoring","references":["PirateGame.Core","PirateGame.T05.Fixture","PirateGame.T04.Fixture","PirateGame.Ships","PirateGame.CombatContent","PirateGame.Definitions","PirateGame.Combat","PirateGame.CombatAI"],"includePlatforms":["Editor"]}

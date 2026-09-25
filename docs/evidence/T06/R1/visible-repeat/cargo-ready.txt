@@ -1,0 +1,8 @@
+  Homeward Reach
+  Wood 5   Iron 0   Cargo full
+valid=True
+barrelsDepleted=True,True
+wreckWood=2
+wreckIron=2
+position=(0.00, 0.00, 78.00)
+route=injected motor intents; no teleportation

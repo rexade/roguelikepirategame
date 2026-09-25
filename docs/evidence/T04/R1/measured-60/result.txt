@@ -1,0 +1,11 @@
+requestedFPS=60
+tick=350
+x=6.99999332
+z=18.6
+pausePositionStable=True
+pauseTickStable=True
+aim=(1.00, 0.00, 0.00)
+bobAmplitude=0
+device=NVIDIA GeForce RTX 2070 SUPER
+resolution=1280x720
+offlineFootage=False

@@ -1,0 +1,247 @@
+[
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Attack amber.mat",
+        "sha256":  "9C0E096C709CDA9010AB85001E82DBABB88715ADC24F8AB8B9A83A4831B6F378",
+        "bytes":  3519
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Attack amber.mat.meta",
+        "sha256":  "817B4968E1C15601A618D0FF31DEB1F205E8360B774CF6993639DEABEBAFCEF9",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Cool rock.mat",
+        "sha256":  "BDE552B0337463D0EC4CDE5F0BC3DEB297ED03796A32984C23399F11CAF1F876",
+        "bytes":  8125
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Cool rock.mat.meta",
+        "sha256":  "E4234A29EB59D03164FA055DBEF7EA57012E38F6224F0A940124FCFDFBC20AAF",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\CutterVariant.prefab",
+        "sha256":  "5D7A3E93A93ADDFAE9FFED88F1E5199B04C5BD68B6AE5DFF43BC6D6BDAF0ADBD",
+        "bytes":  26387
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\CutterVariant.prefab.meta",
+        "sha256":  "2C0ECB45AC249AF21FC71B897BD86ADC96CE93A7353F0126346419193650943D",
+        "bytes":  154
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Deck and pier.mat",
+        "sha256":  "7BEC5042456AEB7AE048A30BE0DCCDCCB56F4A8B74768B422B613B18E53D28D9",
+        "bytes":  8125
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Deck and pier.mat.meta",
+        "sha256":  "F4C4364B672A49E085CDD297A3AD0AC0C9E5F7559CE2217928E5CEEC7D90EB58",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Foam.mat",
+        "sha256":  "B9E4A686AC42107C4A0B071C68CB994C618947AA0A802363D54DF17A24E64956",
+        "bytes":  1827
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Foam.mat.meta",
+        "sha256":  "562B53B28E999F5A8B95FD5754044E1648A53AC90F599F06E551CE29671884EB",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\FoamFootprint.asset",
+        "sha256":  "3BBD493BF94B99B86DA081E73235C38CD1FAF9D17AA520EB0A726DCA27B522E8",
+        "bytes":  33798
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\FoamFootprint.asset.meta",
+        "sha256":  "8064F916D5642AB46DBC43752BED191B35CB8C964C517A2FFB20FD659EFD58D8",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Grassy crown mesh.asset",
+        "sha256":  "FE9368A5BFA9CC4473D265E22B02263E80C74B974F553410366723FA74FB6C30",
+        "bytes":  12812
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Grassy crown mesh.asset.meta",
+        "sha256":  "3BEE571C390128E8985E326FE9A424D4972E2635367A14FB660FBDFB65C292F5",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\HarborIsland.prefab",
+        "sha256":  "8D0A69EA2E8CF8640260310533D1B39B51A750F1EAED3DCA8A281368CDD3C97F",
+        "bytes":  38384
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\HarborIsland.prefab.meta",
+        "sha256":  "1BA341311378ABA119CD1AAA6597FB1BFA4BDD89FE5D397A87DA819DF7D62003",
+        "bytes":  154
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Hull.asset",
+        "sha256":  "33D871042AF90FE226583D9D2A846DA72D0A625A0FA6D38D1D6E0AECD07B8183",
+        "bytes":  7810
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Hull.asset.meta",
+        "sha256":  "A9D0641A213D09F8EEDF525BD699B7EC303F9C8FE02067075BA786366976B11F",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Iron.mat",
+        "sha256":  "16D7A5180693D5E69C67E02B0F6EF1BABE79F75FFE07B6AD4766B8C3E1E8C3C9",
+        "bytes":  8122
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Iron.mat.meta",
+        "sha256":  "13421A501416A27312201E515122881393645DEEFF533A25F06D90059FCA940F",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Island grass.mat",
+        "sha256":  "1A22E35EC12C8843B85BA5F06B5075D98C0F3E7501EB993C6C79843109710244",
+        "bytes":  8128
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Island grass.mat.meta",
+        "sha256":  "3CB3BEE0FDDC9D18486280F9648C9BE195DE75A9D1C5636F6B0D23184AE7C81C",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\IslandVariant.prefab",
+        "sha256":  "6014311740F5FC9402110B5107030DDD46B51BCB4C8CC40EDFC650A255A2D602",
+        "bytes":  38376
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\IslandVariant.prefab.meta",
+        "sha256":  "957A4ADB7F301135541261D6020CFD17F434F798242A01E5F047C4D642C884FF",
+        "bytes":  154
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\OceanProofVolume.asset",
+        "sha256":  "5F0B97CDE551432A57A27406A66396D54AC1BC76432CE6D854A6EDB8BC4B4F58",
+        "bytes":  8632
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\OceanProofVolume.asset.meta",
+        "sha256":  "2DAABC27F1EAD7373068554F48C1B95F5733920048B143D0DEF58D80F3386015",
+        "bytes":  189
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Painted hull.mat",
+        "sha256":  "820B3E5C101961063DD7AF92499BE76A3E8DA9B5F85AB7ED2024B181490D5E55",
+        "bytes":  8129
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Painted hull.mat.meta",
+        "sha256":  "8FD9CBFA5EFFBB726E38DC6F46910A1E748297CDBD279B754B67FEF8AC91C90D",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Sail linen.mat",
+        "sha256":  "08BEC610C9CFB97AC323E5EA142D9051CA7254D24518E2A1471C2548C2DE5787",
+        "bytes":  8109
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Sail linen.mat.meta",
+        "sha256":  "EE205E416CC4D59996F26240945A7FF1A08305DC6C85D3935ACC1D727D1E7D2F",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Shallow sand.mat",
+        "sha256":  "E32C148714373F4C125DB707936CA99E288F7523D77DBB738E99135709BF76FB",
+        "bytes":  8117
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Shallow sand.mat.meta",
+        "sha256":  "793690653E04C58129B886F3BD89C954C7FD254B64A57E6E1BC4884BB3E9F090",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Shore mesh.asset",
+        "sha256":  "7B8C04C64171505A024B746740ED92DB598A3337BCA01FA9595F73D3B7EE7E82",
+        "bytes":  12833
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Shore mesh.asset.meta",
+        "sha256":  "E1D779D3DFA12A4F5275F2840C065315184AC890E73BA37D4C172223BCA59662",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\StarterCutter.prefab",
+        "sha256":  "9518D8EE1A7E8F54ECBDCAACA0E0B2E048CB8BDB69E9931BAEA5B4203F6CC7DA",
+        "bytes":  26386
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\StarterCutter.prefab.meta",
+        "sha256":  "DAF5A35D212B0970BDE19E3E97AFC4B4DDAB35CF4E3C96EB711E088676E16DCA",
+        "bytes":  154
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Submerged shelf mesh.asset",
+        "sha256":  "D5DA869891EEABAB13FE82E5758E34C58E51B34A3544D21BB803EEB28B2EB017",
+        "bytes":  12843
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\Submerged shelf mesh.asset.meta",
+        "sha256":  "692CE4594FB93FA56A0C756B96DE64A39796FEFFCD9F2FD289E6BB390422483A",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\VariantHull.asset",
+        "sha256":  "F1A948ABDFBF0CF7EEC1BD0FCAB93A8539FA6ED65E61F4329D535040729F3C8F",
+        "bytes":  7817
+    },
+    {
+        "path":  "Assets\\_Game\\Art\\Prototype\\VariantHull.asset.meta",
+        "sha256":  "423BE1EE4E29FEA63018253F2C61E95AF3EC548BFBE4AAFBA523BDF51314F066",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Water\\Editor.meta",
+        "sha256":  "3DAA76348CF54780D8B78C76F21B748C9D5BD45CE3A1B25FDAC950D9C9361E41",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Water\\Editor\\OceanProofAuthoring.cs",
+        "sha256":  "9ED4712A1B192681AE3E77F1A4EBD291AB35DAA5CEF6EE2BBE54EF0ABF1DD85B",
+        "bytes":  25717
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Water\\Editor\\OceanProofAuthoring.cs.meta",
+        "sha256":  "826030CDDB4D9B24BB2FB04FCCAB38EFB8B29AAACA1B2A202CD0E52745D7B658",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Water\\FoamStamp.shader",
+        "sha256":  "711656341DD48F9D127F3EF5AEF9C3B53D947576BF03D842B0C8D104F921A1D6",
+        "bytes":  1438
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Water\\FoamStamp.shader.meta",
+        "sha256":  "D063EB37F726F847C3BE71A1467F7C38BA329F7F0413B543CE3E803B8125B074",
+        "bytes":  204
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Water\\OceanProof.cs",
+        "sha256":  "9C5FD241216E56F7ED4B7D9270F1BA9BDBDE1F03980C0580066B9658C105B266",
+        "bytes":  10928
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Water\\OceanProof.cs.meta",
+        "sha256":  "EC4310A9AAF992972A65C69501BF3D9EBB505286DCE214482F21D01EDE4E13C8",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T02\\WaterTest.unity",
+        "sha256":  "6FD29E2395819FE0DA05773AC935E0D5003D2764751EEF60D551599526B49A9F",
+        "bytes":  232302
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T02\\WaterTest.unity.meta",
+        "sha256":  "1CFBF996717267A6FC002914FC9E7E88DEAC1E7C8C7B124C1031535D9C6D088C",
+        "bytes":  155
+    }
+]

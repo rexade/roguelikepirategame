@@ -1,0 +1,7 @@
+{
+  "name": "PirateGame.T03.Tests",
+  "references": ["PirateGame.Core", "PirateGame.Definitions"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}

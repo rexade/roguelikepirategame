@@ -1,0 +1,1 @@
+{"name":"PirateGame.T06.Tests","references":["PirateGame.Core","PirateGame.Ships","PirateGame.FirstRegion","PirateGame.Salvage","PirateGame.T06.Fixture"],"optionalUnityReferences":["TestAssemblies"],"autoReferenced":false,"defineConstraints":["UNITY_INCLUDE_TESTS"]}

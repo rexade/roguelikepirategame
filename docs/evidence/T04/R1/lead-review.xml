@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="40" result="Passed" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:20Z" duration="10.267702">
+  <test-suite type="TestSuite" id="1061" name="Pirate Prototype" fullname="Pirate Prototype" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:20Z" duration="10.267702" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1054" name="PirateGame.T04.Tests.dll" fullname="C:/Users/henri/Documents/roguelikepirategame/Library/ScriptAssemblies/PirateGame.T04.Tests.dll" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:20Z" duration="10.260430" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="14408" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1055" name="PirateGame" fullname="PirateGame" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:20Z" duration="10.259970" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1056" name="Tests" fullname="PirateGame.Tests" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:20Z" duration="10.259699" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1057" name="T04" fullname="PirateGame.Tests.T04" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:20Z" duration="10.259461" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1007" name="ShipTests" fullname="PirateGame.Tests.T04.ShipTests" classname="PirateGame.Tests.T04.ShipTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:11Z" duration="0.837755" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1013" name="BobbingDoesNotMoveAimOrHitbox" fullname="PirateGame.Tests.T04.ShipTests.BobbingDoesNotMoveAimOrHitbox" methodname="BobbingDoesNotMoveAimOrHitbox" classname="PirateGame.Tests.T04.ShipTests" runstate="Runnable" seed="1453292061" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:10Z" duration="0.053420" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1011" name="CollisionAccelerationBrakingAndPlanarConstraints" fullname="PirateGame.Tests.T04.ShipTests.CollisionAccelerationBrakingAndPlanarConstraints" classname="PirateGame.Tests.T04.ShipTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:10Z" duration="0.099698" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1008" name="CollisionAccelerationBrakingAndPlanarConstraints(8,False)" fullname="PirateGame.Tests.T04.ShipTests.CollisionAccelerationBrakingAndPlanarConstraints(8,False)" methodname="CollisionAccelerationBrakingAndPlanarConstraints" classname="PirateGame.Tests.T04.ShipTests" runstate="Runnable" seed="1760411192" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:10Z" duration="0.031740" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1009" name="CollisionAccelerationBrakingAndPlanarConstraints(50,False)" fullname="PirateGame.Tests.T04.ShipTests.CollisionAccelerationBrakingAndPlanarConstraints(50,False)" methodname="CollisionAccelerationBrakingAndPlanarConstraints" classname="PirateGame.Tests.T04.ShipTests" runstate="Runnable" seed="359922241" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:10Z" duration="0.028371" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1010" name="CollisionAccelerationBrakingAndPlanarConstraints(50,True)" fullname="PirateGame.Tests.T04.ShipTests.CollisionAccelerationBrakingAndPlanarConstraints(50,True)" methodname="CollisionAccelerationBrakingAndPlanarConstraints" classname="PirateGame.Tests.T04.ShipTests" runstate="Runnable" seed="296174315" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:10Z" duration="0.037724" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1014" name="KeyboardMouseBindingsAndEdges" fullname="PirateGame.Tests.T04.ShipTests.KeyboardMouseBindingsAndEdges" methodname="KeyboardMouseBindingsAndEdges" classname="PirateGame.Tests.T04.ShipTests" runstate="Runnable" seed="772305917" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:10Z" duration="0.223349" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1012" name="PauseFreezesBodyAndPublishedClockThenResumes" fullname="PirateGame.Tests.T04.ShipTests.PauseFreezesBodyAndPublishedClockThenResumes" methodname="PauseFreezesBodyAndPublishedClockThenResumes" classname="PirateGame.Tests.T04.ShipTests" runstate="Runnable" seed="1506071263" result="Passed" start-time="2026-09-18 16:46:10Z" end-time="2026-09-18 16:46:11Z" duration="0.452314" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1015" name="TickLockTests" fullname="PirateGame.Tests.T04.TickLockTests" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" testcasecount="34" result="Passed" start-time="2026-09-18 16:46:11Z" end-time="2026-09-18 16:46:20Z" duration="9.420927" total="34" passed="34" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1017" name="DirectPauseFromCollision" fullname="PirateGame.Tests.T04.TickLockTests.DirectPauseFromCollision" methodname="DirectPauseFromCollision" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1740788411" result="Passed" start-time="2026-09-18 16:46:11Z" end-time="2026-09-18 16:46:11Z" duration="0.304792" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1016" name="DirectPauseFromTick" fullname="PirateGame.Tests.T04.TickLockTests.DirectPauseFromTick" methodname="DirectPauseFromTick" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="389484296" result="Passed" start-time="2026-09-18 16:46:11Z" end-time="2026-09-18 16:46:11Z" duration="0.301411" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1021" name="DirectPauseNonlethalFromCollision" fullname="PirateGame.Tests.T04.TickLockTests.DirectPauseNonlethalFromCollision" methodname="DirectPauseNonlethalFromCollision" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1650376961" result="Passed" start-time="2026-09-18 16:46:11Z" end-time="2026-09-18 16:46:12Z" duration="0.302247" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1020" name="DirectPauseNonlethalFromTick" fullname="PirateGame.Tests.T04.TickLockTests.DirectPauseNonlethalFromTick" methodname="DirectPauseNonlethalFromTick" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="480981361" result="Passed" start-time="2026-09-18 16:46:12Z" end-time="2026-09-18 16:46:12Z" duration="0.301528" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1019" name="DirectPickupFromCollision" fullname="PirateGame.Tests.T04.TickLockTests.DirectPickupFromCollision" methodname="DirectPickupFromCollision" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1921677463" result="Passed" start-time="2026-09-18 16:46:12Z" end-time="2026-09-18 16:46:12Z" duration="0.301775" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1018" name="DirectPickupFromTick" fullname="PirateGame.Tests.T04.TickLockTests.DirectPickupFromTick" methodname="DirectPickupFromTick" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1201339755" result="Passed" start-time="2026-09-18 16:46:12Z" end-time="2026-09-18 16:46:13Z" duration="0.302082" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1023" name="DirectPickupNonlethalFromCollision" fullname="PirateGame.Tests.T04.TickLockTests.DirectPickupNonlethalFromCollision" methodname="DirectPickupNonlethalFromCollision" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1207128164" result="Passed" start-time="2026-09-18 16:46:13Z" end-time="2026-09-18 16:46:13Z" duration="0.302014" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1022" name="DirectPickupNonlethalFromTick" fullname="PirateGame.Tests.T04.TickLockTests.DirectPickupNonlethalFromTick" methodname="DirectPickupNonlethalFromTick" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1649722979" result="Passed" start-time="2026-09-18 16:46:13Z" end-time="2026-09-18 16:46:13Z" duration="0.301486" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1053" name="DisableRetainsStep" fullname="PirateGame.Tests.T04.TickLockTests.DisableRetainsStep" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-18 16:46:13Z" end-time="2026-09-18 16:46:15Z" duration="1.525821" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <test-case id="1049" name="DisableRetainsStep(0)" fullname="PirateGame.Tests.T04.TickLockTests.DisableRetainsStep(0)" methodname="DisableRetainsStep" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1646548019" result="Passed" start-time="2026-09-18 16:46:13Z" end-time="2026-09-18 16:46:14Z" duration="0.381449" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1050" name="DisableRetainsStep(1)" fullname="PirateGame.Tests.T04.TickLockTests.DisableRetainsStep(1)" methodname="DisableRetainsStep" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="517389202" result="Passed" start-time="2026-09-18 16:46:14Z" end-time="2026-09-18 16:46:14Z" duration="0.381300" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1051" name="DisableRetainsStep(2)" fullname="PirateGame.Tests.T04.TickLockTests.DisableRetainsStep(2)" methodname="DisableRetainsStep" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1255181437" result="Passed" start-time="2026-09-18 16:46:14Z" end-time="2026-09-18 16:46:14Z" duration="0.381110" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1052" name="DisableRetainsStep(3)" fullname="PirateGame.Tests.T04.TickLockTests.DisableRetainsStep(3)" methodname="DisableRetainsStep" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="881196207" result="Passed" start-time="2026-09-18 16:46:14Z" end-time="2026-09-18 16:46:15Z" duration="0.381176" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1048" name="DockOrderingAndProcessedFailures" fullname="PirateGame.Tests.T04.TickLockTests.DockOrderingAndProcessedFailures" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-18 16:46:15Z" end-time="2026-09-18 16:46:16Z" duration="1.049085" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <test-case id="1042" name="DockOrderingAndProcessedFailures(0)" fullname="PirateGame.Tests.T04.TickLockTests.DockOrderingAndProcessedFailures(0)" methodname="DockOrderingAndProcessedFailures" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1960984046" result="Passed" start-time="2026-09-18 16:46:15Z" end-time="2026-09-18 16:46:15Z" duration="0.101348" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1043" name="DockOrderingAndProcessedFailures(1)" fullname="PirateGame.Tests.T04.TickLockTests.DockOrderingAndProcessedFailures(1)" methodname="DockOrderingAndProcessedFailures" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="397388157" result="Passed" start-time="2026-09-18 16:46:15Z" end-time="2026-09-18 16:46:15Z" duration="0.221122" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1044" name="DockOrderingAndProcessedFailures(2)" fullname="PirateGame.Tests.T04.TickLockTests.DockOrderingAndProcessedFailures(2)" methodname="DockOrderingAndProcessedFailures" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="350847364" result="Passed" start-time="2026-09-18 16:46:15Z" end-time="2026-09-18 16:46:15Z" duration="0.101172" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1045" name="DockOrderingAndProcessedFailures(3)" fullname="PirateGame.Tests.T04.TickLockTests.DockOrderingAndProcessedFailures(3)" methodname="DockOrderingAndProcessedFailures" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1944402853" result="Passed" start-time="2026-09-18 16:46:15Z" end-time="2026-09-18 16:46:15Z" duration="0.221252" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1046" name="DockOrderingAndProcessedFailures(4)" fullname="PirateGame.Tests.T04.TickLockTests.DockOrderingAndProcessedFailures(4)" methodname="DockOrderingAndProcessedFailures" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1744989824" result="Passed" start-time="2026-09-18 16:46:15Z" end-time="2026-09-18 16:46:16Z" duration="0.201703" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1047" name="DockOrderingAndProcessedFailures(5)" fullname="PirateGame.Tests.T04.TickLockTests.DockOrderingAndProcessedFailures(5)" methodname="DockOrderingAndProcessedFailures" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="73579045" result="Passed" start-time="2026-09-18 16:46:16Z" end-time="2026-09-18 16:46:16Z" duration="0.201485" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1032" name="SupportedPauseOrdering" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPauseOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-09-18 16:46:16Z" end-time="2026-09-18 16:46:18Z" duration="2.011861" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <test-case id="1024" name="SupportedPauseOrdering(0)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPauseOrdering(0)" methodname="SupportedPauseOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="723408942" result="Passed" start-time="2026-09-18 16:46:16Z" end-time="2026-09-18 16:46:16Z" duration="0.301422" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1025" name="SupportedPauseOrdering(1)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPauseOrdering(1)" methodname="SupportedPauseOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1008598493" result="Passed" start-time="2026-09-18 16:46:16Z" end-time="2026-09-18 16:46:16Z" duration="0.301396" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1026" name="SupportedPauseOrdering(2)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPauseOrdering(2)" methodname="SupportedPauseOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="955467432" result="Passed" start-time="2026-09-18 16:46:16Z" end-time="2026-09-18 16:46:17Z" duration="0.301260" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1027" name="SupportedPauseOrdering(3)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPauseOrdering(3)" methodname="SupportedPauseOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1186315614" result="Passed" start-time="2026-09-18 16:46:17Z" end-time="2026-09-18 16:46:17Z" duration="0.301411" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1028" name="SupportedPauseOrdering(4)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPauseOrdering(4)" methodname="SupportedPauseOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="776677712" result="Passed" start-time="2026-09-18 16:46:17Z" end-time="2026-09-18 16:46:17Z" duration="0.201179" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1029" name="SupportedPauseOrdering(5)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPauseOrdering(5)" methodname="SupportedPauseOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="86651549" result="Passed" start-time="2026-09-18 16:46:17Z" end-time="2026-09-18 16:46:17Z" duration="0.201277" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1030" name="SupportedPauseOrdering(6)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPauseOrdering(6)" methodname="SupportedPauseOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1135605071" result="Passed" start-time="2026-09-18 16:46:17Z" end-time="2026-09-18 16:46:18Z" duration="0.201249" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1031" name="SupportedPauseOrdering(7)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPauseOrdering(7)" methodname="SupportedPauseOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1583919189" result="Passed" start-time="2026-09-18 16:46:18Z" end-time="2026-09-18 16:46:18Z" duration="0.201353" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1041" name="SupportedPickupOrdering" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPickupOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-09-18 16:46:18Z" end-time="2026-09-18 16:46:20Z" duration="2.414632" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <test-case id="1033" name="SupportedPickupOrdering(0)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPickupOrdering(0)" methodname="SupportedPickupOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="773679866" result="Passed" start-time="2026-09-18 16:46:18Z" end-time="2026-09-18 16:46:18Z" duration="0.301532" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1034" name="SupportedPickupOrdering(1)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPickupOrdering(1)" methodname="SupportedPickupOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="768090827" result="Passed" start-time="2026-09-18 16:46:18Z" end-time="2026-09-18 16:46:18Z" duration="0.301439" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1035" name="SupportedPickupOrdering(2)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPickupOrdering(2)" methodname="SupportedPickupOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="595201421" result="Passed" start-time="2026-09-18 16:46:18Z" end-time="2026-09-18 16:46:19Z" duration="0.301318" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1036" name="SupportedPickupOrdering(3)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPickupOrdering(3)" methodname="SupportedPickupOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1341705849" result="Passed" start-time="2026-09-18 16:46:19Z" end-time="2026-09-18 16:46:19Z" duration="0.301418" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1037" name="SupportedPickupOrdering(4)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPickupOrdering(4)" methodname="SupportedPickupOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="677426452" result="Passed" start-time="2026-09-18 16:46:19Z" end-time="2026-09-18 16:46:19Z" duration="0.301707" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1038" name="SupportedPickupOrdering(5)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPickupOrdering(5)" methodname="SupportedPickupOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1506450037" result="Passed" start-time="2026-09-18 16:46:19Z" end-time="2026-09-18 16:46:20Z" duration="0.301508" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1039" name="SupportedPickupOrdering(6)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPickupOrdering(6)" methodname="SupportedPickupOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1959535810" result="Passed" start-time="2026-09-18 16:46:20Z" end-time="2026-09-18 16:46:20Z" duration="0.302053" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1040" name="SupportedPickupOrdering(7)" fullname="PirateGame.Tests.T04.TickLockTests.SupportedPickupOrdering(7)" methodname="SupportedPickupOrdering" classname="PirateGame.Tests.T04.TickLockTests" runstate="Runnable" seed="1033421773" result="Passed" start-time="2026-09-18 16:46:20Z" end-time="2026-09-18 16:46:20Z" duration="0.302256" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/henri/AppData/LocalLow/PiratePrototype/Pirate Prototype\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

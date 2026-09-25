@@ -1,0 +1,262 @@
+[
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion.meta",
+        "sha256":  "AEC3C3B8CF32B8AD688C5BE458E39B484DB58E313FF3651E95F24AF04670CB2F",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion\\FirstRegion.asset",
+        "sha256":  "BBDB25993D40CE5D7D924AC835C1274E8F8B2C86EC82CFA06FFF4D6C1E2EBD35",
+        "bytes":  1635
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion\\FirstRegion.asset.meta",
+        "sha256":  "037FFBA336E9BAD1703A92888193A827515F46B04F28ADFCD1DB0BFD9BD25812",
+        "bytes":  189
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion\\FirstRegionAsset.cs",
+        "sha256":  "8A41552DC7C49AA8A4100194702D4068D8244401A9AFD4EA8692DAF05AD3EC75",
+        "bytes":  4436
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion\\FirstRegionAsset.cs.meta",
+        "sha256":  "D3A4E36D54A2645793F99EA48702B0C8B776C760257C9EFF0B686BC205372895",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion\\Island green.mat",
+        "sha256":  "740F3838D0A85E8851F66DAF5675F606CB7A89C0BF0AF39426485467A72B373E",
+        "bytes":  8129
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion\\Island green.mat.meta",
+        "sha256":  "2529397EC5791A0212C1846651DF9EFAA3CD53BA1D0E0C2CBDA965A21B821DD4",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion\\PirateGame.FirstRegion.asmdef",
+        "sha256":  "34BE1690B9D9314B02FC294D62FBDFE0E0F10BCD9C471C7A753096B53D9FE2C3",
+        "bytes":  67
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion\\PirateGame.FirstRegion.asmdef.meta",
+        "sha256":  "CB8E980CC5475203B69BA4FAA6492BDBBC5E4AFA57F5C508FB539CB0D27BA81A",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion\\Salvage iron.mat",
+        "sha256":  "7A6771C661B8F1B7240F70574C9C6DF771B8FD8E43476222CD3A17E32411B011",
+        "bytes":  8129
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion\\Salvage iron.mat.meta",
+        "sha256":  "E2A06DA92ED88DE171B45BE0DAC78C6AEEF22BCE31282847F879E517DACF1BE9",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion\\Salvage timber.mat",
+        "sha256":  "E1AB4B84F1682B4DEA2455CBA19365104FE9953703139841831237354BE54225",
+        "bytes":  8131
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\World\\FirstRegion\\Salvage timber.mat.meta",
+        "sha256":  "C909F70102AC597A54FD324C3464488F640C9D2677C3F243D58D45C41A36AEB8",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\World\\Salvage.meta",
+        "sha256":  "54FC43D9955A6F86255451465A1D27EA337AB7368908B5A1CDE30D49F17BFD4A",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\World\\Salvage\\PirateGame.Salvage.asmdef",
+        "sha256":  "BE0F546F7D03785023E94AE2F26C9F654A64DBE1E61A341747C929EABDBE94CF",
+        "bytes":  107
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\World\\Salvage\\PirateGame.Salvage.asmdef.meta",
+        "sha256":  "F235BA85087DB71AA130D4B383E613B0A5D5FECE8EE189CE26821F1771601CAD",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\World\\Salvage\\SalvageInteraction.cs",
+        "sha256":  "5B02EB1D59AF7D59A723033867EDE5E155AA2B150F93D5F487C0D539AB01D09B",
+        "bytes":  2030
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\World\\Salvage\\SalvageInteraction.cs.meta",
+        "sha256":  "C1A72CC5A5830EAAD22B1B36F9487E8B1476994B4C34CA872AD52BA8179371C1",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\World\\Salvage\\SalvageRegion.cs",
+        "sha256":  "F632954DCA84987352C2C4BB1920123CFB170E1C914FE90D542FA2E4A99F67E2",
+        "bytes":  2163
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\World\\Salvage\\SalvageRegion.cs.meta",
+        "sha256":  "C09105B203C4494ACD15561A5CAAADBAA5D28BBED860781DBE734ED382842A95",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\World\\Salvage\\SalvageSource.cs",
+        "sha256":  "02435330630BF71F02FA4A875976931B07860B6863DAB8897AC792DF42061C5B",
+        "bytes":  2526
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\World\\Salvage\\SalvageSource.cs.meta",
+        "sha256":  "5F78BABB278C256984E0ED573B5DDE93796C8C699AA74175BC71C55DF8E6B661",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\World.meta",
+        "sha256":  "BA676149FB4A9C753457BDD0882AD113DAAD8A947EEA88798E4AAF60D044CF9B",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\World\\Barrel.prefab",
+        "sha256":  "604A8EDB50183E806677CCE9D46C81AE95917314F9241874B87839507415F589",
+        "bytes":  6700
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\World\\Barrel.prefab.meta",
+        "sha256":  "1F0CAF941090EFF4E4C8FA0C3DDC9BC5877455EF362765EAD5253DC401656B84",
+        "bytes":  154
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\World\\FirstRegion.prefab",
+        "sha256":  "5B011903D7B8FDEBFF615602486AF8DEE1B804D6C2D0B73E30DD2A8B0D075558",
+        "bytes":  73822
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\World\\FirstRegion.prefab.meta",
+        "sha256":  "7AF91DE8D95F664E7D8597EDA1B925B447E7661A5A25AE5EF919459C58042308",
+        "bytes":  154
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\World\\Wreck.prefab",
+        "sha256":  "5294CB3C74A4949067D70D25083951C50325671E6E6C1A7B8D7F1E413DDC0E62",
+        "bytes":  14695
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\World\\Wreck.prefab.meta",
+        "sha256":  "268E7DAF641E951D80A4BC7B526E2FCCF9B6FEF14301A0AAF3783307BDC337C5",
+        "bytes":  154
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Regions\\FirstRegion.unity",
+        "sha256":  "F255F7DF657EBDED47148B2E365254BB5DCE1896823310DF6F42D2F2E4081384",
+        "bytes":  5952
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Regions\\FirstRegion.unity.meta",
+        "sha256":  "CC00839E56928E316EF51EEA49E02CF488326A9FAEEBCFA7758E83CFFD8CF5F7",
+        "bytes":  155
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06.meta",
+        "sha256":  "7D6275666E7A6BC86B2C5BB3CB968CCB5C3AABE45D8363FF3CCF63D76852B0F5",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\Editor.meta",
+        "sha256":  "42DC2EB7642F24787B70A0A01A6D302F5CCB3017E0E7C936EEC939E276D259E0",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\Editor\\PirateGame.T06.Authoring.asmdef",
+        "sha256":  "797121AB5D6A9A60F81BF31EE37040A62DFD68286F1842A1D3CFC2BCD05C483C",
+        "bytes":  214
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\Editor\\PirateGame.T06.Authoring.asmdef.meta",
+        "sha256":  "BACBEC55C7F6DC520E49EA713E17F7AFF596625C1F79FC245C745CFDE4BF1854",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\Editor\\RegionAuthoring.cs",
+        "sha256":  "F747E8F5DABB9930DB555E76139471EA52A47E859F32FDEC54ED69EFA2514656",
+        "bytes":  12970
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\Editor\\RegionAuthoring.cs.meta",
+        "sha256":  "A8481F2163128E537036F4517084CF44B197F38E3CE0EA58957ECB7462A090AF",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\HudCapture.cs",
+        "sha256":  "BFEB6FE6AB2949FC54636ABD61280898B33A6A0A5EEF466CBAB93B3137633FB3",
+        "bytes":  3559
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\HudCapture.cs.meta",
+        "sha256":  "8D36922AF6DF5D1E6696500BBCC2544AE3C876CD8498933E3555A0D3D6E9C21B",
+        "bytes":  60
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\PirateGame.T06.Fixture.asmdef",
+        "sha256":  "5E23CE1CCB97696564E8283886C8B740A37DB3A79B814DAA71BC89F2962ED55F",
+        "bytes":  152
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\PirateGame.T06.Fixture.asmdef.meta",
+        "sha256":  "355D902956874480CECA45B6324467751F49E8ABC59D136B412686648AF2FB76",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\RegionCapture.cs",
+        "sha256":  "24E6D7CCDCA18AB45B9EB163B2FF168DA5B6908C3E2DD7551C4749E86BD19697",
+        "bytes":  4489
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\RegionCapture.cs.meta",
+        "sha256":  "7E0A0E9ED84283CFE8F6F930E4F32328E632D7322CF29F05127A7D08C43524C3",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\Salvage.unity",
+        "sha256":  "27B292711519A13E71273C566649A87E855364F0081888FE3C9F70ECB7F33BE4",
+        "bytes":  37074
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\Salvage.unity.meta",
+        "sha256":  "A925596DCE8285536ED846492F2CCF27DF9CE527CDFA9287F854C7E7C0A1EA5C",
+        "bytes":  155
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\SalvageFixture.cs",
+        "sha256":  "80283C96AE95571BB70F570C0207C0542F177A535D2AADBD8A327FEA754B3F80",
+        "bytes":  4664
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T06\\SalvageFixture.cs.meta",
+        "sha256":  "BB6657AD6E3C6FF1171889A5B75AD74A749FD4C49FA05A4F4A0A89D7ABBD3065",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T06.meta",
+        "sha256":  "A37E151CC453C20B5E4811AB7A2626CE37E756621D9DA8093AE5A31D9CC70D49",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T06\\PirateGame.T06.Tests.asmdef",
+        "sha256":  "572BB4748BD040237D76555245339176A539DD8442CE813836BBD85F5A2A3BC8",
+        "bytes":  267
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T06\\PirateGame.T06.Tests.asmdef.meta",
+        "sha256":  "EF897B67822E08C00749B88B540D3E219C0AA745350815BD7A0E4DE18F6E374F",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T06\\SalvageTests.cs",
+        "sha256":  "4352E2B6D7EC741CD38E63EF7B66F42CB5400972327F7A06B9EF02FC78A1046A",
+        "bytes":  13610
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T06\\SalvageTests.cs.meta",
+        "sha256":  "6D7AB07EB57E608BF00C56E2F4AF0451E42A4EEEC889B0F748532C7105720F88",
+        "bytes":  59
+    }
+]

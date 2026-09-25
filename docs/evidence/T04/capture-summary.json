@@ -1,0 +1,78 @@
+[
+    {
+        "kind":  "measured",
+        "requestedFPS":  30,
+        "frames":  202,
+        "averageDelta":  0.037304204279207893,
+        "medianDelta":  0.0333334,
+        "p95Delta":  0.0333342962,
+        "lastTick":  350,
+        "finalX":  6.99999332,
+        "finalZ":  18.6
+    },
+    {
+        "kind":  "measured",
+        "requestedFPS":  60,
+        "frames":  399,
+        "averageDelta":  0.0190404188228069,
+        "medianDelta":  0.0166667029,
+        "p95Delta":  0.0166672058,
+        "lastTick":  350,
+        "finalX":  6.99999332,
+        "finalZ":  18.6
+    },
+    {
+        "kind":  "measured",
+        "requestedFPS":  120,
+        "frames":  794,
+        "averageDelta":  0.0097238945204155946,
+        "medianDelta":  0.008333405,
+        "p95Delta":  0.008334,
+        "lastTick":  350,
+        "finalX":  6.99999332,
+        "finalZ":  18.6
+    },
+    {
+        "kind":  "measured-comparison",
+        "commonTicks":  202,
+        "maximumPositionDifference":  0
+    },
+    {
+        "kind":  "footage",
+        "requestedFPS":  30,
+        "frames":  211,
+        "averageDelta":  0.037121370173933632,
+        "medianDelta":  0.0333334059,
+        "p95Delta":  0.0333772972,
+        "lastTick":  350,
+        "finalX":  6.99999332,
+        "finalZ":  18.6
+    },
+    {
+        "kind":  "footage",
+        "requestedFPS":  60,
+        "frames":  421,
+        "averageDelta":  0.025557376268883585,
+        "medianDelta":  0.0229504034,
+        "p95Delta":  0.0279634,
+        "lastTick":  350,
+        "finalX":  6.99999332,
+        "finalZ":  18.6
+    },
+    {
+        "kind":  "footage",
+        "requestedFPS":  120,
+        "frames":  840,
+        "averageDelta":  0.024723497520476159,
+        "medianDelta":  0.0232731011,
+        "p95Delta":  0.0284110978,
+        "lastTick":  350,
+        "finalX":  6.99999332,
+        "finalZ":  18.6
+    },
+    {
+        "kind":  "footage-comparison",
+        "commonTicks":  211,
+        "maximumPositionDifference":  0
+    }
+]

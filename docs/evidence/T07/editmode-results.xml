@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="9" result="Passed" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 07:19:50Z" end-time="2026-09-19 07:19:51Z" duration="0.7455382">
+  <test-suite type="TestSuite" id="1000" name="Pirate Prototype" fullname="Pirate Prototype" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-09-19 07:19:50Z" end-time="2026-09-19 07:19:51Z" duration="0.745538" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1051" name="PirateGame.T07.Tests.dll" fullname="C:/Users/henri/Documents/roguelikepirategame/Library/ScriptAssemblies/PirateGame.T07.Tests.dll" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-09-19 07:19:50Z" end-time="2026-09-19 07:19:51Z" duration="0.736289" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="14420" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1052" name="PirateGame" fullname="PirateGame" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-09-19 07:19:50Z" end-time="2026-09-19 07:19:51Z" duration="0.736010" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1053" name="Tests" fullname="PirateGame.Tests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-09-19 07:19:50Z" end-time="2026-09-19 07:19:51Z" duration="0.735835" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1054" name="T07" fullname="PirateGame.Tests.T07" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-09-19 07:19:50Z" end-time="2026-09-19 07:19:51Z" duration="0.735708" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1041" name="HarborTests" fullname="PirateGame.Tests.T07.HarborTests" classname="PirateGame.Tests.T07.HarborTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-09-19 07:19:50Z" end-time="2026-09-19 07:19:51Z" duration="0.734804" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1043" name="AC03_FiveCannotBuySixAndNothingChanges" fullname="PirateGame.Tests.T07.HarborTests.AC03_FiveCannotBuySixAndNothingChanges" methodname="AC03_FiveCannotBuySixAndNothingChanges" classname="PirateGame.Tests.T07.HarborTests" runstate="Runnable" seed="1366503943" result="Passed" start-time="2026-09-19 07:19:50Z" end-time="2026-09-19 07:19:51Z" duration="0.640591" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1044" name="AC16_DuplicateDraftCannotApplyOrEmbark" fullname="PirateGame.Tests.T07.HarborTests.AC16_DuplicateDraftCannotApplyOrEmbark" methodname="AC16_DuplicateDraftCannotApplyOrEmbark" classname="PirateGame.Tests.T07.HarborTests" runstate="Runnable" seed="751781504" result="Passed" start-time="2026-09-19 07:19:51Z" end-time="2026-09-19 07:19:51Z" duration="0.013694" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1045" name="AC16_IncompatibleDraftCannotApplyOrEmbark" fullname="PirateGame.Tests.T07.HarborTests.AC16_IncompatibleDraftCannotApplyOrEmbark" methodname="AC16_IncompatibleDraftCannotApplyOrEmbark" classname="PirateGame.Tests.T07.HarborTests" runstate="Runnable" seed="1836001405" result="Passed" start-time="2026-09-19 07:19:51Z" end-time="2026-09-19 07:19:51Z" duration="0.005980" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1049" name="ArrivalFailureKeepsEmbarkLockedUntilRetry" fullname="PirateGame.Tests.T07.HarborTests.ArrivalFailureKeepsEmbarkLockedUntilRetry" methodname="ArrivalFailureKeepsEmbarkLockedUntilRetry" classname="PirateGame.Tests.T07.HarborTests" runstate="Runnable" seed="1453932510" result="Passed" start-time="2026-09-19 07:19:51Z" end-time="2026-09-19 07:19:51Z" duration="0.020171" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1047" name="PendingDraftRequiresApplyThenEmbarksWithSharedStats" fullname="PirateGame.Tests.T07.HarborTests.PendingDraftRequiresApplyThenEmbarksWithSharedStats" methodname="PendingDraftRequiresApplyThenEmbarksWithSharedStats" classname="PirateGame.Tests.T07.HarborTests" runstate="Runnable" seed="669084786" result="Passed" start-time="2026-09-19 07:19:51Z" end-time="2026-09-19 07:19:51Z" duration="0.011849" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1042" name="PurchaseCommandsGrantOnceAndRefreshBothViews" fullname="PirateGame.Tests.T07.HarborTests.PurchaseCommandsGrantOnceAndRefreshBothViews" methodname="PurchaseCommandsGrantOnceAndRefreshBothViews" classname="PirateGame.Tests.T07.HarborTests" runstate="Runnable" seed="421677499" result="Passed" start-time="2026-09-19 07:19:51Z" end-time="2026-09-19 07:19:51Z" duration="0.009244" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1048" name="SaveFailureShowsCommittedStateAndRetryGrantsExactlyOnce" fullname="PirateGame.Tests.T07.HarborTests.SaveFailureShowsCommittedStateAndRetryGrantsExactlyOnce" methodname="SaveFailureShowsCommittedStateAndRetryGrantsExactlyOnce" classname="PirateGame.Tests.T07.HarborTests" runstate="Runnable" seed="965755128" result="Passed" start-time="2026-09-19 07:19:51Z" end-time="2026-09-19 07:19:51Z" duration="0.008078" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1050" name="TwoHarborViewsReadSameCampaignWithoutOwningCopies" fullname="PirateGame.Tests.T07.HarborTests.TwoHarborViewsReadSameCampaignWithoutOwningCopies" methodname="TwoHarborViewsReadSameCampaignWithoutOwningCopies" classname="PirateGame.Tests.T07.HarborTests" runstate="Runnable" seed="749482608" result="Passed" start-time="2026-09-19 07:19:51Z" end-time="2026-09-19 07:19:51Z" duration="0.007642" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1046" name="UnownedEquipmentRejectedBySharedCommand" fullname="PirateGame.Tests.T07.HarborTests.UnownedEquipmentRejectedBySharedCommand" methodname="UnownedEquipmentRejectedBySharedCommand" classname="PirateGame.Tests.T07.HarborTests" runstate="Runnable" seed="580413761" result="Passed" start-time="2026-09-19 07:19:51Z" end-time="2026-09-19 07:19:51Z" duration="0.004726" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/henri/AppData/LocalLow/PiratePrototype/Pirate Prototype\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

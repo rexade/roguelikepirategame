@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-18 13:01:27Z" end-time="2026-09-18 13:01:28Z" duration="0.9514249">
+  <test-suite type="TestSuite" id="1010" name="Pirate Prototype" fullname="Pirate Prototype" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-18 13:01:27Z" end-time="2026-09-18 13:01:28Z" duration="0.951425" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1003" name="PirateGame.Bootstrap.PlayModeTests.dll" fullname="C:/Users/henri/Documents/roguelikepirategame/Library/ScriptAssemblies/PirateGame.Bootstrap.PlayModeTests.dll" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-18 13:01:27Z" end-time="2026-09-18 13:01:28Z" duration="0.943493" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="33672" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1004" name="PirateGame" fullname="PirateGame" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-18 13:01:27Z" end-time="2026-09-18 13:01:28Z" duration="0.942912" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1005" name="Bootstrap" fullname="PirateGame.Bootstrap" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-18 13:01:27Z" end-time="2026-09-18 13:01:28Z" duration="0.942635" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1006" name="Tests" fullname="PirateGame.Bootstrap.Tests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-18 13:01:27Z" end-time="2026-09-18 13:01:28Z" duration="0.942380" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1001" name="KeyboardNavigationTests" fullname="PirateGame.Bootstrap.Tests.KeyboardNavigationTests" classname="PirateGame.Bootstrap.Tests.KeyboardNavigationTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-18 13:01:27Z" end-time="2026-09-18 13:01:28Z" duration="0.941118" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1002" name="KeyboardFocusAndSceneNavigation" fullname="PirateGame.Bootstrap.Tests.KeyboardNavigationTests.KeyboardFocusAndSceneNavigation" methodname="KeyboardFocusAndSceneNavigation" classname="PirateGame.Bootstrap.Tests.KeyboardNavigationTests" runstate="Runnable" seed="1748790677" result="Failed" start-time="2026-09-18 13:01:27Z" end-time="2026-09-18 13:01:28Z" duration="0.930463" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Injected keyboard event reached Input System
+  Expected: True
+  But was:  False
+]]></message>
+                  <stack-trace><![CDATA[at PirateGame.Bootstrap.Tests.KeyboardNavigationTests+<Press>d__2.MoveNext () [0x00081] in C:\Users\henri\Documents\roguelikepirategame\Assets\_Game\Bootstrap\Tests\KeyboardNavigationTests.cs:45
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@bd7f943e9647\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[T01 input diagnostics: focused=False; enabled actions=Debug Menu/Enable Debug[/T01VerificationKeyboard/leftCtrl,/T01VerificationKeyboard/backspace], Debug Menu/Debug Reset[/T01VerificationKeyboard/leftAlt,/T01VerificationKeyboard/backspace], Debug Menu/Debug Next[/T01VerificationKeyboard/pageDown], Debug Menu/Debug Previous[/T01VerificationKeyboard/pageUp], Debug Menu/Debug Validate[/T01VerificationKeyboard/enter], Debug Menu/Debug Persistent[/T01VerificationKeyboard/rightShift], Debug Menu/Debug Multiplier[/T01VerificationKeyboard/leftShift], Debug Menu/Debug Vertical[/T01VerificationKeyboard/upArrow,/T01VerificationKeyboard/downArrow], Debug Menu/Debug Horizontal[/T01VerificationKeyboard/rightArrow,/T01VerificationKeyboard/leftArrow], UI/Navigate[/T01VerificationKeyboard/w,/T01VerificationKeyboard/upArrow,/T01VerificationKeyboard/s,/T01VerificationKeyboard/downArrow,/T01VerificationKeyboard/a,/T01VerificationKeyboard/leftArrow,/T01VerificationKeyboard/d,/T01VerificationKeyboard/rightArrow], UI/Submit[/T01VerificationKeyboard/enter], UI/Cancel[/T01VerificationKeyboard/escape], UI/Point, UI/Click, UI/ScrollWheel, UI/MiddleClick, UI/RightClick, UI/TrackedDevicePosition, UI/TrackedDeviceOrientation, nextPreviousAction[/T01VerificationKeyboard/tab]
+Saving results to: C:/Users/henri/AppData/LocalLow/PiratePrototype/Pirate Prototype\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

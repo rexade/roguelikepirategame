@@ -1,0 +1,28 @@
+{
+    "source-files":  {
+                         "entries":  53,
+                         "mismatches":  0
+                     },
+    "build-files":  {
+                        "entries":  291,
+                        "mismatches":  0
+                    },
+    "changedAssets":  [
+                          "Assets\\_Game\\Gameplay\\Combat\\CombatTarget.cs",
+                          "Assets\\_Game\\Gameplay\\Combat\\CombatWorld.cs",
+                          "Assets\\_Game\\Scenes\\Tests\\T05\\CombatCapture.cs",
+                          "Assets\\_Game\\Scenes\\Tests\\T05\\CombatView.cs",
+                          "Assets\\_Game\\Scenes\\Tests\\T05\\Editor\\CombatAuthoring.cs",
+                          "Assets\\_Game\\Tests\\T05\\CombatTests.cs"
+                      ],
+    "cannon":  {
+                   "frames":  330,
+                   "lastHealth":  "54",
+                   "mismatches":  0
+               },
+    "repeater":  {
+                     "frames":  330,
+                     "lastHealth":  "54",
+                     "mismatches":  0
+                 }
+}

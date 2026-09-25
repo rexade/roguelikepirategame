@@ -1,0 +1,1 @@
+{"name":"PirateGame.T04.Tests","references":["PirateGame.Core","PirateGame.Ships","PirateGame.ShipInput","PirateGame.ShipPresentation","PirateGame.T04.Fixture","Unity.InputSystem"],"optionalUnityReferences":["TestAssemblies"],"autoReferenced":false,"defineConstraints":["UNITY_INCLUDE_TESTS"]}

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="12" result="Passed" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-18 22:13:56Z" end-time="2026-09-18 22:13:58Z" duration="1.1562482">
+  <test-suite type="TestSuite" id="1103" name="Pirate Prototype" fullname="Pirate Prototype" runstate="Runnable" testcasecount="73" result="Passed" start-time="2026-09-18 22:13:56Z" end-time="2026-09-18 22:13:58Z" duration="1.156248" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1096" name="PirateGame.T06.Tests.dll" fullname="C:/Users/henri/Documents/roguelikepirategame/Library/ScriptAssemblies/PirateGame.T06.Tests.dll" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:58Z" duration="1.147955" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="36680" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1097" name="PirateGame" fullname="PirateGame" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:58Z" duration="1.147377" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1098" name="Tests" fullname="PirateGame.Tests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:58Z" duration="1.147105" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1099" name="T06" fullname="PirateGame.Tests.T06" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:58Z" duration="1.146855" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1083" name="SalvageTests" fullname="PirateGame.Tests.T06.SalvageTests" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:58Z" duration="1.145672" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1090" name="AssetRenameDoesNotChangeIdentityOrGeography" fullname="PirateGame.Tests.T06.SalvageTests.AssetRenameDoesNotChangeIdentityOrGeography" methodname="AssetRenameDoesNotChangeIdentityOrGeography" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="545638796" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:57Z" duration="0.025005" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1094" name="AuthoredRouteHasHullClearanceAndIslandCollision" fullname="PirateGame.Tests.T06.SalvageTests.AuthoredRouteHasHullClearanceAndIslandCollision" methodname="AuthoredRouteHasHullClearanceAndIslandCollision" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="149939400" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:57Z" duration="0.009919" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1087" name="DuplicateCallbacksCreditOnce" fullname="PirateGame.Tests.T06.SalvageTests.DuplicateCallbacksCreditOnce" methodname="DuplicateCallbacksCreditOnce" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="1067520948" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:57Z" duration="0.037192" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1089" name="DuplicateIdsReportBothRegions" fullname="PirateGame.Tests.T06.SalvageTests.DuplicateIdsReportBothRegions" methodname="DuplicateIdsReportBothRegions" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="28732934" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:57Z" duration="0.003214" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1088" name="FailedSaveKeepsSourceAndCargoUntilRetry" fullname="PirateGame.Tests.T06.SalvageTests.FailedSaveKeepsSourceAndCargoUntilRetry" methodname="FailedSaveKeepsSourceAndCargoUntilRetry" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="21027970" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:57Z" duration="0.001563" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1085" name="FullCargoRejectsWholeBundle" fullname="PirateGame.Tests.T06.SalvageTests.FullCargoRejectsWholeBundle" methodname="FullCargoRejectsWholeBundle" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="137851217" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:57Z" duration="0.000409" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1086" name="HudReportsNoSourceAndFullCargoWithoutMutation" fullname="PirateGame.Tests.T06.SalvageTests.HudReportsNoSourceAndFullCargoWithoutMutation" methodname="HudReportsNoSourceAndFullCargoWithoutMutation" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="1823567887" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:57Z" duration="0.326291" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1095" name="InteractionQueuesThenCommitsAfterDamageAndPause" fullname="PirateGame.Tests.T06.SalvageTests.InteractionQueuesThenCommitsAfterDamageAndPause" methodname="InteractionQueuesThenCommitsAfterDamageAndPause" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="102245700" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:57Z" duration="0.229648" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1091" name="InvalidReferencesFailBeforePlay" fullname="PirateGame.Tests.T06.SalvageTests.InvalidReferencesFailBeforePlay" methodname="InvalidReferencesFailBeforePlay" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="972335800" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:57Z" duration="0.000598" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1093" name="MissingEntityDoesNotSeedFreshLoot" fullname="PirateGame.Tests.T06.SalvageTests.MissingEntityDoesNotSeedFreshLoot" methodname="MissingEntityDoesNotSeedFreshLoot" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="576246113" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:57Z" duration="0.002960" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1092" name="RecreateAndReloadKeepDepletedWreck" fullname="PirateGame.Tests.T06.SalvageTests.RecreateAndReloadKeepDepletedWreck" methodname="RecreateAndReloadKeepDepletedWreck" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="392912874" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:57Z" duration="0.003500" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1084" name="StartupHudAndFreshReloadAreNeutral" fullname="PirateGame.Tests.T06.SalvageTests.StartupHudAndFreshReloadAreNeutral" methodname="StartupHudAndFreshReloadAreNeutral" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="1966715484" result="Passed" start-time="2026-09-18 22:13:57Z" end-time="2026-09-18 22:13:58Z" duration="0.493726" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/henri/AppData/LocalLow/PiratePrototype/Pirate Prototype\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

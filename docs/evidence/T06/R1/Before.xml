@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-18 22:11:06Z" end-time="2026-09-18 22:11:07Z" duration="0.3875292">
+  <test-suite type="TestSuite" id="1102" name="Pirate Prototype" fullname="Pirate Prototype" runstate="Runnable" testcasecount="72" result="Failed" site="Child" start-time="2026-09-18 22:11:06Z" end-time="2026-09-18 22:11:07Z" duration="0.387529" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1095" name="PirateGame.T06.Tests.dll" fullname="C:/Users/henri/Documents/roguelikepirategame/Library/ScriptAssemblies/PirateGame.T06.Tests.dll" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-09-18 22:11:06Z" end-time="2026-09-18 22:11:07Z" duration="0.378396" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="30528" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1096" name="PirateGame" fullname="PirateGame" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-09-18 22:11:06Z" end-time="2026-09-18 22:11:07Z" duration="0.377769" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1097" name="Tests" fullname="PirateGame.Tests" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-09-18 22:11:06Z" end-time="2026-09-18 22:11:07Z" duration="0.377345" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1098" name="T06" fullname="PirateGame.Tests.T06" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-09-18 22:11:06Z" end-time="2026-09-18 22:11:07Z" duration="0.376950" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1083" name="SalvageTests" fullname="PirateGame.Tests.T06.SalvageTests" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-09-18 22:11:06Z" end-time="2026-09-18 22:11:07Z" duration="0.375926" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1084" name="StartupHudAndFreshReloadAreNeutral" fullname="PirateGame.Tests.T06.SalvageTests.StartupHudAndFreshReloadAreNeutral" methodname="StartupHudAndFreshReloadAreNeutral" classname="PirateGame.Tests.T06.SalvageTests" runstate="Runnable" seed="1410912281" result="Failed" label="Error" start-time="2026-09-18 22:11:06Z" end-time="2026-09-18 22:11:07Z" duration="0.364286" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+                  <stack-trace><![CDATA[  at PirateGame.Tests.T06.SalvageFixture.HudText () [0x0006e] in C:\Users\henri\Documents\roguelikepirategame\Assets\_Game\Scenes\Tests\T06\SalvageFixture.cs:71 
+  at PirateGame.Tests.T06.SalvageTests+<StartupHudAndFreshReloadAreNeutral>d__2.MoveNext () [0x000e8] in C:\Users\henri\Documents\roguelikepirategame\Assets\_Game\Tests\T06\SalvageTests.cs:34 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@bd7f943e9647\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: C:/Users/henri/AppData/LocalLow/PiratePrototype/Pirate Prototype\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

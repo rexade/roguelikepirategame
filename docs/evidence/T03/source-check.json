@@ -1,0 +1,9 @@
+{
+    "output":  "T03-r1",
+    "files":  38,
+    "missingMetadata":  0,
+    "inheritedT02FilesVerified":  49,
+    "changedInheritedFiles":  0,
+    "noEngineReferences":  true,
+    "forbiddenImports":  0
+}

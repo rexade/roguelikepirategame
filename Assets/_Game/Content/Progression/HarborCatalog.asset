@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 069e25af1fc68a64eb6f65d5151417ef, type: 3}
+  m_Name: HarborCatalog
+  m_EditorClassIdentifier: PirateGame.Definitions::PirateGame.Content.Definitions.DefinitionCatalogAsset
+  resources:
+  - id: wood
+    weight: 1
+  - id: iron
+    weight: 2
+  hulls:
+  - id: starter
+    slots:
+    - id: weapon
+      kind: 0
+    - id: ability
+      kind: 1
+    stats:
+    - id: health
+      value: 100
+      minimum: 1
+      maximum: 1000
+    - id: cargo
+      value: 10
+      minimum: 0
+      maximum: 1000
+    - id: speed
+      value: 8
+      minimum: 1
+      maximum: 50
+  equipment:
+  - id: cannon
+    kind: 0
+    modifiers: []
+  - id: heavy-cannon
+    kind: 0
+    modifiers:
+    - statId: health
+      operation: 0
+      value: 20
+  - id: dash
+    kind: 1
+    modifiers: []
+  hubs:
+  - id: home
+    regionId: harbor
+    x: 0
+    z: 0
+    radius: 5
+    maximumSpeed: 1
+  - id: other
+    regionId: harbor
+    x: 50
+    z: 0
+    radius: 5
+    maximumSpeed: 1
+  upgrades:
+  - id: harbor-storehouse
+    trackId: harbor
+    tier: 1
+    cost:
+    - id: wood
+      quantity: 5
+    requiredUnlocks: []
+    grants:
+    - storehouse
+    modifiers:
+    - statId: cargo
+      operation: 0
+      value: 5
+  - id: reinforced-hull
+    trackId: ship
+    tier: 1
+    cost:
+    - id: wood
+      quantity: 6
+    - id: iron
+      quantity: 2
+    requiredUnlocks: []
+    grants: []
+    modifiers:
+    - statId: health
+      operation: 1
+      value: 0.5
+  unlockIds:
+  - storehouse
+  entityDefinitionIds: []
+  regionIds:
+  - harbor
+  worldIdentities: []

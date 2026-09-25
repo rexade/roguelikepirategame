@@ -1,0 +1,6 @@
+{
+  "name": "PirateGame.Definitions.Editor",
+  "references": ["PirateGame.Core", "PirateGame.Definitions"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": true
+}

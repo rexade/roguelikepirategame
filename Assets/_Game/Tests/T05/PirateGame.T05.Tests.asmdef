@@ -1,0 +1,1 @@
+{"name":"PirateGame.T05.Tests","references":["PirateGame.Core","PirateGame.Ships","PirateGame.CombatContent","PirateGame.Definitions","PirateGame.Combat","PirateGame.CombatAI","PirateGame.T05.Fixture"],"optionalUnityReferences":["TestAssemblies"],"autoReferenced":false,"defineConstraints":["UNITY_INCLUDE_TESTS"]}

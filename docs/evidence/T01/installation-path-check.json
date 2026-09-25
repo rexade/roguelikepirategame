@@ -1,0 +1,12 @@
+﻿[
+    {
+        "path":  "C:\\Users\\henri\\Documents\\roguelikepirategame\\.tools\\Unity-6000.3.24f1\\Editor\\Data\\Resources\\PackageManager\\BuiltInPackages\\com.unity.render-pipelines.high-definition\\Runtime\\RenderPipeline\\Raytracing\\Shaders\\IndirectDiffuse\\RayTracingIndirectDiffuse_APVOff.raytrace",
+        "length":  265,
+        "exists":  false
+    },
+    {
+        "path":  "D:\\u6-t01\\Editor\\Data\\Resources\\PackageManager\\BuiltInPackages\\com.unity.render-pipelines.high-definition\\Runtime\\RenderPipeline\\Raytracing\\Shaders\\IndirectDiffuse\\RayTracingIndirectDiffuse_APVOff.raytrace",
+        "length":  205,
+        "exists":  true
+    }
+]

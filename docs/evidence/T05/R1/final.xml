@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="20" result="Failed(Child)" total="20" passed="19" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:26Z" duration="2.5495506">
+  <test-suite type="TestSuite" id="1086" name="Pirate Prototype" fullname="Pirate Prototype" runstate="Runnable" testcasecount="61" result="Failed" site="Child" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:26Z" duration="2.549551" total="20" passed="19" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1079" name="PirateGame.T05.Tests.dll" fullname="C:/Users/henri/Documents/roguelikepirategame/Library/ScriptAssemblies/PirateGame.T05.Tests.dll" runstate="Runnable" testcasecount="20" result="Failed" site="Child" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:26Z" duration="2.542360" total="20" passed="19" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="33328" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1080" name="PirateGame" fullname="PirateGame" runstate="Runnable" testcasecount="20" result="Failed" site="Child" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:26Z" duration="2.541953" total="20" passed="19" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1081" name="Tests" fullname="PirateGame.Tests" runstate="Runnable" testcasecount="20" result="Failed" site="Child" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:26Z" duration="2.541723" total="20" passed="19" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1082" name="T05" fullname="PirateGame.Tests.T05" runstate="Runnable" testcasecount="20" result="Failed" site="Child" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:26Z" duration="2.541498" total="20" passed="19" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1058" name="CombatTests" fullname="PirateGame.Tests.T05.CombatTests" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" testcasecount="20" result="Failed" site="Child" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:26Z" duration="2.540421" total="20" passed="19" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1059" name="AC13_DuplicateHitsDeathOnceAndNewOwnerOnReuse" fullname="PirateGame.Tests.T05.CombatTests.AC13_DuplicateHitsDeathOnceAndNewOwnerOnReuse" methodname="AC13_DuplicateHitsDeathOnceAndNewOwnerOnReuse" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="1438446683" result="Passed" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:24Z" duration="0.040227" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1068" name="BraceReducesCollectedDamageAndCooldownPreventsReactivation" fullname="PirateGame.Tests.T05.CombatTests.BraceReducesCollectedDamageAndCooldownPreventsReactivation" methodname="BraceReducesCollectedDamageAndCooldownPreventsReactivation" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="1051397829" result="Passed" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:24Z" duration="0.166798" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1069" name="CaptureCheckpointRestoreRetainsShotsTimersEnemyAndRejectsMalformedAtomically" fullname="PirateGame.Tests.T05.CombatTests.CaptureCheckpointRestoreRetainsShotsTimersEnemyAndRejectsMalformedAtomically" methodname="CaptureCheckpointRestoreRetainsShotsTimersEnemyAndRejectsMalformedAtomically" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="604746650" result="Passed" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:24Z" duration="0.111731" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1063" name="DefinitionsDetachAndRejectUnknownOrInvalidContent" fullname="PirateGame.Tests.T05.CombatTests.DefinitionsDetachAndRejectUnknownOrInvalidContent" methodname="DefinitionsDetachAndRejectUnknownOrInvalidContent" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="1311055616" result="Passed" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:24Z" duration="0.001847" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1064" name="DockedLoadoutSelectsDifferentWeaponAndAtSeaRefitRejects" fullname="PirateGame.Tests.T05.CombatTests.DockedLoadoutSelectsDifferentWeaponAndAtSeaRefitRejects" methodname="DockedLoadoutSelectsDifferentWeaponAndAtSeaRefitRejects" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="1316258177" result="Passed" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:24Z" duration="0.002019" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1065" name="EnemyArchetypesPursueAndRetreatUsingMotor" fullname="PirateGame.Tests.T05.CombatTests.EnemyArchetypesPursueAndRetreatUsingMotor" methodname="EnemyArchetypesPursueAndRetreatUsingMotor" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="632307688" result="Passed" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:24Z" duration="0.000921" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1066" name="EntityRestoreValidatesBeforeMutationAndDoesNotEmitDeathAgain" fullname="PirateGame.Tests.T05.CombatTests.EntityRestoreValidatesBeforeMutationAndDoesNotEmitDeathAgain" methodname="EntityRestoreValidatesBeforeMutationAndDoesNotEmitDeathAgain" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="1356076712" result="Passed" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:24Z" duration="0.000958" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1072" name="FailedSaveFreezesCombatAndRetryDoesNotReplayShots" fullname="PirateGame.Tests.T05.CombatTests.FailedSaveFreezesCombatAndRetryDoesNotReplayShots" methodname="FailedSaveFreezesCombatAndRetryDoesNotReplayShots" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="973423943" result="Passed" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:24Z" duration="0.281879" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1070" name="FreshSessionRestoresLiveProjectilesAndDefeatedEnemy" fullname="PirateGame.Tests.T05.CombatTests.FreshSessionRestoresLiveProjectilesAndDefeatedEnemy" methodname="FreshSessionRestoresLiveProjectilesAndDefeatedEnemy" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="1066684214" result="Passed" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:24Z" duration="0.182655" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1062" name="InitialOverlapAndRangeExpiryAreBounded" fullname="PirateGame.Tests.T05.CombatTests.InitialOverlapAndRangeExpiryAreBounded" methodname="InitialOverlapAndRangeExpiryAreBounded" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="956391264" result="Passed" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:24Z" duration="0.001201" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1073" name="LethalDamageWithFailedSinkPublishesOneOutcomeWithoutReplay" fullname="PirateGame.Tests.T05.CombatTests.LethalDamageWithFailedSinkPublishesOneOutcomeWithoutReplay" methodname="LethalDamageWithFailedSinkPublishesOneOutcomeWithoutReplay" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="219431697" result="Passed" start-time="2026-09-18 17:39:24Z" end-time="2026-09-18 17:39:25Z" duration="0.411195" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1067" name="PauseFreezesShotsCooldownsAbilityAndEnemyMotor" fullname="PirateGame.Tests.T05.CombatTests.PauseFreezesShotsCooldownsAbilityAndEnemyMotor" methodname="PauseFreezesShotsCooldownsAbilityAndEnemyMotor" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="749491732" result="Passed" start-time="2026-09-18 17:39:25Z" end-time="2026-09-18 17:39:25Z" duration="0.301228" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1076" name="R1_CommittedSinkPersistsReadStateAndNewCompositionStartsHealthy" fullname="PirateGame.Tests.T05.CombatTests.R1_CommittedSinkPersistsReadStateAndNewCompositionStartsHealthy" methodname="R1_CommittedSinkPersistsReadStateAndNewCompositionStartsHealthy" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="1673590752" result="Passed" start-time="2026-09-18 17:39:25Z" end-time="2026-09-18 17:39:25Z" duration="0.101935" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1078" name="R1_DamagedCheckpointFailureAndRetryKeepProcessedHealth" fullname="PirateGame.Tests.T05.CombatTests.R1_DamagedCheckpointFailureAndRetryKeepProcessedHealth" methodname="R1_DamagedCheckpointFailureAndRetryKeepProcessedHealth" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="761576810" result="Passed" start-time="2026-09-18 17:39:25Z" end-time="2026-09-18 17:39:25Z" duration="0.201144" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1077" name="R1_DockingDoesNotNotifyOrExposePlayerDeath" fullname="PirateGame.Tests.T05.CombatTests.R1_DockingDoesNotNotifyOrExposePlayerDeath" methodname="R1_DockingDoesNotNotifyOrExposePlayerDeath" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="1327879962" result="Passed" start-time="2026-09-18 17:39:25Z" end-time="2026-09-18 17:39:26Z" duration="0.101103" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1075" name="R1_PhysicalCollisionDamageAndPauseReadsProcessedState" fullname="PirateGame.Tests.T05.CombatTests.R1_PhysicalCollisionDamageAndPauseReadsProcessedState" methodname="R1_PhysicalCollisionDamageAndPauseReadsProcessedState" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="1049772176" result="Failed" start-time="2026-09-18 17:39:26Z" end-time="2026-09-18 17:39:26Z" duration="0.157167" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: 1
+  But was:  2
+]]></message>
+                  <stack-trace><![CDATA[at PirateGame.Tests.T05.CombatTests+<R1_PhysicalCollisionDamageAndPauseReadsProcessedState>d__28.MoveNext () [0x00100] in C:\Users\henri\Documents\roguelikepirategame\Assets\_Game\Tests\T05\CombatTests.cs:336
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@bd7f943e9647\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1074" name="R1_TickDamagePauseReadsProcessedStateWithoutAnotherTick" fullname="PirateGame.Tests.T05.CombatTests.R1_TickDamagePauseReadsProcessedStateWithoutAnotherTick" methodname="R1_TickDamagePauseReadsProcessedStateWithoutAnotherTick" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="1478282327" result="Passed" start-time="2026-09-18 17:39:26Z" end-time="2026-09-18 17:39:26Z" duration="0.201157" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1071" name="RetainedTickAndDisabledAdapterDoNotReplayCombat" fullname="PirateGame.Tests.T05.CombatTests.RetainedTickAndDisabledAdapterDoNotReplayCombat" methodname="RetainedTickAndDisabledAdapterDoNotReplayCombat" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="1247974634" result="Passed" start-time="2026-09-18 17:39:26Z" end-time="2026-09-18 17:39:26Z" duration="0.261238" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1060" name="SweptShotHitsCrossedThinTarget" fullname="PirateGame.Tests.T05.CombatTests.SweptShotHitsCrossedThinTarget" methodname="SweptShotHitsCrossedThinTarget" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="937332649" result="Passed" start-time="2026-09-18 17:39:26Z" end-time="2026-09-18 17:39:26Z" duration="0.000920" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1061" name="WallBlocksTargetAndFriendlyHullIsIgnored" fullname="PirateGame.Tests.T05.CombatTests.WallBlocksTargetAndFriendlyHullIsIgnored" methodname="WallBlocksTargetAndFriendlyHullIsIgnored" classname="PirateGame.Tests.T05.CombatTests" runstate="Runnable" seed="807433261" result="Passed" start-time="2026-09-18 17:39:26Z" end-time="2026-09-18 17:39:26Z" duration="0.000957" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/henri/AppData/LocalLow/PiratePrototype/Pirate Prototype\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

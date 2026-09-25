@@ -1,0 +1,1 @@
+{"name":"PirateGame.T04.Authoring","references":["PirateGame.T04.Fixture","PirateGame.Ships","PirateGame.ShipInput","PirateGame.ShipPresentation","PirateGame.ShipCamera"],"includePlatforms":["Editor"]}

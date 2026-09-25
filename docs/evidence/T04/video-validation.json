@@ -1,0 +1,32 @@
+[
+    {
+        "fps":  30,
+        "frames":  211,
+        "width":  1280,
+        "height":  720,
+        "decoded":  true,
+        "distinctSampledColors":  400,
+        "firstLastDiffer":  true,
+        "sha256":  "2750E5CE5F3CE905C1CCA0A4E9CC6F454F4A256B911A0B324FBF1E0BF236DD4F"
+    },
+    {
+        "fps":  60,
+        "frames":  421,
+        "width":  1280,
+        "height":  720,
+        "decoded":  true,
+        "distinctSampledColors":  402,
+        "firstLastDiffer":  true,
+        "sha256":  "FDC458FA67C4D4E1A0D9DA828A12F590896B794477D9C093885B077DEE6F76F1"
+    },
+    {
+        "fps":  120,
+        "frames":  840,
+        "width":  1280,
+        "height":  720,
+        "decoded":  true,
+        "distinctSampledColors":  407,
+        "firstLastDiffer":  true,
+        "sha256":  "74985F94DCD674E14ED72D15FF1A7777A9489739400B634DE4937294FF4F6893"
+    }
+]

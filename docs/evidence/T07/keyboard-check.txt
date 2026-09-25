@@ -1,0 +1,28 @@
+Waiting for keyboard-start.txt; Input System device-state injection, not OS keys.
+PASS: Application focused
+PASS: Input received: Tab
+PASS: Tab advances focus
+PASS: Input received: Tab
+PASS: Shift+Tab reverses focus
+PASS: Input received: Enter
+PASS: Input received: DownArrow
+PASS: Input received: DownArrow
+PASS: Input received: Enter
+PASS: Enter / Down / Down / Enter selects heavy cannon
+PASS: Input received: Tab
+PASS: Input received: Tab
+PASS: Input received: Enter
+PASS: Keyboard applies loadout
+PASS: Input received: Tab
+PASS: Input received: Tab
+PASS: Input received: Enter
+PASS: Keyboard buys storehouse
+PASS: Input received: Enter
+PASS: Keyboard repeated-tier error
+PASS: Input received: Tab
+PASS: Input received: Enter
+PASS: Keyboard buys hull; computed health 180
+PASS: Input received: Tab
+PASS: Input received: Enter
+PASS: Keyboard embarks
+PASS: keyboard route complete

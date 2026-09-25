@@ -1,0 +1,187 @@
+[
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Ships\\PirateGame.Ships.asmdef",
+        "sha256":  "3A29049A16B51980892C6DC7FD39BF3E24DC0E74456E3F086B010FAC9C020C85",
+        "bytes":  61
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Ships\\PirateGame.Ships.asmdef.meta",
+        "sha256":  "076478DF304354CF85F2CB2D662118DB48D5EC331F3C5DDC9913A7C377DA8366",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Ships\\ShipMotor.cs",
+        "sha256":  "C45465FAA51A649E4517720CEDAD5136C773B8161FC0151BAE598298E76AC328",
+        "bytes":  3383
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Ships\\ShipMotor.cs.meta",
+        "sha256":  "A37D06200E9189314829BC2F093D45ED2A94AA3C3C288B25C82E8EC6222C5782",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Ships\\ShipSimulation.cs",
+        "sha256":  "43F9C35910EB2C750F8A7EA03EDD852933737E633EF4C5E596FAA5BA448814D9",
+        "bytes":  3463
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Ships\\ShipSimulation.cs.meta",
+        "sha256":  "3955CE045B280FA6FABF206260E059094ED7B1E65C9BFC81FC491535FCBA751C",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Input\\PirateGame.ShipInput.asmdef",
+        "sha256":  "C1D999BC2F28C42DA89B7520922ACEC920635A7D306AE6619EC24B303F9DA934",
+        "bytes":  104
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Input\\PirateGame.ShipInput.asmdef.meta",
+        "sha256":  "888918BB85E3C4CFEF3696D2051E81BD53FEA2B40F93C89CDFDCDC862BC0143A",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Input\\ShipKeyboardMouse.cs",
+        "sha256":  "F7681FC4558EE729B21FC478EAEFC8F469DF808DB0F0507F1C071E44FC13C922",
+        "bytes":  2611
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Input\\ShipKeyboardMouse.cs.meta",
+        "sha256":  "4EDF34687C60D0DBB71B896DE13A0CA777AD1730B0BD32E7A564971AA3D26FD8",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Ships\\PirateGame.ShipPresentation.asmdef",
+        "sha256":  "D6CDE900430581E2BB8114C68F830DC5D11778E876B5EC3978AE7591AAD13D26",
+        "bytes":  91
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Ships\\PirateGame.ShipPresentation.asmdef.meta",
+        "sha256":  "9811EE85AF905089A25EE8FEDC5B3E9B48A57C66672B4198907FCD3FA719276C",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Ships\\ShipBobbing.cs",
+        "sha256":  "33CBE20559049E242C3329A53447BA8EC7CF1F6F4DBC4A90773128288BD1B479",
+        "bytes":  798
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Ships\\ShipBobbing.cs.meta",
+        "sha256":  "9ADE92E3343359E9C8711D708FA6FC2ADADA3CE29CCEBC98188C35FFF4F72F0F",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Camera\\PirateGame.ShipCamera.asmdef",
+        "sha256":  "54A716259759CDB75F0F01576E78C9556003FDECBDE4E4CEA4C876C329F4CF61",
+        "bytes":  49
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Camera\\PirateGame.ShipCamera.asmdef.meta",
+        "sha256":  "9819677070B27F3F92C6D3FF8EBB88BCA592D45639662822C03FEB41ED61AB7A",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Camera\\ShipFollowCamera.cs",
+        "sha256":  "6135139AE316B94ACB66F08C48BE02C22F9A01C2FF233D9787219D78CD0DB53F",
+        "bytes":  590
+    },
+    {
+        "path":  "Assets\\_Game\\Presentation\\Camera\\ShipFollowCamera.cs.meta",
+        "sha256":  "C4FBD949F90B6C232767AF89F1AA4890AE11AB39CDAB8F3B4628C5E72A698928",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\Ships\\PlayerCutter.prefab",
+        "sha256":  "6884B318AB65FFD10DCEC268458ABF7BC0DE39DAC90BEDF0256F760988FFC084",
+        "bytes":  8788
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\Ships\\PlayerCutter.prefab.meta",
+        "sha256":  "67FE9696EC94DB5DE5B8B517ECA820436A45E3AFBCF57F62A4D157573603EA2C",
+        "bytes":  154
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\Editor.meta",
+        "sha256":  "FFE1F80F15A43C4E471D264C83F0188B0AF3FFF4AFD1210AC18842B1A3FDAA99",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\PirateGame.T04.Fixture.asmdef",
+        "sha256":  "70CB729EA16A7FFDDF4FAE5E3B52D35CA2EDED9BCCACD6597F3B6F61F095ED47",
+        "bytes":  183
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\PirateGame.T04.Fixture.asmdef.meta",
+        "sha256":  "C0CC9C25EE917975E3C26D2DE890DFC2F26CAC15C0995DCE9525A126404AE6DB",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\ShipCapture.cs",
+        "sha256":  "21283AEF02CA886597112521E9D49C79DDBCF0BD2033B69C079C1D3FD7AED7A0",
+        "bytes":  4284
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\ShipCapture.cs.meta",
+        "sha256":  "BAEC84770827F2CA18B82D4D573A53A3A39D62C2ABE49C77DA12059F60013A48",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\ShipControls.unity",
+        "sha256":  "65803B1187D53B38207C5DF83E450BC402D4DC8813A66692C85FE6E14A82AFDB",
+        "bytes":  212055
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\ShipControls.unity.meta",
+        "sha256":  "D55AAEB70D1BE9E193EBC843DCFFDB79ED430FD27DF2EA438B3FA02D7B2266BB",
+        "bytes":  155
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\ShipTestScene.cs",
+        "sha256":  "15BF7D2D007A24DB3DB08BC1106E3EE78F8D740D126E9DE2ED47BD637A1E61B9",
+        "bytes":  2140
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\ShipTestScene.cs.meta",
+        "sha256":  "6C7F34D9E5F1B81DEAAEF9044DC4FB1E3E28E27AD708622E314A7ABA7D2A6773",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\Editor\\PirateGame.T04.Authoring.asmdef",
+        "sha256":  "C5FB02ABE009B29E9C5E4842AE5DE071C8FBF02BC7BF59074996F1CEC7A0D134",
+        "bytes":  202
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\Editor\\PirateGame.T04.Authoring.asmdef.meta",
+        "sha256":  "946DA45203709BCF4C809A97C24108685F62B90A34040E144546C42664D25F33",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\Editor\\ShipTestAuthoring.cs",
+        "sha256":  "4268E97197ACE2E2393F267D76DB2CFDE9ABF963842E970B118A75BADB41E372",
+        "bytes":  5291
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T04\\Editor\\ShipTestAuthoring.cs.meta",
+        "sha256":  "D74B432FA034D1F88066EE935942BEC8281071B735DBF41DACD44DCD568DE7F3",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T04\\PirateGame.T04.Tests.asmdef",
+        "sha256":  "5DF842B338D42F7576190C8B1B3B27E6FD616030BF4070A6FAA835AE6E46B761",
+        "bytes":  294
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T04\\PirateGame.T04.Tests.asmdef.meta",
+        "sha256":  "1AB47895278466589B44F5947B82EF1777E683FFE75342241AEE819B6ED1794D",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T04\\ShipTests.cs",
+        "sha256":  "6232D45933FAE9842892D34022420C249537B5BEC1D143C815C00D3ECA422B0E",
+        "bytes":  8288
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T04\\ShipTests.cs.meta",
+        "sha256":  "8640BC6FCD1943AD6E61C8ACAD5B026479099F44D778DB1EE7885B768B801E66",
+        "bytes":  59
+    }
+]

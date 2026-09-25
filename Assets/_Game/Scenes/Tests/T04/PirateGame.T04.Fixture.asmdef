@@ -1,0 +1,1 @@
+{"name":"PirateGame.T04.Fixture","references":["PirateGame.Core","PirateGame.Ships","PirateGame.ShipInput","PirateGame.ShipPresentation","PirateGame.ShipCamera","Unity.InputSystem"]}

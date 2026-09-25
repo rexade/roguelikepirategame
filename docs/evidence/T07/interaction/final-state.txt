@@ -1,0 +1,6 @@
+Resolution: 1280x720
+Revision: 4
+Wood: 0
+Iron: 0
+Health: 180
+Cargo capacity: 15

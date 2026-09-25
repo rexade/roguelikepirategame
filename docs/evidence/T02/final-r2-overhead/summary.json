@@ -1,0 +1,19 @@
+{
+    "source":  "C:\\Users\\henri\\Documents\\roguelikepirategame\\docs\\evidence\\T02\\final-r2-overhead\\daylight\\daylight-run1.csv",
+    "frames":  12689,
+    "durationSeconds":  60.000708100000132,
+    "medianMs":  4.65749999999332,
+    "p95Ms":  5.7927999999947133,
+    "p99Ms":  6.31339999999625,
+    "maxMs":  7.1938999999829889,
+    "framesOver33_3ms":  0,
+    "cpuMedianMs":  null,
+    "gpuMedianMs":  null,
+    "cpuSamples":  0,
+    "gpuSamples":  0,
+    "mainThreadMedianMs":  null,
+    "renderThreadMedianMs":  null,
+    "peakAllocatedBytes":  -1,
+    "peakReservedBytes":  -1,
+    "targetsMet":  true
+}

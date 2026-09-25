@@ -1,0 +1,1 @@
+{"name":"PirateGame.T07.Authoring","references":["PirateGame.Core","PirateGame.Definitions","PirateGame.T07.Fixture","PirateGame.Harbor"],"includePlatforms":["Editor"]}

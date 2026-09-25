@@ -1,0 +1,5 @@
+{
+  "name": "PirateGame.Definitions",
+  "references": ["PirateGame.Core"],
+  "autoReferenced": true
+}

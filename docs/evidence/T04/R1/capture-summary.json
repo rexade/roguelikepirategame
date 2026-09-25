@@ -1,0 +1,40 @@
+[
+    {
+        "kind":  "measured",
+        "requestedFPS":  30,
+        "frames":  202,
+        "averageDelta":  0.037319221558415806,
+        "medianDelta":  0.0333334059,
+        "p95Delta":  0.0333342068,
+        "lastTick":  350,
+        "finalX":  6.99999332,
+        "finalZ":  18.6
+    },
+    {
+        "kind":  "measured",
+        "requestedFPS":  60,
+        "frames":  400,
+        "averageDelta":  0.01881534364024989,
+        "medianDelta":  0.0166667029,
+        "p95Delta":  0.0166673958,
+        "lastTick":  350,
+        "finalX":  6.99999332,
+        "finalZ":  18.6
+    },
+    {
+        "kind":  "measured",
+        "requestedFPS":  120,
+        "frames":  795,
+        "averageDelta":  0.00956623562449055,
+        "medianDelta":  0.008333397,
+        "p95Delta":  0.008333603,
+        "lastTick":  350,
+        "finalX":  6.99999332,
+        "finalZ":  18.6
+    },
+    {
+        "kind":  "measured-comparison",
+        "commonTicks":  202,
+        "maximumPositionDifference":  0
+    }
+]

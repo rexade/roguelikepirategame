@@ -1,0 +1,17 @@
+[
+    {
+        "condition":  "daylight",
+        "startupSeconds":  4.2043327,
+        "wallSeconds":  244.7259987
+    },
+    {
+        "condition":  "dusk",
+        "startupSeconds":  3.9801059999999997,
+        "wallSeconds":  244.5032396
+    },
+    {
+        "condition":  "rough",
+        "startupSeconds":  3.9720869999999997,
+        "wallSeconds":  244.49297969999998
+    }
+]

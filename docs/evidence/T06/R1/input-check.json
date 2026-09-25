@@ -1,0 +1,44 @@
+[
+    {
+        "manifest":  "docs/evidence/T03/source-files.json",
+        "hash":  "EF99CD14263CE24B26E06ACC4CA4450872C8A1F1727F36747764125A8DF0314F",
+        "entries":  38,
+        "changed":  [
+                        "docs\\CONTRACTS.md"
+                    ]
+    },
+    {
+        "manifest":  "docs/evidence/T04/R1/source-files.json",
+        "hash":  "1EBA894A94BE245D9015710F23E8A198FD5427E6E5D51AB9F34B5426871DF558",
+        "entries":  39,
+        "changed":  [
+
+                    ]
+    },
+    {
+        "manifest":  "docs/evidence/T05/R1/source-files.json",
+        "hash":  "C477591F827B6838D1E76385F37F0EC65FC0A04E65A0E7255710F74D8B26868C",
+        "entries":  53,
+        "changed":  [
+
+                    ]
+    },
+    {
+        "manifest":  "docs/evidence/T06/source-files.json",
+        "hash":  "D5EB4B8D05F3C7F8B19928E8A264C7C9DF42C820898BC77A27CCAB1D066C9BFB",
+        "entries":  50,
+        "changed":  [
+                        "Assets\\_Game\\Scenes\\Tests\\T06\\Editor\\RegionAuthoring.cs",
+                        "Assets\\_Game\\Scenes\\Tests\\T06\\SalvageFixture.cs",
+                        "Assets\\_Game\\Tests\\T06\\SalvageTests.cs"
+                    ]
+    },
+    {
+        "manifest":  "docs/evidence/T06/build-files.json",
+        "hash":  "16506CA631D00656E2B82A6F01E6E1E1BDD6669B42E4E748C2848C77AF95FCDF",
+        "entries":  297,
+        "changed":  [
+
+                    ]
+    }
+]

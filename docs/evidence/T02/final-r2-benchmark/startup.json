@@ -1,0 +1,20 @@
+[
+    {
+        "condition":  "daylight",
+        "startupToTelemetrySeconds":  4.4332346,
+        "warmupSeconds":  60,
+        "processWallSeconds":  244.9575563
+    },
+    {
+        "condition":  "dusk",
+        "startupToTelemetrySeconds":  4.0035126,
+        "warmupSeconds":  60,
+        "processWallSeconds":  244.5250859
+    },
+    {
+        "condition":  "rough",
+        "startupToTelemetrySeconds":  4.0252393,
+        "warmupSeconds":  60,
+        "processWallSeconds":  244.5489814
+    }
+]

@@ -1,0 +1,207 @@
+[
+    {
+        "path":  "Assets\\_Game\\Content\\Progression.meta",
+        "sha256":  "465E9C1BD47760A9F4C6DF1F92FA98541BD58AAAFD250097018D5E18A8AC1EC9",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Progression\\HarborCatalog.asset",
+        "sha256":  "6D446D550F875E6B4C8DD6923D895D6E82C71D105493028CEF490D2122CF833A",
+        "bytes":  1825
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Progression\\HarborCatalog.asset.meta",
+        "sha256":  "3D8EC58385AF86280A6F63B4E66696370F2AE68B441710D9142E128EFB5E22ED",
+        "bytes":  189
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07.meta",
+        "sha256":  "061E6E1D9FAADB91CDF94AA8AF1B988A4C5A111975302C8CC0D724CB527E1768",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\Editor.meta",
+        "sha256":  "0553E996055AFBA7E567C744342B3F510D09EACBE9DEA229F70FAF84EB3618DE",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\Editor\\HarborAuthoring.cs",
+        "sha256":  "23B347B89042680A9BBDF644F71489C9E2833046F6B718A1AF05E7A65B87D81D",
+        "bytes":  4911
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\Editor\\HarborAuthoring.cs.meta",
+        "sha256":  "6BBD6DE202F1D584D11BFAA18EB9DE23832BE08175469225BCFD974E60AB9028",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\Editor\\PirateGame.T07.Authoring.asmdef",
+        "sha256":  "DA3E83D3E87C4C12BB0B20E77BFD04B390CE13EF0628E68880401A090AA9C11D",
+        "bytes":  169
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\Editor\\PirateGame.T07.Authoring.asmdef.meta",
+        "sha256":  "30DF97C1EE2044E367674E0787FC228CEC6C26DF20DB8AD1D121BAAEBF630AA0",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\Harbor.unity",
+        "sha256":  "B79CD09FF121CDC14E2AF56E6606B3F3B1EB90A3CA6CD8A6540ED8B9ADDDF949",
+        "bytes":  9162
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\Harbor.unity.meta",
+        "sha256":  "32BFAC28C1C417C26DF8BCF9A9003165567714A1A744E1CB036B12F21E079A02",
+        "bytes":  155
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\HarborCapture.cs",
+        "sha256":  "AFD9F256607E7893B079AA6BB649422F28B0D2C4A98F5EF0DECA46248B1F9947",
+        "bytes":  1570
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\HarborCapture.cs.meta",
+        "sha256":  "77AE639DCCFB7F3B85A06D9A8FBF0B54E39FFB1BC67AB7E412A2F2361E19319C",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\HarborFixture.cs",
+        "sha256":  "B35F70362068F4FC300096FBE546949205A6BB14FE2E900422234651483213E8",
+        "bytes":  3042
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\HarborFixture.cs.meta",
+        "sha256":  "08CC6D87C82F741FEB86C81D901065A2EB6F9000984407B8B40881B4CD1089DE",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\HarborKeyboardCheck.cs",
+        "sha256":  "FDC8587C010EC2B9125AE5AFA8C967DB44BF4732F0CF602BD6A20ABA3CA75936",
+        "bytes":  3513
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\HarborKeyboardCheck.cs.meta",
+        "sha256":  "B6E34A197CD397E366F5AF8D03599CD7EF15837471FDE9D1E3407B5A53184AF0",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\PirateGame.T07.Fixture.asmdef",
+        "sha256":  "D5973C9C6268C8D5631CB0AF90FAD2036F3ADAA59CA71BB2E5B100A31AC55E78",
+        "bytes":  132
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T07\\PirateGame.T07.Fixture.asmdef.meta",
+        "sha256":  "6A018D7DE0EA3FFBC36686E3CFABB0E5516BB27FE09A36FA47626B8C77EB35D0",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T07.meta",
+        "sha256":  "DA9C5357BA14E490D65D6DE405C5E56F4BAB4A7761795263B975DAAADCB1B9DA",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T07\\HarborTests.cs",
+        "sha256":  "D431884B7A863473A9BA4A06267B69BAEA296A1B64BE19CFA357908439C0B38E",
+        "bytes":  7827
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T07\\HarborTests.cs.meta",
+        "sha256":  "2D07B227D3548A8F6964DDE187261B4CF6EAC1144229F1E9B984A7BE69EC9149",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T07\\PirateGame.T07.Tests.asmdef",
+        "sha256":  "12C6EEE0FB4962C05A6F64DEC4F7CF7D79B807288F6B7360262C6600F9DD167D",
+        "bytes":  254
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T07\\PirateGame.T07.Tests.asmdef.meta",
+        "sha256":  "E2835F70DFD8D03454DD82B499B9612FB5B17EE755B41E7C18BE7FBC76644B3D",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\UI.meta",
+        "sha256":  "C2863B24DB92279EF996C16729ACAF8CD192DFE5767DC7F700508874007483E4",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Harbor.meta",
+        "sha256":  "784D0B06A38C41D8D3F393DDAA78E50581E607EC06A4140353CC68D15E98D1AE",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Harbor\\Harbor.prefab",
+        "sha256":  "5C0E3FAD7476975D661F68DF8341580E6A24072B3B07CC3C7BAEA92D22B50860",
+        "bytes":  2267
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Harbor\\Harbor.prefab.meta",
+        "sha256":  "3C26273A69F01B93B3785D57DD080E2A4A421C6C91FDB6E9ED71AC1387648CAA",
+        "bytes":  154
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Harbor\\Harbor.uss",
+        "sha256":  "5BDF617048BBC26F0963946DCB75123BBDAA75175EEB876E9C4665A52D026504",
+        "bytes":  1765
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Harbor\\Harbor.uss.meta",
+        "sha256":  "ED5A37193DE93A2A1EA8F0DCC9E6624DF30DBDEC4D7BE7527F8BA48D53A20929",
+        "bytes":  336
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Harbor\\HarborView.cs",
+        "sha256":  "D169DD1C02DD9644396AEF825EC6113605CF0FD7E719923CB1C28E83C50EF859",
+        "bytes":  6933
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Harbor\\HarborView.cs.meta",
+        "sha256":  "73E7EE7AE30CF3B0D704622CE7E4B2E2E68AD86AB9CF624E6FF23AE04FD30325",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Harbor\\PanelSettings.asset",
+        "sha256":  "B9B66674BA53688273DFD43EFD04F9D2C5F0F41F18416C8BF8C1FB56A81ED863",
+        "bytes":  1894
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Harbor\\PanelSettings.asset.meta",
+        "sha256":  "F18514A1F3B4D393E05CF21E3B1A59BAFB80210511A19C4C204ADCA07AC47EEE",
+        "bytes":  189
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Harbor\\PirateGame.Harbor.asmdef",
+        "sha256":  "52688FF4611AA625BA21F4E9615181BDDD3CD9305A2185351DA6739D8DE180CE",
+        "bytes":  83
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Harbor\\PirateGame.Harbor.asmdef.meta",
+        "sha256":  "6BDD6859767E6985AFBEC949689681C10ED96923126081A40DE8539C6F949727",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Loadout.meta",
+        "sha256":  "D6C0DBD43CAA83F00AAE8EC9B56D1F28C2CFCE679506D94FC58ED4DE079F0EC1",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Loadout\\LoadoutView.cs",
+        "sha256":  "7537430CA5ED8B4DD42785331F673990119BC5A1F90805092CC2EBE3D525A01F",
+        "bytes":  2656
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Loadout\\LoadoutView.cs.meta",
+        "sha256":  "61D0FEFD6A0A56457DAF6AC273DF912EE5ACB50B8E15701E01246DEBAEDDE860",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Loadout\\PirateGame.Loadout.asmdef",
+        "sha256":  "809785904E138FA0609A163E45FA352E79A97B2B3897CD69BBD05B45C2479AD8",
+        "bytes":  63
+    },
+    {
+        "path":  "Assets\\_Game\\UI\\Loadout\\PirateGame.Loadout.asmdef.meta",
+        "sha256":  "7A3FB2937DE2A63E288892DC5324C2736E91CEE176D1934CF6E1A549A77F3207",
+        "bytes":  166
+    }
+]

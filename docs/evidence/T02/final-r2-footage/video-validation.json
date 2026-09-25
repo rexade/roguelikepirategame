@@ -1,0 +1,47 @@
+[
+    {
+        "path":  "C:\\Users\\henri\\Documents\\roguelikepirategame\\docs\\evidence\\T02\\final-r2-footage\\daylight\\daylight.mp4",
+        "stream":  {
+                       "width":  1920,
+                       "height":  1080,
+                       "r_frame_rate":  "30/1",
+                       "duration":  "60.000000",
+                       "nb_frames":  "1800"
+                   },
+        "formatValid":  true,
+        "decodedFrames":  1800,
+        "noBlackFrames":  true,
+        "changedFrames":  1799,
+        "sha256":  "B57956275300E187E9BE3A5EFFBAB45459EBD15262943EAB5863132DF57D185F"
+    },
+    {
+        "path":  "C:\\Users\\henri\\Documents\\roguelikepirategame\\docs\\evidence\\T02\\final-r2-footage\\dusk\\dusk.mp4",
+        "stream":  {
+                       "width":  1920,
+                       "height":  1080,
+                       "r_frame_rate":  "30/1",
+                       "duration":  "60.000000",
+                       "nb_frames":  "1800"
+                   },
+        "formatValid":  true,
+        "decodedFrames":  1800,
+        "noBlackFrames":  true,
+        "changedFrames":  1799,
+        "sha256":  "7308AB230ACC5CD0AAC27387842D3DBB2633A3817C6BCEC635289E7053B60CBC"
+    },
+    {
+        "path":  "C:\\Users\\henri\\Documents\\roguelikepirategame\\docs\\evidence\\T02\\final-r2-footage\\rough\\rough.mp4",
+        "stream":  {
+                       "width":  1920,
+                       "height":  1080,
+                       "r_frame_rate":  "30/1",
+                       "duration":  "60.000000",
+                       "nb_frames":  "1800"
+                   },
+        "formatValid":  true,
+        "decodedFrames":  1800,
+        "noBlackFrames":  true,
+        "changedFrames":  1799,
+        "sha256":  "663275AC937F4BB076EB4E335DFB4A4701A9E89AA003088340D675922E9FCA35"
+    }
+]

@@ -1,0 +1,1 @@
+{"name":"PirateGame.T05.Fixture","references":["PirateGame.Core","PirateGame.Ships","PirateGame.ShipInput","PirateGame.ShipCamera","PirateGame.ShipPresentation","PirateGame.CombatContent","PirateGame.Definitions","PirateGame.Combat","PirateGame.CombatAI","Unity.InputSystem"]}

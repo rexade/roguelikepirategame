@@ -1,0 +1,18 @@
+[
+    {
+        "manifest":  "docs/evidence/T03/source-files.json",
+        "hash":  "EF99CD14263CE24B26E06ACC4CA4450872C8A1F1727F36747764125A8DF0314F",
+        "entries":  38,
+        "changed":  [
+                        "docs\\CONTRACTS.md"
+                    ]
+    },
+    {
+        "manifest":  "docs/evidence/T04/R1/source-files.json",
+        "hash":  "1EBA894A94BE245D9015710F23E8A198FD5427E6E5D51AB9F34B5426871DF558",
+        "entries":  39,
+        "changed":  [
+
+                    ]
+    }
+]

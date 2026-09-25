@@ -1,0 +1,10 @@
+weapon=cannon
+shots=14
+raiderHealth=0
+gunnerHealth=0
+device=NVIDIA GeForce RTX 2070 SUPER
+resolution=1280x720
+offlineFootage=true
+hud=False
+pausedReadState=passed
+frameReadState=passed

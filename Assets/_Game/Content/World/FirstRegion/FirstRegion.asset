@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a1d77a3802f38459c008369353fe84, type: 3}
+  m_Name: FirstRegion
+  m_EditorClassIdentifier: PirateGame.FirstRegion::PirateGame.Content.World.FirstRegionAsset
+  regionId: first-region
+  homeId: home-harbor
+  dock: {x: 0, y: -12}
+  dockRadius: 5
+  dockMaximumSpeed: 1
+  islands:
+  - id: first:needle
+    position: {x: -20, y: 20}
+    size: {x: 16, y: 22}
+  - id: first:lookout
+    position: {x: 25, y: 65}
+    size: {x: 20, y: 24}
+  - id: first:twin-rock
+    position: {x: -18, y: 108}
+    size: {x: 22, y: 18}
+  salvage:
+  - id: first:barrel-01
+    definitionId: barrel
+    position: {x: 0, y: 8}
+    wood: 3
+    iron: 0
+  - id: first:barrel-02
+    definitionId: barrel
+    position: {x: 0, y: 38}
+    wood: 2
+    iron: 0
+  - id: first:wreck-01
+    definitionId: wreck
+    position: {x: 0, y: 82}
+    wood: 2
+    iron: 2
+  - id: first:barrel-03
+    definitionId: barrel
+    position: {x: 14, y: 112}
+    wood: 1
+    iron: 1
+  - id: first:wreck-02
+    definitionId: wreck
+    position: {x: 48, y: 45}
+    wood: 4
+    iron: 1
+  encounters:
+  - id: first:encounter-01
+    position: {x: 0, y: 60}
+  - id: first:encounter-02
+    position: {x: 42, y: 95}
+  route:
+  - {x: 0, y: -12}
+  - {x: 0, y: 16}
+  - {x: 0, y: 48}
+  - {x: 0, y: 85}
+  - {x: 12, y: 112}
+  - {x: 45, y: 110}
+  - {x: 48, y: 45}
+  - {x: 25, y: -12}
+  - {x: 0, y: -12}

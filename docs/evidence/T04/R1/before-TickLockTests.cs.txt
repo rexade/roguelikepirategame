@@ -1,0 +1,117 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using NUnit.Framework;
+using PirateGame.Core;
+using PirateGame.Gameplay.Ships;
+using PirateGame.Rules.Application;
+using UnityEngine;
+using UnityEngine.TestTools;
+using EntityId = PirateGame.Core.EntityId;
+using Object = UnityEngine.Object;
+
+namespace PirateGame.Tests.T04
+{
+    public sealed class LockCollision : MonoBehaviour
+    {
+        public Action Hit;
+        private void OnCollisionEnter(Collision collision) => Hit?.Invoke();
+    }
+
+    public sealed class TickLockTests
+    {
+        private GameObject ship, wall;
+        private ShipMotor motor;
+        private ShipSimulation simulation;
+        private CampaignSession session;
+        private Store store;
+        private Guid voyage;
+        private static readonly EntityId Loot = EntityId.Authored("loot");
+
+        private sealed class Store : ISaveStore
+        {
+            public bool Fail;
+            public readonly List<SaveCandidate> Attempts = new List<SaveCandidate>();
+            public RuleResult Commit(SaveCandidate candidate)
+            {
+                Attempts.Add(candidate);
+                return new RuleResult(Fail ? RuleError.SaveFailed : RuleError.None);
+            }
+        }
+        private sealed class Arrival : IWorldArrival
+        {
+            public RuleResult EnsureReady(ArrivalRequest request) => new RuleResult();
+        }
+
+        [SetUp] public void Setup()
+        {
+            var home = new SeaPosition("sea", 0, 0);
+            var catalog = new DefinitionCatalog(new Dictionary<string, int> { ["wood"] = 1 },
+                new[] { new HullDefinition("ship", new Dictionary<string, SlotKind>(), new[] {
+                    new StatDefinition("health", 100, 1, 100), new StatDefinition("cargo", 10, 0, 100), new StatDefinition("speed", 8, 1, 50) }) },
+                Array.Empty<EquipmentDefinition>(), new[] { new HubDefinition("home", home, 5, 1) },
+                Array.Empty<UpgradeDefinition>(), Array.Empty<string>(), Array.Empty<AuthoredIdentity>(), new[] { "barrel" }, new[] { "sea" });
+            var initial = CampaignSession.NewCampaign(catalog, "home", "ship", new Dictionary<string, string>(), new Dictionary<string, string>());
+            store = new Store();
+            session = new CampaignSession(catalog, initial, store, new Arrival());
+            session.RetryArrival();
+            voyage = Guid.NewGuid();
+            session.Embark(Guid.NewGuid(), new EmbarkPlan(voyage, 1, "rng", new[] {
+                new EntityState(Loot, "barrel", home, 1, false, new Dictionary<string, int> { ["wood"] = 2 }, new Dictionary<string, double>(), "idle")
+            }, new Dictionary<string, string>()));
+            session.DrainEvents();
+            ship = new GameObject("tick lock ship");
+            motor = ship.AddComponent<ShipMotor>();
+            simulation = ship.AddComponent<ShipSimulation>(); simulation.motor = motor;
+            simulation.Bind(session);
+            simulation.Submit(new InputIntent(1, 0, 0, 1, false, false, false), false);
+        }
+
+        [TearDown] public void Cleanup()
+        {
+            Object.DestroyImmediate(ship);
+            if (wall != null) Object.DestroyImmediate(wall);
+        }
+
+        private void Trigger(bool collision, Action action)
+        {
+            bool invoked = false;
+            Action once = () => { if (invoked) return; invoked = true; action(); };
+            if (!collision) simulation.TickStarted += _ => once();
+            else
+            {
+                wall = new GameObject("actual collision wall");
+                wall.AddComponent<BoxCollider>().size = new Vector3(10, 10, 1);
+                wall.transform.position = new Vector3(0, 0, 0.95f);
+                ship.AddComponent<LockCollision>().Hit = once;
+                Physics.SyncTransforms();
+            }
+        }
+
+        [UnityTest] public IEnumerator DirectPauseFromTick() => DirectLock(false, false);
+        [UnityTest] public IEnumerator DirectPauseFromCollision() => DirectLock(true, false);
+        [UnityTest] public IEnumerator DirectPickupFromTick() => DirectLock(false, true);
+        [UnityTest] public IEnumerator DirectPickupFromCollision() => DirectLock(true, true);
+
+        private IEnumerator DirectLock(bool collision, bool pickup)
+        {
+            bool called = false;
+            Trigger(collision, () => {
+                called = true;
+                simulation.AddDamage(100);
+                if (pickup) { store.Fail = true; Assert.That(session.CollectLoot(Guid.NewGuid(), voyage, Loot).Error, Is.EqualTo(RuleError.SaveFailed)); }
+                else session.SetPaused(true);
+            });
+            yield return new WaitForSeconds(0.1f);
+            Assert.That(called, Is.True, "Real scheduler/collision callback must run");
+            var position = motor.Body.position;
+            yield return new WaitForSeconds(0.1f);
+            Assert.That(motor.Body.position, Is.EqualTo(position));
+            if (pickup) { store.Fail = false; session.RetrySave(); }
+            else session.SetPaused(false);
+            yield return new WaitForSeconds(0.1f);
+            Assert.That(session.Snapshot.Campaign.ResolvedExpeditions.ContainsKey(voyage), Is.True, "Lethal in-flight damage must survive the lock");
+            Assert.That(session.Snapshot.Campaign.ResolvedExpeditions[voyage], Is.EqualTo(Outcome.Sunk));
+        }
+    }
+}

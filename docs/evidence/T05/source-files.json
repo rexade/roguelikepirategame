@@ -1,0 +1,267 @@
+[
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Combat\\CombatTarget.cs",
+        "sha256":  "C154DE707A4C362E3D7B8BF65C6C8EC4E2E7CFC6779FCF13F67C98AEDF2F1EBE",
+        "bytes":  2162
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Combat\\CombatTarget.cs.meta",
+        "sha256":  "7BEAD1AAAD5C176B06A8EE0EA1821C700EAB08914419839CFDCA5CC7D04448A3",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Combat\\CombatWorld.cs",
+        "sha256":  "31515686A5462C4A3C38691FECC2A9EE5746EA1AF3C4F32BE94D7188A8209D1B",
+        "bytes":  12157
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Combat\\CombatWorld.cs.meta",
+        "sha256":  "A3566DCAF416EA996356B98E82C30C66FBC9E241335A9FBD3D01EEB7B3F2C68A",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Combat\\PirateGame.Combat.asmdef",
+        "sha256":  "7E5803CA25F7991F3F8DB9723E58F835C82683B8E92F726274F070AAB035ADD7",
+        "bytes":  108
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Combat\\PirateGame.Combat.asmdef.meta",
+        "sha256":  "28879F1B01797D0A3B2B43625168E088C3F79431D67D70EDFE3F67944FE83162",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Combat\\SweptProjectile.cs",
+        "sha256":  "A4DEB3CD85647BE873B374E13FBB2C232202D96D36F15CD32F83F1DB0E8F11A9",
+        "bytes":  3567
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Combat\\SweptProjectile.cs.meta",
+        "sha256":  "6C0E1E770D635CB141893B468E43F5B2A07000B64B06A67A0F2E3DBF42E5C0C6",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\Combat.meta",
+        "sha256":  "54C598DC016EF674F5CDAA7BC7EFD64F280FD5BF7E88D93670C82C5325CE22E5",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\AI\\EnemyShip.cs",
+        "sha256":  "56B182C75BD2AA356A0F3247659A4F51599F12D7AD6C54232C37F2F4914491DE",
+        "bytes":  7231
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\AI\\EnemyShip.cs.meta",
+        "sha256":  "9980823CCBB30AB25DB9F741C88BA777243CEB91DF2989CF7278EE460ECDB796",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\AI\\PirateGame.CombatAI.asmdef",
+        "sha256":  "51F4E5066F31B62EB387C7BAE0F671CE48B8D42DF975233CC53829D7CFD47413",
+        "bytes":  130
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\AI\\PirateGame.CombatAI.asmdef.meta",
+        "sha256":  "DA3E4FDCE42B6AA8A080E21E8D06DBD6AB1196A3D545966C72A4CB92B34B147A",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Gameplay\\AI.meta",
+        "sha256":  "64F3D6E067F73AF1D8EB062F3EAFE0FF3DA9E7EBDB43AF578275A40EC28090DD",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat\\CombatCatalog.asset",
+        "sha256":  "3EAC0EFDE4B2A79249BBE00A7D329CF38B1FC7B3683DBF39F6A2A4C7C60FCB19",
+        "bytes":  1134
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat\\CombatCatalog.asset.meta",
+        "sha256":  "E3F22F392BE193BC8FA2229F0F136CE693B0A341D73CC02FA9E204C9571097CD",
+        "bytes":  189
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat\\CombatCatalogAsset.cs",
+        "sha256":  "7431A84B4D8D3C5929914194C08829A2355006ABE3A11CF3E879BF3312E1EF43",
+        "bytes":  5736
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat\\CombatCatalogAsset.cs.meta",
+        "sha256":  "2B50A7590115A9DFFAE2964E23645C98015034BD6CF30000398854B045A38A67",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat\\CombatRules.asset",
+        "sha256":  "ED2EFD38A03D868A8B9C840FA910413F47201E57FFCC6F8F7451C1A52E3D6E74",
+        "bytes":  1302
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat\\CombatRules.asset.meta",
+        "sha256":  "808BC6CD0D3FF941540F030984037325B391548AA4B3C498BD6F0D22BC64B958",
+        "bytes":  189
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat\\Gunner.mat",
+        "sha256":  "E3E105FCE1A4A29C0425DE8C23DD03412CD11B97E2DCE3A45C45FB8661149423",
+        "bytes":  8109
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat\\Gunner.mat.meta",
+        "sha256":  "A78B677D1B1B59A0F5527CE42B01972EADDE7E1E240EC57C9822832773CA9246",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat\\PirateGame.CombatContent.asmdef",
+        "sha256":  "0B6AF0C052B49863311CE76D2AFA77519315A962B232D6B822B3519DF107529E",
+        "bytes":  94
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat\\PirateGame.CombatContent.asmdef.meta",
+        "sha256":  "AE2D95E492CB80A970CF9C7FB1C9A342E5B0DB2BA2BF48820365F88F45BF0F50",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat\\Raider.mat",
+        "sha256":  "6940BA52853B96201FC0497BAFAFF6903A1325FC72CB6F68910E8B5ECC3FF3A3",
+        "bytes":  8116
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat\\Raider.mat.meta",
+        "sha256":  "9FE44CFD261A466B7671CF10DAEB269518A2D97EFDDD93D9CCB4053F27EE8A3A",
+        "bytes":  188
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Combat.meta",
+        "sha256":  "D8FAE3D5303124DC92290A4B6E92215F9DAAC8AFBD797154B5733EE1BA1B79F8",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\Combat\\Gunner.prefab",
+        "sha256":  "F5D580DE5B5921F4626640F0E2FF2BFA70AA11AC25251F73C427E0A6B29AF180",
+        "bytes":  32584
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\Combat\\Gunner.prefab.meta",
+        "sha256":  "69B38784B1C40E00341ABFEB45B2B15807EC7A29C3FF953C6CCCB08C19F53C70",
+        "bytes":  154
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\Combat\\Raider.prefab",
+        "sha256":  "5E845A57CD91EFA4AA1B12C82CA26F3BE98F3C4564367F8B689C2BCBB3880C9D",
+        "bytes":  32574
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\Combat\\Raider.prefab.meta",
+        "sha256":  "31137737BE16BE06231068CE31E2EE6BAB5DFAD6BFA2A973E88DEBF5AE84F17F",
+        "bytes":  154
+    },
+    {
+        "path":  "Assets\\_Game\\Prefabs\\Combat.meta",
+        "sha256":  "1DE5892827B0F5C57453E6C41BA92189D0DD3C33F073C134155DFE074A935525",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\Combat.unity",
+        "sha256":  "ED062238221AFE6692E278B51854F2D092F99839F4F1C4258EA8A83168C5C84B",
+        "bytes":  274292
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\Combat.unity.meta",
+        "sha256":  "D0316C02ACA26BF0654373E3F081828D78C3918D6DEC3ECD3D88FFA3D583A367",
+        "bytes":  155
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\CombatCapture.cs",
+        "sha256":  "25ADC7D27EE314B9E2582F605BB80ED138839BE3BC7AAAAF898786B25DFA6C35",
+        "bytes":  3611
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\CombatCapture.cs.meta",
+        "sha256":  "7BF5DFE4D6BB07B940929916A8E574EE169BBEFC600743A0F1F8EB8B8D89E280",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\CombatFixture.cs",
+        "sha256":  "DFA79C70F53B1FEE005FC38B7EC1A8E9520B641AE82324A716BC55F08C5B9183",
+        "bytes":  5291
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\CombatFixture.cs.meta",
+        "sha256":  "6B9958C82E7414E7EF2AEAFFD3AE8BA4DFCD899EBA973E2AD48F5197B881C85F",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\CombatView.cs",
+        "sha256":  "01E55328A6A6B8BC9D659A2B605C536D76B535D5C875E90906A92DEF21E8D3FE",
+        "bytes":  4754
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\CombatView.cs.meta",
+        "sha256":  "63E174B9BBCEE8332E21790259853E0D04383335C22A13EA6B72EBA9D989F258",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\Editor.meta",
+        "sha256":  "3E492E772EBBC2F01D5CC2A865009B39BECBEE3A938A2DAEC3175AB2BE295616",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\PirateGame.T05.Fixture.asmdef",
+        "sha256":  "1DC9437CA87A8AD09CA2EC91F4557C6941E08D0E201E5C00FC960D161DA62D32",
+        "bytes":  277
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\PirateGame.T05.Fixture.asmdef.meta",
+        "sha256":  "E3657B85C8C9C6B5C0BCBD42D34DC7615E35670A59E5D2C64A49B60B24CFEF0F",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\Editor\\CombatAuthoring.cs",
+        "sha256":  "93F5876585E28EC1ABE2FF3D285D8C266EE76E386FE80E8D1351A52A582931E5",
+        "bytes":  4946
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\Editor\\CombatAuthoring.cs.meta",
+        "sha256":  "44B98A0021B3CCC95EC63A41E2073D4B290DAAF9CD2F0DA2F9FD27ED65557D0A",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\Editor\\PirateGame.T05.Authoring.asmdef",
+        "sha256":  "4AA36B4CB705BE682E1F06C49308C66390D8861B852003D27649836542544798",
+        "bytes":  262
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05\\Editor\\PirateGame.T05.Authoring.asmdef.meta",
+        "sha256":  "C902F9EEE500C019D0FEA6E4E7A9583E15D098F0FF922794C3E34092F9FCC807",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Scenes\\Tests\\T05.meta",
+        "sha256":  "81AF10877B1CD391AC9A85C9B7E48612829EFC3123438D0637FE7CE4A0C5F102",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T05\\CombatTests.cs",
+        "sha256":  "1A6D726D4574D80A64A3F60845712E750C7D19FE509A483244D223DB9D85E7AD",
+        "bytes":  19300
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T05\\CombatTests.cs.meta",
+        "sha256":  "453A5D15C9BDFA3FF480CD8CE1024319D0829EC939F47E03C2B0E60692F1471C",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T05\\PirateGame.T05.Tests.asmdef",
+        "sha256":  "8F99641A577BC896598BC2FA22F2B708F1C0078217604E61B4D7AE066B93E5CC",
+        "bytes":  315
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T05\\PirateGame.T05.Tests.asmdef.meta",
+        "sha256":  "B02257BED342936F806ACA3AD02B068F287349C48DF07B0150977418AAC22474",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T05.meta",
+        "sha256":  "2B1C760D1EA1122135A70FEB8A5B4480DCC4B5124E01E58BA1985C91BC6C743D",
+        "bytes":  172
+    }
+]

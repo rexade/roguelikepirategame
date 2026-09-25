@@ -1,0 +1,15 @@
+{
+    "utc": "2026-09-18T13:35:38.0212941Z",
+    "unity": "6000.3.24f1",
+    "cpu": "AMD Ryzen 7 5800X3D 8-Core Processor ",
+    "gpu": "NVIDIA GeForce RTX 2070 SUPER",
+    "driver": "Direct3D 11.0 [level 11.1]",
+    "os": "Windows 11  (10.0.26200)",
+    "ramMB": 32685,
+    "vramMB": 7989,
+    "width": 1920,
+    "height": 1080,
+    "development": true,
+    "frameTimingEnabled": true,
+    "missingTiming": "-1 means unavailable; timings overlap and must not be added"
+}

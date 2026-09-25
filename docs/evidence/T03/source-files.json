@@ -1,0 +1,192 @@
+[
+    {
+        "path":  "Assets\\_Game\\Application.meta",
+        "sha256":  "3AE7A81BEC1E2BBA1CFD1652C588F6A0BA1B2D2DDC8A3CF46D57B6692609F376",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Application\\CampaignSession.cs",
+        "sha256":  "994DEF240EACD76C13B218C6B12C0A228854D60AA35503724C773D5814976D84",
+        "bytes":  25152
+    },
+    {
+        "path":  "Assets\\_Game\\Application\\CampaignSession.cs.meta",
+        "sha256":  "574A71C63CF96BA6AB21C0044B344B60B77B4F16C6F11B84D4722EEAF93BBEA7",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Application\\PirateGame.Core.asmref",
+        "sha256":  "20DF33D301C7480829BDDBA7FF57618F4B8496A064A1BCC6A302232337B777C8",
+        "bytes":  37
+    },
+    {
+        "path":  "Assets\\_Game\\Application\\PirateGame.Core.asmref.meta",
+        "sha256":  "406A650ACA5053B8E04282319BBCFE96E3150236F7EE39BD2D515C57B70DFC3A",
+        "bytes":  175
+    },
+    {
+        "path":  "Assets\\_Game\\Application\\Ports.cs",
+        "sha256":  "BF2DAA1522296DFB69800301B1863ECAB958A25FCADAACC34DB00305679ACD8A",
+        "bytes":  4345
+    },
+    {
+        "path":  "Assets\\_Game\\Application\\Ports.cs.meta",
+        "sha256":  "0751EBBA7E02C688E0328961E573DD430A374CB96388429BEF9ADDDDA105D80C",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Content.meta",
+        "sha256":  "C8F4EF0D18E9751B5125C982CD1C35CF52978A6258366963A94C91021C2B26FB",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Definitions.meta",
+        "sha256":  "CA5E7F72BAA954DB76960513F22D683E8F3F7EFD01DAD51A9A0BD1F72C3D65C6",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Definitions\\DefinitionCatalogAsset.cs",
+        "sha256":  "682C92D749547E6AC73D64E85FD30322717326AC4260CBAF4CE83D4AD656B409",
+        "bytes":  3612
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Definitions\\DefinitionCatalogAsset.cs.meta",
+        "sha256":  "6C03ADA2420C66325F9C6113C97CF618FC6B9E8772355640929D34FC088317EE",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Definitions\\Editor.meta",
+        "sha256":  "C689FAC3B89068C6C74C818CDF67F9E724AD31E33C64EC719C19574892145D29",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Definitions\\Editor\\DefinitionValidation.cs",
+        "sha256":  "8F8E6436859FDF63EE3A09A371882E79D4230AF59C51A848B7C9B950638B7704",
+        "bytes":  1981
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Definitions\\Editor\\DefinitionValidation.cs.meta",
+        "sha256":  "48DFA6C0EE4941588D12473EFBA8E504A36CEC526209845EFC36497BBDFF47BB",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Definitions\\Editor\\PirateGame.Definitions.Editor.asmdef",
+        "sha256":  "6A725681F2EFBDC74089D061266441E9F661B87D699D21FE7E98A95D6C574596",
+        "bytes":  169
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Definitions\\Editor\\PirateGame.Definitions.Editor.asmdef.meta",
+        "sha256":  "8E3A45A188DCE6731AE976FC6735623EC4898E13C690807C1ED63389CC310DA9",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Definitions\\PirateGame.Definitions.asmdef",
+        "sha256":  "EDCB133CC7D3845FB05608A2969941AF9C4B5B78C01BFC4820EAC8129325531A",
+        "bytes":  102
+    },
+    {
+        "path":  "Assets\\_Game\\Content\\Definitions\\PirateGame.Definitions.asmdef.meta",
+        "sha256":  "61DE9475332A0C1253F48B34220C5795BC41F147B5B67197D290F5B9050EC9DA",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Core.meta",
+        "sha256":  "5BA3DC35930BDDF98F8D26EDEB75416C87A0B96DBA4BE6951FFBDEEC3F32B144",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Core\\Definitions.cs",
+        "sha256":  "418F497C1A62A850E239F957648861E1A098960E1BC4B1C6B9CF10CF2B2CB351",
+        "bytes":  10161
+    },
+    {
+        "path":  "Assets\\_Game\\Core\\Definitions.cs.meta",
+        "sha256":  "312934D7001B2C1819508C59FCB163088F0B506CC586A27D218482C71F021D7D",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Core\\PirateGame.Core.asmdef",
+        "sha256":  "58F4914F34ADF37B37BB3A8AF2F50C14E586FD7A852BF3F37F75372675D8C045",
+        "bytes":  141
+    },
+    {
+        "path":  "Assets\\_Game\\Core\\PirateGame.Core.asmdef.meta",
+        "sha256":  "13A79EC69A89EB1BCA7F1D6813F0ED2946D3CEF398E93CA990F21555FC6AA0DF",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Core\\State.cs",
+        "sha256":  "71A8EEF236A22D828E55511D4FE42AB2A832DF70F112BE25D419F19227897C53",
+        "bytes":  6317
+    },
+    {
+        "path":  "Assets\\_Game\\Core\\State.cs.meta",
+        "sha256":  "B082795B8448FAFC376F3679C1611033F0A93775B19CDF0A2B625F5C2355447A",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Core\\Values.cs",
+        "sha256":  "68F727365A48DADEBD739757991FFF9543391D22C5D80939F47EAEE0CEA0A485",
+        "bytes":  4656
+    },
+    {
+        "path":  "Assets\\_Game\\Core\\Values.cs.meta",
+        "sha256":  "93DC1AE5658B61C7C88DD97330475D0481305C2AD3376D2AF6DEAB11102CE813",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Tests.meta",
+        "sha256":  "70F3420FF72DC881BBC8E95100CF877D0367DE890412AD099928D8E9CEA64E08",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T03.meta",
+        "sha256":  "941CB040BD861FEB0D55202450CCB09B919022DF2593FE930A1CECC19D5D0DC3",
+        "bytes":  172
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T03\\CampaignRulesTests.cs",
+        "sha256":  "45CD786D01B84CD1B00C55EAC433B16404E198EACE6A7B8B0A54C31143EC354B",
+        "bytes":  21806
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T03\\CampaignRulesTests.cs.meta",
+        "sha256":  "D7A98C9551A5F721B8D6B2B98D8A7CFCEECA91892AD595FA92CFA84819D3FDA8",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T03\\DefinitionTests.cs",
+        "sha256":  "6FF03B534371ECA6B494F573D2A08265DF79DD6149FC8D815BF70277B01B2C55",
+        "bytes":  8756
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T03\\DefinitionTests.cs.meta",
+        "sha256":  "B0CFD4236FCE8058D5657BCBF7384B066687B72C8D1FC7E81AA5108E0F265E40",
+        "bytes":  59
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T03\\PirateGame.T03.Tests.asmdef",
+        "sha256":  "8A81697B866D295DADB2F3F30033D4E84CEA74554BE889D4F2A4B7B811EB62C7",
+        "bytes":  210
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T03\\PirateGame.T03.Tests.asmdef.meta",
+        "sha256":  "AFFC7EE2BEE0C2501A99BFD31F54F7F59727A4AF463DF210C11210B31F166827",
+        "bytes":  166
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T03\\RuleFixtures.cs",
+        "sha256":  "E7807A3F7607D929ABCEEA1C59DF3829E82F7B42F0A091A8677C83E9D5D2D39C",
+        "bytes":  4610
+    },
+    {
+        "path":  "Assets\\_Game\\Tests\\T03\\RuleFixtures.cs.meta",
+        "sha256":  "8A572C0C9494508EB7D78C5F558BE29467DC65E7472F70314A2ED07CCB750C38",
+        "bytes":  59
+    },
+    {
+        "path":  "docs\\CONTRACTS.md",
+        "sha256":  "49FC42B39C3D1CCB64826DB9BB1CB4416A4CA5AE4068A563593A80F1CF49C487",
+        "bytes":  15957
+    }
+]
