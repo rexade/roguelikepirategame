@@ -155,3 +155,17 @@ hub; T07 checks multiple harbor readers against one campaign owner.
 
 Lead review: pending. Owner visual decision: pending. This report does not accept
 its own submission or release T08's dependency gate.
+
+## Lead Review - 2026-09-25
+
+Reviewer: Lead (Claude Opus 5.5). Independent re-run on the baseline snapshot:
+T07 9/9 and T03 33/33 EditMode passed. Harbor commands go through the session
+only; purchase, repeated-tier and invalid-loadout paths match AC-03/AC-16.
+
+Outcome: technically accepted and integrated by T08 as the production harbor
+screen. Lead follow-ups made during integration: compact one-line upgrade rows
+(Owned / Locked / Purchase, unaffordable costs dimmed), a third column holding
+fast travel (T09) and Embark, the title following the current harbor, and a
+translucent background over the 3D harbor. Element names and Tab order used by
+the T07 tests are unchanged; the suite still passes (9/9). Owner visual review of
+the harbor screen remains pending.

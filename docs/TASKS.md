@@ -20,7 +20,9 @@ module boundaries, and conditions for parallel work.
 - T02 has verified measurement evidence and owner approval for now of GATE-01/02/03,
   with visual/workflow limitations retained in its report's Owner Disposition.
 - T03-r1, T04-r2 and T05-r2 are accepted. T05 owner combat/HUD approval is recorded.
-  T06-r1 needs changes for startup HUD finding F01; T07 remains ready, unassigned.
+  T06 (with R1) and T07 passed Lead technical review 2026-09-25 (owner visual pending).
+- T08 and T09 were implemented by the Lead on 2026-09-25 and are in review: the
+  game is playable end to end from `Builds/Game/PiratePrototype.exe`.
 - [T06-R1](tasks/T06-R1-startup-hud.md) is submitted by Codex for review: fix the initial
   salvage HUD state and provide regression/visible-HUD evidence. This is parent
   remediation, not a new milestone or successor authorization.

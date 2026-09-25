@@ -1,7 +1,7 @@
 # T08: Integrate durable saves and the expedition loop
 
-Status: waiting
-Assignee: unassigned
+Status: review
+Assignee: Lead (Claude Opus 5.5), 2026-09-25
 Role: Persistence engineer with lead integration
 Depends on: T05, T06, T07
 
@@ -33,12 +33,15 @@ single-owner; coordinate changes as specified in the dispatch rules.
 Rules: INV-01 through INV-08, INV-11, INV-16, INV-17, INV-18.
 Cases from [the backlog](../TASKS.md): AC-01, AC-02, AC-05, AC-06, AC-09, AC-10, AC-11, AC-12, AC-17; integrated AC-03/04.
 
-- [ ] Full loop works and upgrades affect the next sailing expedition.
-- [ ] Inject failures before replacement and crashes after replacement; old/new valid snapshots recover without duplicate banking.
-- [ ] Older checkpoint cannot overwrite a newer transition; failed resolution stays frozen/retryable.
-- [ ] Corrupt/unsupported saves remain preserved; resume and death do not strand the player.
-- [ ] Handoff report includes changed files, exact checks/results, reproduction
+- [x] Full loop works and upgrades affect the next sailing expedition.
+- [x] Inject failures before replacement and crashes after replacement; old/new valid snapshots recover without duplicate banking.
+- [x] Older checkpoint cannot overwrite a newer transition; failed resolution stays frozen/retryable.
+- [x] Corrupt/unsupported saves remain preserved; resume and death do not strand the player.
+- [x] Handoff report includes changed files, exact checks/results, reproduction
   steps, evidence locations, and unresolved defects. Unrun checks are labeled.
+
+Developer checks are recorded in [the T08 report](../evidence/T08/REPORT.md).
+Owner hands-on play and visual review is pending; this is not self-acceptance.
 
 ## Scope and Handoff
 

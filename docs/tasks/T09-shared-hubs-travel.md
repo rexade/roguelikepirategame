@@ -1,7 +1,7 @@
 # T09: Integrate shared hubs and fast travel
 
-Status: waiting
-Assignee: unassigned
+Status: review
+Assignee: Lead (Claude Opus 5.5), 2026-09-25
 Role: Systems engineer
 Depends on: T08
 
@@ -37,11 +37,14 @@ single-owner; coordinate changes as specified in the dispatch rules.
 Rules: INV-01, INV-03, INV-08, INV-09, INV-17.
 Cases from [the backlog](../TASKS.md): AC-07, AC-08, AC-18.
 
-- [ ] Both hubs show identical shared progression; activation remains local.
-- [ ] Travel at sea or to inactive hubs is rejected without mutation.
-- [ ] Save/reload keeps the destination and safe hub; failed arrival never spawns a second player or resumes incomplete-world input.
-- [ ] Handoff report includes changed files, exact checks/results, reproduction
+- [x] Both hubs show identical shared progression; activation remains local.
+- [x] Travel at sea or to inactive hubs is rejected without mutation.
+- [x] Save/reload keeps the destination and safe hub; failed arrival never spawns a second player or resumes incomplete-world input.
+- [x] Handoff report includes changed files, exact checks/results, reproduction
   steps, evidence locations, and unresolved defects. Unrun checks are labeled.
+
+The activation extension (`CampaignSession.ActivateHub`) and all checks are in
+[the T09 report](../evidence/T09/REPORT.md). Owner review is pending.
 
 ## Scope and Handoff
 

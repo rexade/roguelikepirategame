@@ -6,8 +6,10 @@ T01 passed Lead review. T02 is owner-approved for now with documented visual and
 workflow limitations; its technical measurement review passed. T03-r1 passed Lead
 review. T04-r2 is accepted and T04-R1 closed. T05-r2 is accepted following technical
 review and owner visual approval; T05-R1 is closed.
-T06-r1 needs changes (startup HUD finding F01); T07-r1 is submitted by Codex for review; T08 remains waiting.
-T06-R1 is submitted by Codex for review with the HUD correction and visible evidence.
+T06 (with R1) and T07 passed Lead technical review on 2026-09-25; owner visual
+dispositions remain pending. On the owner's 2026-09-25 instruction to "implement
+all you can", the Lead (Claude Opus 5.5) implemented T08 and T09; both are in
+review awaiting the owner's hands-on play and visual review.
 D01-D06 qualifications remain in force.
 
 ## Board
@@ -22,11 +24,11 @@ D01-D06 qualifications remain in force.
 | [T04-R1: Fix in-flight tick/lock coordination](T04-R1-tick-lock-coordination.md) | Codex (gameplay engineer) | done | T03 accepted; T04-r1 review finding (parent remediation) |
 | [T05: Implement weapons, ability, and enemy ships](T05-combat.md) | Codex (combat engineer) | done | T04 |
 | [T05-R1: Synchronize player combat read state](T05-R1-player-combat-state.md) | Codex (combat engineer) | done | T03/T04 accepted; T05-r1 review finding (parent remediation) |
-| [T06: Author the first region and salvage loop](T06-world-salvage.md) | Codex (world engineer) | review (changes requested) | T04 |
-| [T06-R1: Fix startup salvage HUD](T06-R1-startup-hud.md) | Codex (world/gameplay engineer) | review | T03/T04 accepted; T06-r1 F01 (parent remediation) |
-| [T07: Build harbor economy and loadout UI](T07-harbor-progression.md) | Codex (systems/UI engineer) | review | T03 |
-| [T08: Integrate durable saves and the expedition loop](T08-persistence-integration.md) | Persistence engineer with lead integration | waiting | T05, T06, T07 |
-| [T09: Integrate shared hubs and fast travel](T09-shared-hubs-travel.md) | Systems engineer | waiting | T08 |
+| [T06: Author the first region and salvage loop](T06-world-salvage.md) | Codex (world engineer) | done (technical; owner visual pending) | T04 |
+| [T06-R1: Fix startup salvage HUD](T06-R1-startup-hud.md) | Codex (world/gameplay engineer) | done | T03/T04 accepted; T06-r1 F01 (parent remediation) |
+| [T07: Build harbor economy and loadout UI](T07-harbor-progression.md) | Codex (systems/UI engineer) | done (technical; owner visual pending) | T03 |
+| [T08: Integrate durable saves and the expedition loop](T08-persistence-integration.md) | Lead (Claude Opus 5.5) | review | T05, T06, T07 |
+| [T09: Integrate shared hubs and fast travel](T09-shared-hubs-travel.md) | Lead (Claude Opus 5.5) | review | T08 |
 | [T10: Implement region continuity and voyage variation](T10-region-streaming.md) | World engineer | waiting | T08 |
 | [T11: Verify and accept the integrated playable slice](T11-slice-acceptance.md) | QA engineer with lead integration | waiting | T09, T10 |
 

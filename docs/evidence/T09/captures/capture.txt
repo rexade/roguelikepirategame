@@ -1,0 +1,22 @@
+capture start 2026-09-25T13:31:55.0286347Z
+shot 01-harbor-intro.png 1600x900 lifecycle=Docked
+shot 02-harbor.png 1600x900 lifecycle=Docked
+embark None
+shot 03-cast-off.png 1600x900 lifecycle=AtSea
+shot 04-salvage-prompt.png 1600x900 lifecycle=AtSea
+shot 05-salvaged.png 1600x900 lifecycle=AtSea
+shot 06-combat.png 1600x900 lifecycle=AtSea
+enemy defeated True after 4.6s; hull 62
+shot 07-enemy-sinking.png 1600x900 lifecycle=AtSea
+shot 08-wreck-prompt.png 1600x900 lifecycle=AtSea
+shot 09-homecoming.png 1600x900 lifecycle=AtSea
+shot 10-docked-results.png 1600x900 lifecycle=Docked
+purchase storehouse None
+shot 11-harbor-after-voyage.png 1600x900 lifecycle=Docked
+shot 12-open-water.png 1600x900 lifecycle=AtSea
+shot 13-land-ho.png 1600x900 lifecycle=AtSea
+shot 14-claim-prompt.png 1600x900 lifecycle=AtSea
+outpost docked saltmarsh-harbor
+shot 15-outpost-docked.png 1600x900 lifecycle=Docked
+shot 16-outpost-harbor.png 1600x900 lifecycle=Docked
+capture done

@@ -1,6 +1,7 @@
 # Shared Rules Contracts
 
-Contract revision: **T03-r1**, 2026-09-18. Developer verification is recorded in
+Contract revision: **T03-r1**, 2026-09-18, with Lead extensions **r1.1 (T08)** and
+**r1.2 (T09)** of 2026-09-25 listed at the end of this document. Developer verification is recorded in
 [T03 evidence](evidence/T03/REPORT.md). **Lead-reviewed revision: T03-r1**;
 accepted 2026-09-18 for downstream task pickup at rule-layer scope.
 These contracts now transfer to Lead ownership. Changes must list
@@ -259,3 +260,36 @@ Errors are prioritized by lock, request replay, lifecycle, then command-specific
 validation. A repeated old callback while Docked may report WrongLifecycle rather
 than AlreadyResolved; neither applies effects. Construction/authoring uses argument
 exceptions for invalid data; application commands return structured errors.
+
+## Lead Extensions 2026-09-25
+
+Backwards-compatible additions; existing consumers and fixtures are unchanged.
+Affected consumers were re-tested (T03-T09 suites, 141 tests).
+
+### r1.1 (T08 integration)
+
+- `bool CampaignSession.ArrivalPending`, `bool ExplicitlyPaused`: read-only queries so
+  composition can distinguish a committed-but-not-arrived transition from a pause.
+- Persistence implements `ISaveStore` as `PirateGame.Persistence.JsonSaveStore`
+  (schema-1 envelope, `SaveMapper`, backup recovery); see the T08 report.
+- Generated salvage: a defeated enemy may add a `wreck` entity with ID
+  `EntityId.Generated(voyage, "wreck/<enemy spawn id>")` through the captured
+  `Checkpoint` overload (new entities are allowed there). Loot comes from
+  `EnemyRow.wreckLoot`. Salvage views recreate generated entries from the ledger.
+- Coherence rule for composition: take `CombatWorld.Capture` and commit
+  `Checkpoint(request, captured)` at the same idle boundary immediately before
+  `CollectLoot`/`ActivateHub`, so each at-sea save describes one simulation instant.
+
+### r1.2 (T09 hubs)
+
+```csharp
+RuleResult ActivateHub(Guid requestId, Guid expeditionId, string hubId);
+```
+
+| Command | Required state | Additional checks and committed effect |
+| --- | --- | --- |
+| ActivateHub | AtSea | Matching expedition, no queued docking, known hub not yet activated (`AlreadyActivated`), position inside the hub's docking zone (`NotInDockZone`); commits discovered + activated in one save; does not dock, bank or change current/last-safe hub |
+
+`RuleError.AlreadyActivated` is appended to the enum. Regions may author further
+harbors (`FirstRegionAsset.outposts`); every region hub must exist in the catalog
+with identical dock data, which `FirstRegionAsset.Validate` enforces.

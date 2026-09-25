@@ -1,6 +1,6 @@
 # T06: Author the first region and salvage loop
 
-Status: review (changes requested)
+Status: done (technical acceptance 2026-09-25; owner visual disposition pending)
 Assignee: Codex (world engineer)
 Role: World engineer
 Depends on: T04

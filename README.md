@@ -8,13 +8,24 @@ ship to reach more dangerous waters.
 
 ## Project status
 
-T01 engine bootstrap is implemented and accepted: a Windows build, bootstrap UI,
-and HDRP water test scene exist. T02 is owner-approved for now with documented
-visual/workflow limitations; its technical measurement review passed. T03's shared
-rules/contracts are implemented and accepted. T04-r2 ship controls are accepted
-and T04-R1 is closed. T05-r2 is accepted and T05-R1 is closed;
-T06 needs changes following Lead review; T07 is ready for delegation;
-integrated gameplay is not implemented. See [build instructions](docs/BUILD.md).
+**Playable prototype (2026-09-25).** Start `Builds/Game/PiratePrototype.exe`, or open
+`Assets/_Game/Scenes/Bootstrap.unity` and press Play. The title menu leads into
+the ocean world: refit at Homeward Harbor, sail out, salvage barrels and wrecks,
+fight raiders and gunners, loot the wrecks of ships you sink, and dock to bank the
+cargo. Sinking loses the hold but never your bank, upgrades or equipment. Five
+upgrades in three tracks, a second harbor to claim (Saltmarsh), and fast travel
+between claimed harbors. Everything is saved to disk and resumes exactly.
+
+Controls: W/S sail, A/D steer, Space brake, mouse aims, left mouse fires, right
+mouse braces (75% damage reduction for 2 s), E salvages / claims / docks,
+Escape pauses (and saves).
+
+Task status: T00-T05 accepted; T06/T07 technically accepted (owner visual review
+pending); T08 (saves + integrated loop) and T09 (shared hubs + fast travel) are
+implemented and in review; T10 (region streaming, encounter variation) and T11
+(slice gate) remain. See [the dispatch board](docs/tasks/README.md), the
+[T08 report](docs/evidence/T08/REPORT.md), the [T09 report](docs/evidence/T09/REPORT.md)
+and [build instructions](docs/BUILD.md).
 
 - [Game direction and terminology](CONTEXT.md)
 - [Technical architecture](docs/ARCHITECTURE.md)

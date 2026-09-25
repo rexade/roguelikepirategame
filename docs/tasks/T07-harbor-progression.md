@@ -1,6 +1,6 @@
 # T07: Build harbor economy and loadout UI
 
-Status: review
+Status: done (technical acceptance 2026-09-25; owner visual disposition pending)
 Assignee: Codex (systems/UI engineer)
 Role: Systems/UI engineer
 Depends on: T03

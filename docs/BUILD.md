@@ -41,7 +41,32 @@ preserve their copyright/permission notices with distributions containing them.
 The editor/runtime remains subject to the user's Unity license. No third-party
 asset-store content is included. Recheck licensing/attribution at distribution time.
 
-## Windows Build
+## Game Build and Checks (current)
+
+Close the editor, then from PowerShell in the project root:
+
+```powershell
+# Regenerate production content, prefabs and Scenes/OceanWorld.unity (idempotent)
+./tools/RunUnity.ps1 -Mode Method -Name author-world -Method 'PirateGame.Composition.Editor.WorldAuthoring.CreateAll'
+# All rule/persistence/harbor tests, then all scene tests
+./tools/RunUnity.ps1 -Mode EditMode -Name editmode
+./tools/RunUnity.ps1 -Mode PlayMode -Name playmode -Assemblies 'PirateGame.T04.Tests;PirateGame.T05.Tests;PirateGame.T06.Tests;PirateGame.T08.PlayTests;PirateGame.T09.PlayTests'
+# Playable Windows build -> Builds/Game/PiratePrototype.exe (add -Extra '-development' for a dev build)
+./tools/RunUnity.ps1 -Mode Method -Name build-game -Method 'PirateGame.Composition.Editor.WorldAuthoring.BuildGame'
+```
+
+Logs and NUnit XML go to `Logs/runs/`. For a quick compile check without Unity,
+`dotnet build tools/FastCheck/All.csproj` compiles every project script against the
+pinned editor's assemblies and this project's enabled engine modules (seconds; the
+Unity run remains authoritative). Build scenes: Bootstrap (title), OceanWorld
+(game), WaterTest (T02 ocean benchmark).
+
+Saves live in `%USERPROFILE%/AppData/LocalLow/PiratePrototype/Pirate Prototype/Saves`
+(`campaign.json` plus `campaign.backup.json`). Command-line options: `-save-dir <dir>`
+uses another folder, `-seed <int>` fixes voyage encounters, `-capture <dir>` runs the
+scripted screenshot tour (automation only).
+
+## Windows Build (T01 bootstrap)
 
 From PowerShell in the project root, with the editor closed:
 

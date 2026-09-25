@@ -1,6 +1,6 @@
 # T06-R1: Make the salvage HUD safe before first interaction
 
-Status: review
+Status: done (F01 closed by Lead review 2026-09-25)
 Assignee: Codex (world/gameplay engineer)
 Role: World/gameplay engineer, with independent Lead acceptance
 Parent: [T06](T06-world-salvage.md), review (changes requested)

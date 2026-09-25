@@ -270,3 +270,18 @@ No known blocking gameplay defect remains in this correction's verified scope.
 Lead must independently review T06-r2 and close F01. Parent T06 stays review
 (changes requested) until accepted, including owner visual disposition or explicit
 acceptance of disclosed limitations. T08 remains waiting; no successor was started.
+
+## Lead Review - 2026-09-25 (T06-R1)
+
+Reviewer: Lead (Claude Opus 5.5), on the owner's 2026-09-25 instruction to
+implement as much as possible. Reviewed the R1 source (`SalvageFixture.HudText`
+null guard, `StartupHudAndFreshReloadAreNeutral` regression) and the recorded
+actual-window evidence (`R1/visible-final/cargo-full.jpg`: "Wood 5  Iron 0  Cargo
+full"). Independent re-run on the baseline snapshot (Git `5093da9`): T06 12/12,
+T04 40/40 PlayMode and T03 33/33 EditMode passed.
+
+Outcome: F01 closed; T06 technically accepted. The salvage components are now
+integrated in production by T08 (generated wreck salvage was added there, with
+`collectOnInteractIntent` keeping this fixture's behaviour). Owner visual
+disposition of the T06 fixture art remains pending; production uses the T02 island
+kit on the same authored footprints instead of the fixture cylinders.

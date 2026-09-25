@@ -2,8 +2,10 @@
 
 Status: T00 and T01 accepted; T02 owner-approved for now with documented visual
 and workflow limitations. T03-r1 and T04-r2 are accepted; T04-R1 is closed;
-T05-r2 is accepted and T05-R1 closed; T06-r1 needs changes; T07 is ready. Editor/packages
-are pinned in BUILD.md and Packages/packages-lock.json; integrated gameplay remains planned.
+T05-r2 is accepted and T05-R1 closed; T06/T06-R1 and T07 technically accepted
+2026-09-25 (owner visual pending); T08 and T09 are implemented and in review. Editor/packages
+are pinned in BUILD.md and Packages/packages-lock.json; the integrated slice is playable
+(OceanWorld scene) with region streaming (T10) and final gate (T11) outstanding.
 Task briefs live in [TASKS.md](TASKS.md); behavioral rules live in
 [INVARIANTS.md](INVARIANTS.md).
 
