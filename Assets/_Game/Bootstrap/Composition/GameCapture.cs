@@ -114,7 +114,8 @@ namespace PirateGame.Composition
 
             director.Session.Embark(Guid.NewGuid(), director.PlanEmbark());
             yield return Wait(1f);
-            yield return Relocate(new Vector3(30, 0, 70), 30);
+            // Open water west of the first encounter, out of every gun's reach.
+            yield return Relocate(new Vector3(-50, 0, 40), 30);
             yield return Drive(1, 0.2f, 2.5f);
             yield return Shot("open-water");
             if (director.weather != null)
@@ -130,10 +131,11 @@ namespace PirateGame.Composition
             }
 
             // Second harbor: sight it, sail into its berth, raise the flag and moor.
-            var outpost = director.Definitions.Hubs.Values.FirstOrDefault(h => h.Id != director.homeHub);
+            var outpost = director.Definitions.Hubs.Values.FirstOrDefault(h => h.Id == "saltmarsh-harbor");
             if (outpost != null)
             {
-                yield return Relocate(new Vector3((float)outpost.Dock.X - 4, 0, (float)outpost.Dock.Z - 30), 10);
+                // Approach from the east, clear of the escorted pair guarding the south.
+                yield return Relocate(new Vector3((float)outpost.Dock.X + 22, 0, (float)outpost.Dock.Z - 24), -40);
                 yield return Drive(0.8f, 0, 2.5f);
                 yield return Shot("land-ho");
                 yield return Relocate(new Vector3((float)outpost.Dock.X, 0, (float)outpost.Dock.Z - 1.5f), 0);
@@ -147,6 +149,41 @@ namespace PirateGame.Composition
                 director.menus.Activate("continue");
                 yield return Wait(0.6f);
                 yield return Shot("outpost-harbor");
+            }
+
+            // Galewater Reach: sail north from Saltmarsh across the region border.
+            var stormwatch = director.Definitions.Hubs.Values.FirstOrDefault(h => h.Id == "stormwatch-harbor");
+            if (stormwatch != null && director.streamer != null)
+            {
+                var sailed = director.Session.Embark(Guid.NewGuid(), director.PlanEmbark());
+                Log("embark for galewater " + sailed.Error);
+                for (int i = 0; i < 600 && !director.Ready; i++) yield return null;
+                // East of Saltmarsh's landmass, in open water just south of the border.
+                yield return Relocate(new Vector3(96, 0, 150), 0);
+                for (int i = 0; i < 600 && !director.streamer.IsReady("galewater-reach"); i++) yield return null;
+                yield return Drive(1, 0, 3.5f);
+                Log("crossed into " + director.Session.Snapshot.Expedition?.Position.RegionId);
+                yield return Shot("galewater-border");
+                var corsair = director.Enemies.FirstOrDefault(e => e.Definition.Id == "corsair" && !e.Target.Defeated);
+                if (corsair != null)
+                {
+                    yield return Relocate(corsair.transform.position + new Vector3(0, 0, -26), 0);
+                    yield return Wait(1.5f);
+                    yield return Shot("corsair");
+                }
+                yield return Relocate(new Vector3((float)stormwatch.Dock.X - 30, 0, (float)stormwatch.Dock.Z - 16), 60);
+                yield return Wait(0.8f);
+                yield return Shot("stormwatch-approach");
+                yield return Relocate(new Vector3((float)stormwatch.Dock.X, 0, (float)stormwatch.Dock.Z - 1.5f), 0);
+                director.RequestInteract();
+                for (int i = 0; i < 400 && director.Session.Lifecycle != Lifecycle.Docked; i++) yield return null;
+                Log("stormwatch docked " + director.Session.Snapshot.Campaign.CurrentHub);
+                yield return Wait(1f);
+                yield return Shot("stormwatch-docked");
+                director.menus.Activate("continue");
+                yield return Wait(0.6f);
+                yield return Shot("stormwatch-harbor");
+                foreach (var line in director.streamer.LoadLog) Log("region " + line);
             }
             Log("capture done");
             yield return Wait(0.5f);
