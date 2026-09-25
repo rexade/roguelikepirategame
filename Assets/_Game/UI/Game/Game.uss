@@ -1,0 +1,50 @@
+/* In-voyage HUD and modal cards. Palette follows the harbor UI: deep teal
+   panels, parchment text, amber accents; readable over bright water. */
+.hud { position: absolute; left: 0; top: 0; right: 0; bottom: 0; color: rgb(238, 236, 224); font-size: 16px; }
+.layer { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+.hud-panel { position: absolute; background-color: rgba(14, 26, 28, 0.78); border-radius: 6px; border-width: 1px; border-color: rgba(120, 160, 145, 0.45); padding: 10px 14px; }
+#vitals { left: 18px; top: 16px; width: 330px; }
+#voyage { right: 18px; top: 16px; width: 300px; align-items: flex-end; }
+.region { font-size: 18px; -unity-font-style: bold; color: rgb(140, 207, 180); letter-spacing: 2px; }
+.objective { font-size: 14px; color: rgb(214, 214, 196); white-space: normal; -unity-text-align: upper-right; }
+.meter-row { flex-direction: row; align-items: center; height: 26px; }
+.meter-caption { width: 54px; font-size: 14px; -unity-font-style: bold; color: rgb(190, 205, 196); }
+.meter { flex-grow: 1; height: 14px; background-color: rgba(0, 0, 0, 0.55); border-radius: 3px; overflow: hidden; }
+.meter-fill { height: 100%; width: 100%; border-radius: 3px; }
+.hull-fill { background-color: rgb(96, 196, 120); }
+.hull-fill.critical { background-color: rgb(231, 92, 70); }
+.cargo-fill { background-color: rgb(222, 180, 84); }
+.cargo-fill.full { background-color: rgb(240, 120, 60); }
+.meter-value { width: 78px; -unity-text-align: middle-right; font-size: 14px; }
+.detail { font-size: 14px; color: rgb(234, 202, 113); margin-top: 2px; }
+.toasts { position: absolute; top: 18px; left: 360px; right: 340px; align-items: center; }
+.toast { background-color: rgba(14, 26, 28, 0.86); border-radius: 5px; padding: 6px 14px; margin-bottom: 6px; font-size: 17px; border-left-width: 4px; border-left-color: rgb(140, 207, 180); }
+.toast.gain { border-left-color: rgb(234, 202, 113); color: rgb(250, 232, 170); }
+.toast.warning { border-left-color: rgb(240, 110, 80); color: rgb(255, 196, 180); }
+.prompt { position: absolute; bottom: 118px; left: 0; right: 0; -unity-text-align: middle-center; font-size: 20px; -unity-font-style: bold; color: rgb(250, 240, 210); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9); }
+.prompt.warning { color: rgb(255, 170, 140); }
+.slots { position: absolute; bottom: 22px; left: 0; right: 0; flex-direction: row; justify-content: center; }
+.slot { width: 150px; height: 70px; margin: 0 8px; background-color: rgba(14, 26, 28, 0.82); border-radius: 6px; border-width: 2px; border-color: rgba(120, 160, 145, 0.5); overflow: hidden; justify-content: center; align-items: center; }
+.slot.ready { border-color: rgb(234, 202, 113); }
+.slot.active { border-color: rgb(80, 230, 200); background-color: rgba(20, 70, 64, 0.9); }
+.slot-cooldown { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background-color: rgba(0, 0, 0, 0.55); }
+.slot-key { font-size: 12px; color: rgb(170, 190, 180); }
+.slot-name { font-size: 18px; -unity-font-style: bold; letter-spacing: 1px; }
+.enemy-bar { position: absolute; width: 60px; height: 8px; background-color: rgba(0, 0, 0, 0.7); border-radius: 2px; overflow: hidden; }
+.enemy-bar-fill { height: 100%; background-color: rgb(236, 88, 64); }
+.home-arrow { position: absolute; width: 52px; height: 52px; align-items: center; justify-content: center; }
+.home-glyph { width: 0; height: 0; border-left-width: 11px; border-right-width: 11px; border-bottom-width: 22px; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-bottom-color: rgb(234, 202, 113); }
+#home-label { position: absolute; top: 44px; width: 120px; left: -34px; -unity-text-align: upper-center; font-size: 13px; color: rgb(250, 232, 170); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9); }
+
+.menus { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(6, 12, 14, 0.62); justify-content: center; align-items: center; color: rgb(238, 236, 224); }
+.menu-card { width: 520px; background-color: rgba(18, 30, 32, 0.96); border-radius: 8px; border-width: 1px; border-color: rgba(140, 207, 180, 0.6); padding: 26px 30px; }
+.menu-title { font-size: 30px; -unity-font-style: bold; color: rgb(234, 202, 113); letter-spacing: 2px; }
+.menu-subtitle { font-size: 16px; color: rgb(190, 205, 196); margin-top: 4px; white-space: normal; }
+.menu-lines { margin-top: 16px; margin-bottom: 8px; }
+.menu-line { font-size: 17px; white-space: normal; margin-bottom: 4px; }
+.menu-buttons { margin-top: 12px; }
+.menu-button { height: 40px; margin-top: 8px; font-size: 17px; background-color: rgb(57, 75, 69); color: rgb(249, 249, 240); border-radius: 4px; border-width: 1px; border-color: rgb(105, 136, 120); }
+.menu-button:hover { background-color: rgb(73, 100, 88); }
+.menu-button:focus { border-width: 2px; border-color: rgb(242, 209, 116); }
+.menu-button.primary { background-color: rgb(193, 163, 79); color: rgb(26, 32, 24); }
+.menu-button.primary:hover { background-color: rgb(212, 182, 98); }

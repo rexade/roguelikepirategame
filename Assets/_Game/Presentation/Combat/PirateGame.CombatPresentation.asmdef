@@ -1,0 +1,1 @@
+{"name":"PirateGame.CombatPresentation","references":["PirateGame.Core","PirateGame.Ships","PirateGame.ShipPresentation","PirateGame.CombatContent","PirateGame.Combat","Unity.RenderPipelines.HighDefinition.Runtime"]}

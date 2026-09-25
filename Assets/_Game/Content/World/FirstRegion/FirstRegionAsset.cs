@@ -27,6 +27,8 @@ namespace PirateGame.Content.World
     {
         public string id;
         public Vector2 position;
+        // Ships spawned here per voyage; their types are drawn from the voyage seed.
+        [Min(1)] public int ships = 1;
     }
 
     [CreateAssetMenu(menuName = "Pirate Game/First Region")]
@@ -69,7 +71,11 @@ namespace PirateGame.Content.World
                 if (!entity.Loot.Any(p => p.Value > 0) || entity.Loot.Keys.Any(k => !catalog.ResourceWeights.ContainsKey(k)))
                     throw new ArgumentException("Invalid salvage bundle: " + site.id);
             }
-            foreach (var site in encounters) Finite(site.position);
+            foreach (var site in encounters)
+            {
+                Finite(site.position);
+                if (site.ships < 1 || site.ships > 8) throw new ArgumentException("Invalid encounter size: " + site.id);
+            }
             if (route.Length < 2 || route[0] != dock || route[route.Length - 1] != dock) throw new ArgumentException("Route must return home.");
             foreach (var point in route) Finite(point);
         }

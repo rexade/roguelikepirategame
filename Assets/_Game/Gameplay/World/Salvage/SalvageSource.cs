@@ -12,14 +12,16 @@ namespace PirateGame.Gameplay.World
         private CampaignSession session;
         private string definition, region;
         private double x, z;
-        public EntityId Id => EntityId.Authored(authoredId);
+        private EntityId identity;
+        // Authored sites and generated salvage (e.g. wrecks of sunk ships) alike.
+        public EntityId Id => identity.IsValid ? identity : EntityId.Authored(authoredId);
         public bool Depleted => Capture().Loot.Count == 0;
 
         public void Bind(CampaignSession owner, EntityState state)
         {
             if (owner.Snapshot.Expedition == null || !owner.Snapshot.Expedition.Entities.TryGetValue(state.Id, out var current) || !ReferenceEquals(current, state))
                 throw new ArgumentException("Bind from the authoritative expedition ledger.");
-            session = owner; authoredId = state.Id.AuthoredId; definition = state.DefinitionId;
+            session = owner; identity = state.Id; authoredId = state.Id.AuthoredId; definition = state.DefinitionId;
             region = state.Position.RegionId; x = state.Position.X; z = state.Position.Z;
             Apply(state);
         }

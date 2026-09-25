@@ -11,6 +11,9 @@ namespace PirateGame.Gameplay.World
         public ShipSimulation simulation;
         public SalvageSource[] sources = Array.Empty<SalvageSource>();
         public float range = 5;
+        // Isolated fixtures collect on the Interact edge. Production composition clears
+        // this and calls TryCollect itself after capturing a coherent checkpoint.
+        public bool collectOnInteractIntent = true;
         public RuleResult LastResult { get; private set; }
         private bool waiting;
         private void OnEnable() { if (simulation != null) simulation.TickStarted += OnTick; }
@@ -20,11 +23,9 @@ namespace PirateGame.Gameplay.World
             if (waiting && !simulation.HasPendingStep)
             { LastResult = simulation.LastPickupResult; waiting = LastResult.IsPending; }
         }
-        private void OnTick(InputIntent intent) { if (intent.Interact) TryCollect(Guid.NewGuid()); }
-        public RuleResult TryCollect(Guid request)
+        private void OnTick(InputIntent intent) { if (intent.Interact && collectOnInteractIntent) TryCollect(Guid.NewGuid()); }
+        public SalvageSource Nearest()
         {
-            if (simulation.Session?.Snapshot.Expedition == null) return LastResult = new RuleResult(RuleError.WrongLifecycle);
-            if (waiting) return new RuleResult(RuleError.Busy);
             var origin = simulation.motor.interactionOrigin.position;
             SalvageSource nearest = null; float best = range * range;
             foreach (var source in sources)
@@ -34,6 +35,13 @@ namespace PirateGame.Gameplay.World
                 if (delta.sqrMagnitude > best) continue;
                 nearest = source; best = delta.sqrMagnitude;
             }
+            return nearest;
+        }
+        public RuleResult TryCollect(Guid request)
+        {
+            if (simulation.Session?.Snapshot.Expedition == null) return LastResult = new RuleResult(RuleError.WrongLifecycle);
+            if (waiting) return new RuleResult(RuleError.Busy);
+            var nearest = Nearest();
             if (nearest == null) return LastResult = new RuleResult(RuleError.UnknownId, detail: "No salvage in reach.");
             LastResult = simulation.CollectLoot(request, simulation.Session.Snapshot.Expedition.Id, nearest.Id);
             waiting = LastResult.IsPending;

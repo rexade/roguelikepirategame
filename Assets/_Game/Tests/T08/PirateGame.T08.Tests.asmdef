@@ -1,0 +1,7 @@
+{
+  "name": "PirateGame.T08.Tests",
+  "references": ["PirateGame.Core", "PirateGame.Persistence", "PirateGame.Definitions", "PirateGame.CombatContent", "PirateGame.FirstRegion", "PirateGame.CombatAI", "PirateGame.Composition"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}

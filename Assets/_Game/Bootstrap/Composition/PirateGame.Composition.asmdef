@@ -1,0 +1,12 @@
+{
+  "name": "PirateGame.Composition",
+  "rootNamespace": "PirateGame.Composition",
+  "references": [
+    "PirateGame.Core", "PirateGame.Definitions", "PirateGame.CombatContent", "PirateGame.FirstRegion",
+    "PirateGame.Ships", "PirateGame.ShipInput", "PirateGame.Combat", "PirateGame.CombatAI", "PirateGame.Salvage",
+    "PirateGame.ShipCamera", "PirateGame.ShipPresentation", "PirateGame.CombatPresentation",
+    "PirateGame.Harbor", "PirateGame.Loadout", "PirateGame.GameUI", "PirateGame.Persistence",
+    "Unity.InputSystem"
+  ],
+  "autoReferenced": true
+}

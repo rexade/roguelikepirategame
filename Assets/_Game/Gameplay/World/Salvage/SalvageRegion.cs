@@ -16,6 +16,10 @@ namespace PirateGame.Gameplay.World
         public SalvageSource[] Sources { get; private set; } = Array.Empty<SalvageSource>();
 
         public EntityState[] Capture() => Sources.Select(s => s.Capture()).ToArray();
+        public static bool IsSalvage(string definitionId) => definitionId == "barrel" || definitionId == "wreck";
+
+        // Authored salvage must exist in the ledger; generated salvage (for example
+        // wrecks left by defeated ships) is recreated from whatever the ledger holds.
         public RuleResult Recreate(CampaignSession session)
         {
             var expedition = session.Snapshot.Expedition;
@@ -31,15 +35,35 @@ namespace PirateGame.Gameplay.World
                     return new RuleResult(RuleError.InvalidRequest, detail: "Missing or incompatible salvage: " + site.id);
                 states.Add(state);
             }
-            foreach (var source in Sources) if (source != null) { source.gameObject.SetActive(false); Destroy(source.gameObject); }
+            states.AddRange(expedition.Entities.Values.Where(e => e.Id.AuthoredId == null && IsSalvage(e.DefinitionId))
+                .OrderBy(e => e.Id.SpawnId, StringComparer.Ordinal));
+            Clear();
             Sources = states.Select(state => {
                 var prefab = state.DefinitionId == "wreck" ? wreckPrefab : barrelPrefab;
                 var instance = Instantiate(prefab, transform);
-                instance.name = state.Id.AuthoredId;
+                instance.name = state.Id.AuthoredId ?? state.Id.SpawnId;
                 var source = instance.GetComponent<SalvageSource>();
                 source.Bind(session, state); return source;
             }).ToArray();
             return new RuleResult();
+        }
+
+        // Adds a view for one generated ledger entry without rebuilding the others.
+        public SalvageSource Add(CampaignSession session, EntityState state)
+        {
+            if (state == null || !IsSalvage(state.DefinitionId)) throw new ArgumentException("Not a salvage entity.");
+            var instance = Instantiate(state.DefinitionId == "wreck" ? wreckPrefab : barrelPrefab, transform);
+            instance.name = state.Id.AuthoredId ?? state.Id.SpawnId;
+            var source = instance.GetComponent<SalvageSource>();
+            source.Bind(session, state);
+            Sources = Sources.Concat(new[] { source }).ToArray();
+            return source;
+        }
+
+        public void Clear()
+        {
+            foreach (var source in Sources) if (source != null) { source.gameObject.SetActive(false); Destroy(source.gameObject); }
+            Sources = Array.Empty<SalvageSource>();
         }
     }
 }

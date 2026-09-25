@@ -1,0 +1,9 @@
+{
+  "name": "PirateGame.Persistence",
+  "rootNamespace": "PirateGame.Persistence",
+  "references": ["PirateGame.Core"],
+  "overrideReferences": true,
+  "precompiledReferences": ["Newtonsoft.Json.dll"],
+  "noEngineReferences": true,
+  "autoReferenced": true
+}

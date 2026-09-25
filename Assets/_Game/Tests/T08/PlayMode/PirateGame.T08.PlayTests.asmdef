@@ -1,0 +1,8 @@
+{
+  "name": "PirateGame.T08.PlayTests",
+  "references": ["PirateGame.Core", "PirateGame.Composition", "PirateGame.Ships", "PirateGame.Combat", "PirateGame.CombatAI", "PirateGame.Salvage",
+    "PirateGame.Persistence", "PirateGame.GameUI", "PirateGame.Harbor", "PirateGame.CombatContent", "PirateGame.FirstRegion"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false,
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"]
+}

@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/_Game/Scenes/Bootstrap.unity
     guid: 1d6d193b6e4fa7f47bbf8097b887b9b2
   - enabled: 1
+    path: Assets/_Game/Scenes/OceanWorld.unity
+    guid: 36130d0e8cadce543a37ae316105cbfb
+  - enabled: 1
     path: Assets/_Game/Scenes/Tests/T02/WaterTest.unity
     guid: 933c40bdba28fd642a12a9b259f4d743
   m_configObjects: {}

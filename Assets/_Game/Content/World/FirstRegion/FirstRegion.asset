@@ -56,8 +56,10 @@ MonoBehaviour:
   encounters:
   - id: first:encounter-01
     position: {x: 0, y: 60}
+    ships: 1
   - id: first:encounter-02
     position: {x: 42, y: 95}
+    ships: 2
   route:
   - {x: 0, y: -12}
   - {x: 0, y: 16}

@@ -20,6 +20,7 @@ namespace PirateGame.Bootstrap.Editor
         private const string Settings = "Assets/_Game/Bootstrap/Settings";
         private const string Bootstrap = "Assets/_Game/Scenes/Bootstrap.unity";
         private const string Ocean = "Assets/_Game/Scenes/Tests/T02/WaterTest.unity";
+        private const string World = "Assets/_Game/Scenes/OceanWorld.unity";
 
         [MenuItem("Pirate Prototype/Create Initial Assets")]
         public static void CreateInitialAssets()
@@ -255,8 +256,8 @@ namespace PirateGame.Bootstrap.Editor
             if (!File.Exists(Bootstrap) || !File.Exists(Ocean))
                 throw new BuildFailedException("Required authored scenes are missing.");
             string[] scenePaths = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
-            if (!scenePaths.SequenceEqual(new[] { Bootstrap, Ocean }))
-                throw new BuildFailedException("Build must contain Bootstrap followed by WaterTest.");
+            if (!scenePaths.SequenceEqual(new[] { Bootstrap, World, Ocean }))
+                throw new BuildFailedException("Build must contain Bootstrap, OceanWorld, then WaterTest.");
             var oceanProfile = AssetDatabase.LoadAssetAtPath<VolumeProfile>(Settings + "/OceanVolume.asset");
             if (oceanProfile == null || !oceanProfile.TryGet<WaterRendering>(out var water) ||
                 !water.enable.overrideState || !water.enable.value)

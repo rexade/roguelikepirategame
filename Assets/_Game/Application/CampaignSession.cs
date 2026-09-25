@@ -29,6 +29,9 @@ namespace PirateGame.Rules.Application
         public SaveCandidate PendingSave => pending;
         public Lifecycle Lifecycle => pending != null ? pendingLifecycle : state.Lifecycle;
         public bool InputLocked => paused || pending != null || pendingArrival != null || writing || arriving;
+        // Committed but not yet restored in the world (T08 extension, read-only).
+        public bool ArrivalPending => pendingArrival != null;
+        public bool ExplicitlyPaused => paused;
         public bool IsPaused => InputLocked || state.Expedition == null;
         public long Tick => state.Expedition?.Tick ?? 0;
         public double FixedDeltaSeconds { get; }

@@ -69,6 +69,22 @@ namespace PirateGame.Gameplay.Ships
             }
         }
 
+        // Places a suspended body at an authoritative position (arrival/restore only).
+        public void Teleport(Vector3 position, float yaw, float speed)
+        {
+            if (!suspended) throw new InvalidOperationException("Suspend the motor before placing it.");
+            var rotation = Quaternion.Euler(0, yaw, 0);
+            position.y = 0;
+            Body.position = position; Body.rotation = rotation;
+            Body.transform.SetPositionAndRotation(position, rotation);
+            suspendedVelocity = rotation * Vector3.forward * speed;
+            suspendedAngularVelocity = Vector3.zero;
+            if (weaponOrigin != null) AimDirection = rotation * Vector3.forward;
+        }
+
+        public float MaximumSpeed => maximumSpeed;
+        public bool IsSuspended => suspended;
+
         public void Step(InputIntent intent, bool brake, float delta)
         {
             if (suspended) return;

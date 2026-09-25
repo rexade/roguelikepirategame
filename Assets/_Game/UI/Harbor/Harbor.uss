@@ -1,4 +1,4 @@
-.harbor { flex-grow: 1; background-color: rgb(24, 30, 30); color: rgb(235, 239, 231); padding: 28px 40px; font-size: 18px; }
+.harbor { flex-grow: 1; background-color: rgba(18, 28, 29, 0.9); color: rgb(235, 239, 231); padding: 28px 40px; font-size: 18px; }
 .header { flex-direction: row; justify-content: space-between; align-items: center; height: 50px; border-bottom-width: 1px; border-bottom-color: rgb(88, 105, 98); }
 #title { font-size: 26px; -unity-font-style: bold; }
 #bank { height: 54px; padding-top: 15px; color: rgb(234, 202, 113); }

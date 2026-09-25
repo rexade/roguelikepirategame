@@ -19,6 +19,8 @@ namespace PirateGame.Content.Combat
         public EnemyTactic tactic;
         public float health = 60, speed = 4, engagementRange = 28, preferredRange = 12;
         public float reloadScale = 3;
+        // Salvage left by a defeated ship: a new generated wreck entity, never the ship itself.
+        public QuantityRow[] wreckLoot = Array.Empty<QuantityRow>();
     }
     public sealed class WeaponSpec
     {
@@ -49,9 +51,11 @@ namespace PirateGame.Content.Combat
         public float EngagementRange { get; }
         public float PreferredRange { get; }
         public float ReloadSeconds { get; }
+        public IReadOnlyDictionary<string, int> WreckLoot { get; }
         public EnemySpec(EnemyRow row, IReadOnlyDictionary<string, WeaponSpec> weapons)
         {
             Id = Values.Id(row.id); Weapon = weapons[row.weaponId]; Tactic = row.tactic;
+            WreckLoot = Values.Bundle((row.wreckLoot ?? Array.Empty<QuantityRow>()).Select(q => new KeyValuePair<string, int>(q.id, q.quantity)));
             if (!Enum.IsDefined(typeof(EnemyTactic), Tactic)) throw new ArgumentException("Unknown enemy tactic.");
             Health = WeaponSpec.Positive(row.health); Speed = WeaponSpec.Positive(row.speed);
             EngagementRange = WeaponSpec.Positive(row.engagementRange); PreferredRange = WeaponSpec.Positive(row.preferredRange);
@@ -62,6 +66,7 @@ namespace PirateGame.Content.Combat
     public sealed class CombatCatalog
     {
         public const string ContextDefinition = "combat-context-v1";
+        public const string WreckDefinition = "wreck";
         public DefinitionCatalog Rules { get; }
         public IReadOnlyDictionary<string, WeaponSpec> Weapons { get; }
         public IReadOnlyDictionary<string, EnemySpec> Enemies { get; }
@@ -84,6 +89,10 @@ namespace PirateGame.Content.Combat
                 throw new ArgumentException("Unknown ability equipment.");
             if (!rules.EntityDefinitionIds.Contains(ContextDefinition) || Enemies.Keys.Any(id => !rules.EntityDefinitionIds.Contains(id)))
                 throw new ArgumentException("Combat entity definitions missing from rule catalog.");
+            foreach (var enemy in Enemies.Values)
+                if (enemy.WreckLoot.Keys.Any(k => !rules.ResourceWeights.ContainsKey(k)) ||
+                    (enemy.WreckLoot.Values.Any(v => v > 0) && !rules.EntityDefinitionIds.Contains(WreckDefinition)))
+                    throw new ArgumentException("Invalid wreck loot for enemy: " + enemy.Id);
         }
         public WeaponSpec EquippedWeapon(CampaignState campaign)
         {

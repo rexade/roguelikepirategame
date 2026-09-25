@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 069e25af1fc68a64eb6f65d5151417ef, type: 3}
+  m_Name: GameCatalog
+  m_EditorClassIdentifier: PirateGame.Definitions::PirateGame.Content.Definitions.DefinitionCatalogAsset
+  resources:
+  - id: wood
+    weight: 1
+  - id: iron
+    weight: 2
+  hulls:
+  - id: cutter
+    slots:
+    - id: weapon
+      kind: 0
+    - id: ability
+      kind: 1
+    stats:
+    - id: health
+      value: 100
+      minimum: 1
+      maximum: 1000
+    - id: cargo
+      value: 10
+      minimum: 0
+      maximum: 1000
+    - id: speed
+      value: 8
+      minimum: 1
+      maximum: 30
+    - id: damage-scale
+      value: 1
+      minimum: 0.1
+      maximum: 4
+  equipment:
+  - id: cannon
+    kind: 0
+    modifiers: []
+  - id: repeater
+    kind: 0
+    modifiers: []
+  - id: brace
+    kind: 1
+    modifiers: []
+  hubs:
+  - id: home-harbor
+    regionId: first-region
+    x: 0
+    z: -12
+    radius: 5
+    maximumSpeed: 1
+  upgrades:
+  - id: harbor-storehouse
+    trackId: harbor
+    tier: 1
+    cost:
+    - id: wood
+      quantity: 5
+    requiredUnlocks: []
+    grants:
+    - storehouse
+    modifiers:
+    - statId: cargo
+      operation: 0
+      value: 5
+  - id: shipwright-slip
+    trackId: harbor
+    tier: 2
+    cost:
+    - id: wood
+      quantity: 8
+    - id: iron
+      quantity: 3
+    requiredUnlocks:
+    - storehouse
+    grants: []
+    modifiers:
+    - statId: speed
+      operation: 1
+      value: 0.15
+  - id: reinforced-hull
+    trackId: ship
+    tier: 1
+    cost:
+    - id: wood
+      quantity: 6
+    - id: iron
+      quantity: 2
+    requiredUnlocks: []
+    grants: []
+    modifiers:
+    - statId: health
+      operation: 1
+      value: 0.5
+  - id: iron-bound-guns
+    trackId: ship
+    tier: 2
+    cost:
+    - id: wood
+      quantity: 8
+    - id: iron
+      quantity: 4
+    requiredUnlocks: []
+    grants: []
+    modifiers:
+    - statId: damage-scale
+      operation: 1
+      value: 0.35
+  unlockIds:
+  - storehouse
+  entityDefinitionIds:
+  - barrel
+  - wreck
+  - raider
+  - gunner
+  - combat-context-v1
+  regionIds:
+  - first-region
+  worldIdentities:
+  - id: home-harbor
+    origin: Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/harbor
+  - id: first:needle
+    origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/islands[0]'
+  - id: first:lookout
+    origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/islands[1]'
+  - id: first:twin-rock
+    origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/islands[2]'
+  - id: first:barrel-01
+    origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/salvage[0]'
+  - id: first:barrel-02
+    origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/salvage[1]'
+  - id: first:wreck-01
+    origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/salvage[2]'
+  - id: first:barrel-03
+    origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/salvage[3]'
+  - id: first:wreck-02
+    origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/salvage[4]'
+  - id: first:encounter-01
+    origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/encounters[0]'
+  - id: first:encounter-02
+    origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/encounters[1]'

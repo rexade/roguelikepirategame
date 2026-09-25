@@ -12,6 +12,10 @@ namespace PirateGame.Gameplay.Input
         private InputActionMap map;
         private InputAction throttle, turn, brake, fire, ability, interact, pointer;
         private bool focused = true;
+        // Set by composition for assisted docking: hold the brake and ignore throttle.
+        public bool ForceBrake { get; set; }
+        public Vector3 AimPoint { get; private set; }
+        public bool HasAimPoint { get; private set; }
 
         private void Awake()
         {
@@ -35,15 +39,19 @@ namespace PirateGame.Gameplay.Input
             if (!focused || simulation.Session == null || simulation.Session.IsPaused)
             { simulation.Submit(default, false); return; }
             Vector3 aim = Vector3.zero;
+            HasAimPoint = false;
             if (aimCamera != null && Mouse.current != null)
             {
                 var ray = aimCamera.ScreenPointToRay(pointer.ReadValue<Vector2>());
                 var plane = new Plane(Vector3.up, simulation.motor.Body.position);
                 if (plane.Raycast(ray, out var distance))
-                    aim = Vector3.ProjectOnPlane(ray.GetPoint(distance) - simulation.motor.weaponOrigin.position, Vector3.up).normalized;
+                {
+                    AimPoint = ray.GetPoint(distance); HasAimPoint = true;
+                    aim = Vector3.ProjectOnPlane(AimPoint - simulation.motor.weaponOrigin.position, Vector3.up).normalized;
+                }
             }
-            simulation.Submit(new InputIntent(throttle.ReadValue<float>(), turn.ReadValue<float>(), aim.x, aim.z,
-                fire.IsPressed(), ability.WasPressedThisFrame(), interact.WasPressedThisFrame()), brake.IsPressed());
+            simulation.Submit(new InputIntent(ForceBrake ? 0 : throttle.ReadValue<float>(), turn.ReadValue<float>(), aim.x, aim.z,
+                fire.IsPressed(), ability.WasPressedThisFrame(), interact.WasPressedThisFrame()), ForceBrake || brake.IsPressed());
         }
     }
 }

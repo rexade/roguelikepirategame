@@ -23,12 +23,17 @@ namespace PirateGame.Bootstrap.Tests
             keyboard = InputSystem.AddDevice<Keyboard>("T01VerificationKeyboard");
             yield return SceneManager.LoadSceneAsync("Bootstrap");
             for (int i = 0; i < 5; i++) yield return null;
-            Assert.That(FocusedButton(), Is.EqualTo("Open ocean"), "Initial keyboard focus");
+            // "Continue voyage" only appears when a save exists; the rest is fixed.
+            var first = FocusedButton();
+            Assert.That(first, Is.EqualTo("Continue voyage").Or.EqualTo("New campaign"), "Initial keyboard focus");
 
             yield return Press(Key.Tab);
-            Assert.That(FocusedButton(), Is.EqualTo("Quit"), "Tab advances focus");
+            var second = FocusedButton();
+            Assert.That(second, Is.Not.EqualTo(first), "Tab advances focus");
             yield return Press(Key.LeftShift, Key.Tab);
-            Assert.That(FocusedButton(), Is.EqualTo("Open ocean"), "Shift+Tab reverses focus");
+            Assert.That(FocusedButton(), Is.EqualTo(first), "Shift+Tab reverses focus");
+            for (int i = 0; i < 4 && FocusedButton() != "Ocean test"; i++) yield return Press(Key.Tab);
+            Assert.That(FocusedButton(), Is.EqualTo("Ocean test"), "Tab reaches the ocean test");
             yield return Press(Key.Enter);
             for (int i = 0; i < 10; i++) yield return null;
             Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("WaterTest"));
@@ -37,7 +42,7 @@ namespace PirateGame.Bootstrap.Tests
             yield return Press(Key.Enter);
             for (int i = 0; i < 10; i++) yield return null;
             Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Bootstrap"));
-            Assert.That(FocusedButton(), Is.EqualTo("Open ocean"), "Focus after returning");
+            Assert.That(FocusedButton(), Is.EqualTo(first), "Focus after returning");
         }
 
         private IEnumerator Press(params Key[] keys)
