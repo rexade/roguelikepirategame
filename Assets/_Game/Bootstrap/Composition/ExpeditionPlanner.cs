@@ -21,6 +21,10 @@ namespace PirateGame.Composition
     {
         private readonly FirstRegionAsset[] regions;
         private readonly CombatCatalog combat;
+        // Diagnostic workload knobs (T11 stress run only): more ships per site and
+        // extra generated barrels scattered over the home region.
+        public int ShipMultiplier { get; set; } = 1;
+        public int ExtraBarrels { get; set; }
 
         public ExpeditionPlanner(IEnumerable<FirstRegionAsset> regions, CombatCatalog combat)
         {
@@ -50,7 +54,7 @@ namespace PirateGame.Composition
                 foreach (var site in region.encounters)
                 {
                     int minimum = site.minShips > 0 ? site.minShips : site.ships;
-                    int count = minimum + rng.NextInt(site.ships - minimum + 1);
+                    int count = (minimum + rng.NextInt(site.ships - minimum + 1)) * (region == regions[0] ? Math.Max(1, ShipMultiplier) : 1);
                     float spread = rng.NextFloat() * Mathf.PI * 2;
                     for (int i = 0; i < count; i++)
                     {
@@ -63,6 +67,13 @@ namespace PirateGame.Composition
                         entities.Add(Enemy(EntityId.Generated(expeditionId, spawn), spec, region.regionId, site.position + offset, rng.NextFloat() * 360f));
                     }
                 }
+            }
+            var home = regions[0];
+            for (int i = 0; i < ExtraBarrels; i++)
+            {
+                var at = new Vector2(Mathf.Lerp(home.bounds.xMin + 10, home.bounds.xMax - 10, rng.NextFloat()), Mathf.Lerp(home.dock.y + 8, home.bounds.yMax - 10, rng.NextFloat()));
+                entities.Add(new EntityState(EntityId.Generated(expeditionId, "stress/barrel#" + i.ToString(CultureInfo.InvariantCulture)), "barrel",
+                    new SeaPosition(home.regionId, at.x, at.y), 1, false, new Dictionary<string, int> { ["wood"] = 1 }, new Dictionary<string, double>(), "salvage"));
             }
             return new EmbarkPlan(expeditionId, seed, "splitmix64:" + rng.State.ToString("x16", CultureInfo.InvariantCulture), entities, encounters);
         }

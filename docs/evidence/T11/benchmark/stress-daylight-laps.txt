@@ -1,0 +1,49 @@
+warm-up: 57.0 s, 10909 frames, peak live shots 51, ships 0, docked True, sunk False, hull 0
+    0s (0,-12) wp 0 pending=False dock - req@-1 tick 0 last - speed 0.00
+    5s (0,23) wp 1 pending=False dock - req@-1 tick 255 last None speed 8.00
+    10s (0,63) wp 2 pending=False dock - req@-1 tick 505 last None speed 8.00
+    15s (5,95) wp 3 pending=False dock - req@-1 tick 755 last None speed 8.00
+    20s (20,112) wp 4 pending=False dock - req@-1 tick 1005 last None speed 2.49
+    25s (13,116) wp 4 pending=False dock - req@-1 tick 1255 last None speed 4.40
+    30s (16,106) wp 4 pending=False dock - req@-1 tick 1505 last None speed 4.40
+    35s (25,118) wp 4 pending=False dock - req@-1 tick 1755 last None speed 8.00
+    40s (48,92) wp 5 pending=False dock - req@-1 tick 2005 last None speed 8.00
+    45s (48,52) wp 5 pending=False dock - req@-1 tick 2255 last None speed 8.00
+    50s (35,14) wp 6 pending=False dock - req@-1 tick 2505 last None speed 8.00
+    55s (14,-15) wp 7 pending=False dock - req@-1 tick 2755 last None speed 7.27
+    end at (0,-12) waypoint 8/8
+run1: 55.6 s, 10647 frames, peak live shots 56, ships 0, docked True, sunk False, hull 0
+    0s (0,-12) wp 0 pending=False dock - req@-1 tick 0 last None speed 0.00
+    5s (0,22) wp 1 pending=False dock - req@-1 tick 251 last None speed 8.00
+    10s (0,62) wp 2 pending=False dock - req@-1 tick 501 last None speed 8.00
+    15s (6,97) wp 3 pending=False dock - req@-1 tick 751 last None speed 8.00
+    20s (21,110) wp 4 pending=False dock - req@-1 tick 1001 last None speed 2.73
+    25s (23,113) wp 4 pending=False dock - req@-1 tick 1251 last None speed 4.39
+    30s (26,103) wp 4 pending=False dock - req@-1 tick 1501 last None speed 4.40
+    35s (35,115) wp 4 pending=False dock - req@-1 tick 1751 last None speed 7.95
+    40s (48,81) wp 5 pending=False dock - req@-1 tick 2001 last None speed 8.00
+    45s (45,41) wp 6 pending=False dock - req@-1 tick 2251 last None speed 8.00
+    50s (31,4) wp 6 pending=False dock - req@-1 tick 2501 last None speed 8.00
+    55s (4,-11) wp 8 pending=False dock home-harbor req@-1 tick 2751 last None speed 6.02
+    end at (0,-12) waypoint 8/8
+run2: 55.6 s, 11601 frames, peak live shots 56, ships 0, docked True, sunk False, hull 0
+    0s (0,-12) wp 0 pending=False dock - req@-1 tick 0 last None speed 0.00
+    5s (0,22) wp 1 pending=False dock - req@-1 tick 251 last None speed 8.00
+    10s (0,62) wp 2 pending=False dock - req@-1 tick 501 last None speed 8.00
+    15s (6,97) wp 3 pending=False dock - req@-1 tick 751 last None speed 8.00
+    20s (21,110) wp 4 pending=False dock - req@-1 tick 1001 last None speed 2.73
+    25s (23,113) wp 4 pending=False dock - req@-1 tick 1251 last None speed 4.39
+    30s (26,103) wp 4 pending=False dock - req@-1 tick 1501 last None speed 4.40
+    35s (35,115) wp 4 pending=False dock - req@-1 tick 1751 last None speed 7.95
+    40s (48,81) wp 5 pending=False dock - req@-1 tick 2001 last None speed 8.00
+    45s (45,41) wp 6 pending=False dock - req@-1 tick 2251 last None speed 8.00
+    50s (31,4) wp 6 pending=False dock - req@-1 tick 2501 last None speed 8.00
+    55s (4,-11) wp 8 pending=False dock home-harbor req@-1 tick 2751 last None speed 6.02
+    end at (0,-12) waypoint 8/8
+region first-region ready in 1167.1 ms
+region galewater-reach ready in 16.9 ms
+region galewater-reach unloaded
+region galewater-reach ready in 11.3 ms
+region galewater-reach unloaded
+region galewater-reach ready in 9.4 ms
+region galewater-reach unloaded

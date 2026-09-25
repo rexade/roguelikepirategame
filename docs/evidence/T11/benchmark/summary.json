@@ -1,0 +1,211 @@
+[
+  {
+    "run": "daylight-run1",
+    "frames": 9424,
+    "seconds": 40.2,
+    "median_ms": 4.222,
+    "p95_ms": 5.083,
+    "p99_ms": 5.525,
+    "max_ms": 21.558,
+    "over_33ms": 0,
+    "cpu_median_ms": 4.245,
+    "gpu_median_ms": 4.055,
+    "peak_allocated_mb": 208.4,
+    "peak_live_shots": 2,
+    "regions": [
+      "first-region"
+    ],
+    "meets_median_target": true,
+    "meets_p95_target": true
+  },
+  {
+    "run": "daylight-run2",
+    "frames": 9470,
+    "seconds": 40.2,
+    "median_ms": 4.204,
+    "p95_ms": 5.071,
+    "p99_ms": 5.438,
+    "max_ms": 21.241,
+    "over_33ms": 0,
+    "cpu_median_ms": 4.224,
+    "gpu_median_ms": 4.033,
+    "peak_allocated_mb": 208.4,
+    "peak_live_shots": 2,
+    "regions": [
+      "first-region"
+    ],
+    "meets_median_target": true,
+    "meets_p95_target": true
+  },
+  {
+    "run": "daylight-run3",
+    "frames": 9402,
+    "seconds": 40.2,
+    "median_ms": 4.243,
+    "p95_ms": 5.113,
+    "p99_ms": 5.527,
+    "max_ms": 22.185,
+    "over_33ms": 0,
+    "cpu_median_ms": 4.261,
+    "gpu_median_ms": 4.066,
+    "peak_allocated_mb": 208.5,
+    "peak_live_shots": 2,
+    "regions": [
+      "first-region"
+    ],
+    "meets_median_target": true,
+    "meets_p95_target": true
+  },
+  {
+    "run": "dusk-run1",
+    "frames": 9493,
+    "seconds": 40.2,
+    "median_ms": 4.191,
+    "p95_ms": 5.054,
+    "p99_ms": 5.51,
+    "max_ms": 20.448,
+    "over_33ms": 0,
+    "cpu_median_ms": 4.215,
+    "gpu_median_ms": 4.02,
+    "peak_allocated_mb": 208.6,
+    "peak_live_shots": 2,
+    "regions": [
+      "first-region"
+    ],
+    "meets_median_target": true,
+    "meets_p95_target": true
+  },
+  {
+    "run": "dusk-run2",
+    "frames": 9492,
+    "seconds": 40.2,
+    "median_ms": 4.19,
+    "p95_ms": 5.073,
+    "p99_ms": 5.508,
+    "max_ms": 22.73,
+    "over_33ms": 0,
+    "cpu_median_ms": 4.205,
+    "gpu_median_ms": 4.011,
+    "peak_allocated_mb": 208.6,
+    "peak_live_shots": 2,
+    "regions": [
+      "first-region"
+    ],
+    "meets_median_target": true,
+    "meets_p95_target": true
+  },
+  {
+    "run": "dusk-run3",
+    "frames": 9503,
+    "seconds": 40.2,
+    "median_ms": 4.194,
+    "p95_ms": 5.033,
+    "p99_ms": 5.46,
+    "max_ms": 23.062,
+    "over_33ms": 0,
+    "cpu_median_ms": 4.215,
+    "gpu_median_ms": 4.01,
+    "peak_allocated_mb": 208.6,
+    "peak_live_shots": 2,
+    "regions": [
+      "first-region"
+    ],
+    "meets_median_target": true,
+    "meets_p95_target": true
+  },
+  {
+    "run": "rough-run1",
+    "frames": 9372,
+    "seconds": 40.2,
+    "median_ms": 4.241,
+    "p95_ms": 5.13,
+    "p99_ms": 5.552,
+    "max_ms": 19.757,
+    "over_33ms": 0,
+    "cpu_median_ms": 4.269,
+    "gpu_median_ms": 4.08,
+    "peak_allocated_mb": 209.2,
+    "peak_live_shots": 2,
+    "regions": [
+      "first-region"
+    ],
+    "meets_median_target": true,
+    "meets_p95_target": true
+  },
+  {
+    "run": "rough-run2",
+    "frames": 9411,
+    "seconds": 40.2,
+    "median_ms": 4.225,
+    "p95_ms": 5.079,
+    "p99_ms": 5.513,
+    "max_ms": 21.959,
+    "over_33ms": 0,
+    "cpu_median_ms": 4.24,
+    "gpu_median_ms": 4.051,
+    "peak_allocated_mb": 209.2,
+    "peak_live_shots": 2,
+    "regions": [
+      "first-region"
+    ],
+    "meets_median_target": true,
+    "meets_p95_target": true
+  },
+  {
+    "run": "rough-run3",
+    "frames": 9447,
+    "seconds": 40.1,
+    "median_ms": 4.208,
+    "p95_ms": 5.007,
+    "p99_ms": 5.364,
+    "max_ms": 21.467,
+    "over_33ms": 0,
+    "cpu_median_ms": 4.194,
+    "gpu_median_ms": 4.022,
+    "peak_allocated_mb": 209.2,
+    "peak_live_shots": 2,
+    "regions": [
+      "first-region"
+    ],
+    "meets_median_target": true,
+    "meets_p95_target": true
+  },
+  {
+    "run": "stress-daylight-run1",
+    "frames": 10647,
+    "seconds": 55.6,
+    "median_ms": 5.11,
+    "p95_ms": 6.701,
+    "p99_ms": 7.769,
+    "max_ms": 29.763,
+    "over_33ms": 0,
+    "cpu_median_ms": 5.116,
+    "gpu_median_ms": 4.96,
+    "peak_allocated_mb": 213.9,
+    "peak_live_shots": 56,
+    "regions": [
+      "first-region"
+    ],
+    "meets_median_target": true,
+    "meets_p95_target": true
+  },
+  {
+    "run": "stress-daylight-run2",
+    "frames": 11601,
+    "seconds": 55.6,
+    "median_ms": 4.713,
+    "p95_ms": 6.553,
+    "p99_ms": 7.719,
+    "max_ms": 143.878,
+    "over_33ms": 2,
+    "cpu_median_ms": 4.755,
+    "gpu_median_ms": 4.594,
+    "peak_allocated_mb": 213.5,
+    "peak_live_shots": 56,
+    "regions": [
+      "first-region"
+    ],
+    "meets_median_target": true,
+    "meets_p95_target": true
+  }
+]

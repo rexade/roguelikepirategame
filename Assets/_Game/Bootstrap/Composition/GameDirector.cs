@@ -67,6 +67,7 @@ namespace PirateGame.Composition
         public HarborView harbor;
         public GameHud hud;
         public GameMenus menus;
+        public SeaChart chart;
 
         [Header("Voyage")]
         [Min(1)] public float checkpointSeconds = 10;
@@ -82,6 +83,9 @@ namespace PirateGame.Composition
         // A session exists and its saved location has fully arrived (regions loaded).
         public bool Ready => Session != null && !Session.ArrivalPending;
         public bool Holding => holding;
+        // Diagnostics for automated runs: docking target, pending tick and last tick result.
+        public string DockingState => (dockTarget ?? "-") + " req@" + dockRequestedTick + " tick " + (Session?.Tick ?? 0) +
+            " last " + (player.LastTickResult?.Error.ToString() ?? "-") + " speed " + (Session?.Snapshot.Expedition?.Speed ?? 0).ToString("0.00");
         public bool MenuPaused => pausedByMenu;
         public bool CardOpen => resultsOpen && menus.IsOpen;
         public string CardTitle => menus.CurrentTitle;
@@ -115,7 +119,8 @@ namespace PirateGame.Composition
         private GameObject PrefabFor(string enemy) =>
             enemy == "gunner" ? gunnerPrefab : enemy == "corsair" && corsairPrefab != null ? corsairPrefab : raiderPrefab;
 
-        private bool arrivalWaiting, holding, fogWarned;
+        private bool arrivalWaiting, holding, fogWarned, chartPaused;
+        public bool ChartOpen => chart != null && chart.IsOpen;
         private Vector3 arrivalAt;
         private readonly Queue<string> regionsToPopulate = new Queue<string>();
         private readonly HashSet<string> populated = new HashSet<string>();
@@ -131,11 +136,25 @@ namespace PirateGame.Composition
 
         private void Start()
         {
-            Definitions = rules.Freeze();
-            Combat = combatContent.Freeze();
+            var rulesAsset = rules; var combatAsset = combatContent;
+            if (GameBenchmark.Active)
+            {
+                // Benchmark voyages: a sturdier hull so every lap completes the route; the
+                // stress run also fires much faster. Runtime copies only; assets are untouched.
+                rulesAsset = Instantiate(rules);
+                bool stress = GameBenchmark.Stress;
+                foreach (var stat in rulesAsset.hulls.SelectMany(h => h.stats).Where(s => s.id == "health"))
+                { stat.value = stress ? 500000 : 2000; stat.maximum = stress ? 1000000 : 10000; }
+                combatAsset = Instantiate(combatContent);
+                combatAsset.rules = rulesAsset;
+                if (stress) foreach (var row in combatAsset.enemies) row.reloadScale *= 0.03f;
+            }
+            Definitions = rulesAsset.Freeze();
+            Combat = combatAsset.Freeze();
             foreach (var r in Regions) r.Validate(Definitions);
             FirstRegionAsset.ValidateIdentities(Regions.SelectMany(r => r.Identities(r.name)));
             Planner = new ExpeditionPlanner(Regions, Combat);
+            if (GameBenchmark.Stress) { Planner.ShipMultiplier = 4; Planner.ExtraBarrels = 100; }
             player.RegionOf = RegionIdAt;
             if (streamer != null) streamer.RegionReady += r => regionsToPopulate.Enqueue(r.regionId);
             Store = new JsonSaveStore(LaunchOptions.SaveDirectory, Definitions);
@@ -196,7 +215,7 @@ namespace PirateGame.Composition
             ShowCard(HubName(homeHub), "A modest cutter, an empty storehouse, and a sea full of other people's cargo.", Lines(
                 "Sail out, salvage barrels and wrecks, and sink raiders for their plunder.",
                 "Cargo is only yours once you dock and bank it. If your ship goes down, the hold is lost; your bank, upgrades and equipment are kept.",
-                "W/S sail  ·  A/D steer  ·  Space brake  ·  Mouse aim  ·  LMB fire  ·  RMB brace  ·  E salvage / dock  ·  Esc pause",
+                "W/S sail  ·  A/D steer  ·  Space brake  ·  Mouse aim  ·  LMB fire  ·  RMB brace  ·  E salvage / dock  ·  M sea chart  ·  Esc pause",
                 preserved.Count > 0 ? "Your previous save was kept as " + System.IO.Path.GetFileName(preserved[0]) + "." : null),
                 new MenuAction("To the harbor", "continue", CloseCard, true));
         }
@@ -437,7 +456,17 @@ namespace PirateGame.Composition
             else if (!atSea) regionsToPopulate.Clear();
             var keyboard = Keyboard.current;
             bool escape = keyboard != null && keyboard.escapeKey.wasPressedThisFrame;
-            if (escape && pausedByMenu) Resume();
+            bool chartKey = keyboard != null && keyboard.mKey.wasPressedThisFrame;
+            if (ChartOpen)
+            {
+                chart.Refresh(ChartData());
+                if (escape || chartKey) CloseChart();
+                UpdateViews(atSea);
+                return;
+            }
+            if (chartKey && idle) OpenChart();
+            else if (chartKey && !atSea && !menus.IsOpen && Session.Lifecycle == Lifecycle.Docked) OpenChart();
+            else if (escape && pausedByMenu) Resume();
             else if (idle)
             {
                 if (pendingWrecks.Count > 0) Checkpoint();
@@ -724,6 +753,54 @@ namespace PirateGame.Composition
             menus.Hide();
             pausedByMenu = false;
             if (!holding) player.SetPaused(false);
+        }
+
+        // The chart pauses a voyage at a checkpointed boundary, like the pause menu.
+        public void OpenChart()
+        {
+            if (chart == null) return;
+            if (Session.Lifecycle == Lifecycle.AtSea)
+            {
+                var saved = Checkpoint();
+                if (!saved.IsSuccess && saved.Error == RuleError.SaveFailed) return;
+                player.SetPaused(true);
+                chartPaused = true;
+            }
+            chart.Show(ChartData());
+        }
+
+        public void CloseChart()
+        {
+            if (chart != null) chart.Hide();
+            if (chartPaused)
+            {
+                chartPaused = false;
+                if (!holding && !pausedByMenu) player.SetPaused(false);
+            }
+        }
+
+        public ChartModel ChartData()
+        {
+            var data = new ChartModel();
+            foreach (var r in Regions)
+            {
+                data.Regions.Add(new ChartModel.Region { Name = r.displayName, Bounds = r.bounds });
+                foreach (var island in r.islands) data.Islands.Add(new ChartModel.Island { Center = island.position, Size = island.size });
+                data.Islands.Add(new ChartModel.Island { Center = r.homeLandmass, Size = r.homeLandmassSize });
+                foreach (var outpost in r.outposts) data.Islands.Add(new ChartModel.Island { Center = outpost.landmass, Size = outpost.landmassSize });
+            }
+            var campaign = Session.Snapshot.Campaign;
+            foreach (var hub in Definitions.Hubs.Values)
+                data.Harbors.Add(new ChartModel.Harbor
+                {
+                    Name = HubName(hub.Id), Position = new Vector2((float)hub.Dock.X, (float)hub.Dock.Z),
+                    Claimed = campaign.Hubs[hub.Id].Activated,
+                    Current = Session.Lifecycle == Lifecycle.Docked && campaign.CurrentHub == hub.Id
+                });
+            var body = player.motor.Body;
+            data.ShipVisible = body != null;
+            if (body != null) { data.Ship = new Vector2(body.position.x, body.position.z); data.ShipYaw = body.rotation.eulerAngles.y; }
+            return data;
         }
 
         private void ShowHarborMenu()

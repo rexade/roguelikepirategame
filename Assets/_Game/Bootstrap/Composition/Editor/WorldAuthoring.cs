@@ -370,6 +370,9 @@ namespace PirateGame.Composition.Editor
             var menuObject = new GameObject("Menus"); menuObject.transform.SetParent(ui);
             var menuDocument = menuObject.AddComponent<UIDocument>(); menuDocument.panelSettings = panel; menuDocument.sortingOrder = 2;
             var menus = menuObject.AddComponent<GameMenus>(); menus.stylesheet = style;
+            var chartObject = new GameObject("Sea chart"); chartObject.transform.SetParent(ui);
+            var chartDocument = chartObject.AddComponent<UIDocument>(); chartDocument.panelSettings = panel; chartDocument.sortingOrder = 3;
+            var chart = chartObject.AddComponent<SeaChart>(); chart.stylesheet = style;
 
             var director = new GameObject("Game director").AddComponent<GameDirector>();
             director.rules = rules; director.combatContent = combat; director.region = region; director.regions = regions;
@@ -379,7 +382,7 @@ namespace PirateGame.Composition.Editor
             director.salvage = salvageRoot0; director.raiderPrefab = raider; director.gunnerPrefab = gunner;
             director.followCamera = follow; director.worldCamera = camera; director.presenter = effects; director.aimMarker = aim;
             director.sound = audio; director.weather = skies;
-            director.harbor = harborObject.GetComponent<HarborView>(); director.hud = hud; director.menus = menus;
+            director.harbor = harborObject.GetComponent<HarborView>(); director.hud = hud; director.menus = menus; director.chart = chart;
 
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
@@ -409,7 +412,7 @@ namespace PirateGame.Composition.Editor
             EditorUtility.SetDirty(profile);
             volume.sharedProfile = profile;
             ocean.largeWindSpeed = 22; ocean.largeBand0Multiplier = 0.12f; ocean.largeBand1Multiplier = 0.2f; ocean.simulationFoamAmount = 0.15f;
-            ocean.decalRegionSize = new Vector2(180, 180);
+            ocean.decalRegionSize = new Vector2(150, 150);
         }
 
         private static GameObject Part(string name, Transform parent, Vector3 position, Vector3 scale, Material material,
@@ -465,7 +468,8 @@ namespace PirateGame.Composition.Editor
         {
             float rx = size.x * 0.5f * 1.08f, rz = size.y * 0.5f * 1.08f;
             float perimeter = Mathf.PI * (3 * (rx + rz) - Mathf.Sqrt((3 * rx + rz) * (rx + 3 * rz)));
-            int count = Mathf.Clamp(Mathf.RoundToInt(perimeter / 3.2f), 12, 32);
+            // Budget: HDRP culls water decals beyond maximumWaterDecalCount; fewer, larger stamps.
+            int count = Mathf.Clamp(Mathf.RoundToInt(perimeter / 4.6f), 10, 22);
             for (int i = 0; i < count; i++)
             {
                 float a = i * Mathf.PI * 2 / count;
@@ -474,7 +478,7 @@ namespace PirateGame.Composition.Editor
                 go.transform.localPosition = new Vector3(Mathf.Cos(a) * rx, 0, Mathf.Sin(a) * rz);
                 go.transform.localRotation = Quaternion.Euler(0, -90 - a * Mathf.Rad2Deg, 0);
                 var decal = go.AddComponent<WaterDecal>();
-                decal.material = kit.Foam; decal.regionSize = new Vector2(4.2f, 2.2f); decal.surfaceFoamDimmer = 1; decal.deepFoamDimmer = 0;
+                decal.material = kit.Foam; decal.regionSize = new Vector2(5.6f, 2.6f); decal.surfaceFoamDimmer = 1; decal.deepFoamDimmer = 0;
             }
         }
 

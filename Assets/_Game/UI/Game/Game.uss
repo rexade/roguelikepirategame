@@ -49,3 +49,15 @@
 .menu-button:focus { border-width: 2px; border-color: rgb(242, 209, 116); }
 .menu-button.primary { background-color: rgb(193, 163, 79); color: rgb(26, 32, 24); }
 .menu-button.primary:hover { background-color: rgb(212, 182, 98); }
+
+/* Sea chart (M): parchment overview of the archipelago. */
+.chart { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(6, 12, 14, 0.55); justify-content: center; align-items: center; }
+.chart-frame { width: 64%; height: 90%; background-color: rgb(214, 196, 150); border-radius: 6px; border-width: 3px; border-color: rgb(92, 66, 38); padding: 12px 18px; }
+.chart-title { font-size: 26px; -unity-font-style: bold; color: rgb(70, 48, 26); -unity-text-align: upper-center; letter-spacing: 4px; }
+.chart-canvas { flex-grow: 1; margin-top: 6px; margin-bottom: 6px; }
+.chart-legend { font-size: 13px; color: rgb(80, 60, 36); -unity-text-align: middle-center; white-space: normal; }
+.chart-name { font-size: 14px; color: rgb(60, 42, 22); }
+.chart-region { font-size: 15px; -unity-font-style: bold; letter-spacing: 2px; color: rgb(90, 64, 36); }
+.chart-harbor { -unity-font-style: bold; color: rgb(120, 60, 12); }
+.chart-uncharted { color: rgb(110, 96, 72); font-size: 17px; -unity-font-style: bold; }
+.chart-north { -unity-font-style: bold; font-size: 15px; }

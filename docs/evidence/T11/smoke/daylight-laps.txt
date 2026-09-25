@@ -1,0 +1,5 @@
+warm-up: 120.0 s, 26377 frames, peak live shots 2, ships 3, docked False, sunk False, hull 1984
+run1: 0.0 s, 0 frames, peak live shots 0, ships 0, docked False, sunk False, hull 0
+region first-region ready in 1434.2 ms
+region galewater-reach ready in 22.1 ms
+region galewater-reach unloaded

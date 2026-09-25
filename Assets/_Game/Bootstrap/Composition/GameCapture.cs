@@ -23,8 +23,23 @@ namespace PirateGame.Composition
         {
             if (LaunchOptions.Argument("-capture") == null) return;
             UnityEngine.SceneManagement.SceneManager.sceneLoaded += (scene, mode) => Attach();
-            if (!Attach())
+            if (!Attach()) new GameObject("Title capture").AddComponent<TitleShot>();
+        }
+
+        // Photographs the title menu, then starts a new campaign in the world scene.
+        private sealed class TitleShot : MonoBehaviour
+        {
+            private IEnumerator Start()
             {
+                for (float t = 0; t < 2f; t += Time.unscaledDeltaTime) yield return null;
+                yield return new WaitForEndOfFrame();
+                var output = Path.GetFullPath(LaunchOptions.Argument("-capture") ?? "Captures");
+                Directory.CreateDirectory(output);
+                var texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+                texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+                texture.Apply();
+                File.WriteAllBytes(Path.Combine(output, "00-title.png"), texture.EncodeToPNG());
+                Destroy(texture);
                 LaunchOptions.Mode = LaunchMode.NewCampaign;
                 UnityEngine.SceneManagement.SceneManager.LoadScene(LaunchOptions.WorldScene);
             }
@@ -118,6 +133,11 @@ namespace PirateGame.Composition
             yield return Relocate(new Vector3(-50, 0, 40), 30);
             yield return Drive(1, 0.2f, 2.5f);
             yield return Shot("open-water");
+            director.OpenChart();
+            yield return Wait(0.6f);
+            yield return Shot("sea-chart");
+            director.CloseChart();
+            yield return Wait(0.2f);
             if (director.weather != null)
             {
                 var voyageWeather = director.weather.Current;

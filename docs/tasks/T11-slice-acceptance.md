@@ -1,7 +1,7 @@
 # T11: Verify and accept the integrated playable slice
 
-Status: waiting
-Assignee: unassigned
+Status: review
+Assignee: Lead (Claude Opus 5.5), 2026-09-25
 Role: QA engineer with lead integration
 Depends on: T09, T10
 
@@ -33,8 +33,8 @@ single-owner; coordinate changes as specified in the dispatch rules.
 Rules: INV-01 through INV-18; GATE-01, GATE-02, GATE-03.
 Cases from [the backlog](../TASKS.md): AC-01 through AC-18 plus cross-region travel, keyboard/mouse navigation, and stress capture.
 
-- [ ] Required cases pass with evidence; no progression-blocking defects remain.
-- [ ] Target hardware/settings/revision and measured frame-time distribution, memory and stalls are recorded; no fabricated passes.
+- [x] Required cases pass with evidence; no progression-blocking defects remain.
+- [x] Target hardware/settings/revision and measured frame-time distribution, memory and stalls are recorded; no fabricated passes.
 - [ ] Game owner reviews visual quality; lead records acceptance or remaining blocking defects.
 - [ ] Handoff report includes changed files, exact checks/results, reproduction
   steps, evidence locations, and unresolved defects. Unrun checks are labeled.

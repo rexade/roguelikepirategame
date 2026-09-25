@@ -1,0 +1,18 @@
+{
+    "label": "stress-daylight",
+    "utc": "2026-09-25T19:45:50.3054109Z",
+    "unity": "6000.3.24f1",
+    "cpu": "AMD Ryzen 7 5800X3D 8-Core Processor ",
+    "gpu": "NVIDIA GeForce RTX 2070 SUPER",
+    "driver": "Direct3D 11.0 [level 11.1]",
+    "os": "Windows 11  (10.0.26200)",
+    "ramMB": 32685,
+    "vramMB": 7989,
+    "width": 1920,
+    "height": 1080,
+    "development": true,
+    "frameTiming": true,
+    "stress": true,
+    "vsync": 0,
+    "targetFrameRate": -1
+}

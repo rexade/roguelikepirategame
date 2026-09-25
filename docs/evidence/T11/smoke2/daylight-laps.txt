@@ -1,0 +1,57 @@
+warm-up: 120.0 s, 28305 frames, peak live shots 2, ships 3, docked False, sunk False, hull 1992
+    0s (0,-12) wp 0
+    5s (0,23) wp 1
+    10s (0,63) wp 2
+    15s (8,102) wp 3
+    20s (40,111) wp 5
+    25s (49,76) wp 5
+    30s (44,37) wp 6
+    35s (29,0) wp 6
+    40s (3,-10) wp 8
+    45s (3,-10) wp 8
+    50s (3,-10) wp 8
+    55s (3,-10) wp 8
+    60s (3,-10) wp 8
+    65s (3,-10) wp 8
+    70s (3,-10) wp 8
+    75s (3,-10) wp 8
+    80s (3,-10) wp 8
+    85s (3,-10) wp 8
+    90s (3,-10) wp 8
+    95s (3,-10) wp 8
+    100s (3,-10) wp 8
+    105s (3,-10) wp 8
+    110s (3,-10) wp 8
+    115s (3,-10) wp 8
+    end at (3,-10) waypoint 8/8
+run1: 120.0 s, 28214 frames, peak live shots 2, ships 3, docked False, sunk False, hull 1954
+    0s (0,-12) wp 0
+    5s (0,22) wp 1
+    10s (0,62) wp 2
+    15s (7,101) wp 3
+    20s (39,112) wp 5
+    25s (49,78) wp 5
+    30s (44,38) wp 6
+    35s (30,1) wp 6
+    40s (3,-10) wp 8
+    45s (3,-10) wp 8
+    50s (3,-10) wp 8
+    55s (3,-10) wp 8
+    60s (3,-10) wp 8
+    65s (3,-10) wp 8
+    70s (3,-10) wp 8
+    75s (3,-10) wp 8
+    80s (3,-10) wp 8
+    85s (3,-10) wp 8
+    90s (3,-10) wp 8
+    95s (3,-10) wp 8
+    100s (3,-10) wp 8
+    105s (3,-10) wp 8
+    110s (3,-10) wp 8
+    115s (3,-10) wp 8
+    end at (3,-10) waypoint 8/8
+region first-region ready in 1223.1 ms
+region galewater-reach ready in 12.6 ms
+region galewater-reach unloaded
+region galewater-reach ready in 12.7 ms
+region galewater-reach unloaded
