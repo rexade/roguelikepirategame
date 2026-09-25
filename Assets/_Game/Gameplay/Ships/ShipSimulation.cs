@@ -17,6 +17,9 @@ namespace PirateGame.Gameplay.Ships
         public RuleResult LastTickResult { get; private set; }
         public RuleResult LastPickupResult { get; private set; }
         public event Action<InputIntent> TickStarted;
+        // Optional (T10): maps the published XZ position to its region. Without it the
+        // expedition keeps its current region, as in single-region fixtures.
+        public Func<Vector3, string> RegionOf { get; set; }
         private double damage;
         private bool stepped;
         private bool captured;
@@ -122,7 +125,7 @@ namespace PirateGame.Gameplay.Ships
                 if (!captured)
                 {
                     var p = motor.Body.position;
-                    position = new SeaPosition(Session.Snapshot.Expedition.Position.RegionId, p.x, p.z);
+                    position = new SeaPosition(RegionOf?.Invoke(p) ?? Session.Snapshot.Expedition.Position.RegionId, p.x, p.z);
                     speed = motor.Speed;
                     captured = true;
                 }

@@ -22,7 +22,8 @@
     "Unity.RenderPipelines.HighDefinition.Runtime",
     "Unity.RenderPipelines.Core.Runtime",
     "PirateGame.Audio",
-    "PirateGame.Weather"
+    "PirateGame.Weather",
+    "PirateGame.Streaming"
   ],
   "includePlatforms": [
     "Editor"

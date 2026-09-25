@@ -15,6 +15,19 @@ MonoBehaviour:
   regionId: first-region
   homeId: home-harbor
   homeName: Homeward Harbor
+  displayName: Homeward Reach
+  sceneName: HomewardReach
+  bounds:
+    serializedVersion: 2
+    x: -70
+    y: -60
+    width: 180
+    height: 225
+  encounterTable:
+  - enemyId: raider
+    weight: 1
+  - enemyId: gunner
+    weight: 1
   dock: {x: 0, y: -12}
   dockRadius: 5
   dockMaximumSpeed: 1
@@ -68,9 +81,11 @@ MonoBehaviour:
   - id: first:encounter-01
     position: {x: 0, y: 60}
     ships: 1
+    minShips: 0
   - id: first:encounter-02
     position: {x: 42, y: 95}
     ships: 2
+    minShips: 0
   route:
   - {x: 0, y: -12}
   - {x: 0, y: 16}

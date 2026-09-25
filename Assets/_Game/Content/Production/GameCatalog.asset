@@ -64,6 +64,12 @@ MonoBehaviour:
     z: 124
     radius: 5
     maximumSpeed: 1
+  - id: stormwatch-harbor
+    regionId: galewater-reach
+    x: -6
+    z: 332
+    radius: 5
+    maximumSpeed: 1
   upgrades:
   - id: harbor-storehouse
     trackId: harbor
@@ -141,9 +147,11 @@ MonoBehaviour:
   - wreck
   - raider
   - gunner
+  - corsair
   - combat-context-v1
   regionIds:
   - first-region
+  - galewater-reach
   worldIdentities:
   - id: home-harbor
     origin: Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/harbor
@@ -169,3 +177,31 @@ MonoBehaviour:
     origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/encounters[0]'
   - id: first:encounter-02
     origin: 'Assets/_Game/Content/World/FirstRegion/FirstRegion.asset/encounters[1]'
+  - id: stormwatch-harbor
+    origin: Assets/_Game/Content/World/Galewater/GalewaterReach.asset/harbor
+  - id: gale:shoal
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/islands[0]'
+  - id: gale:spire
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/islands[1]'
+  - id: gale:bastion
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/islands[2]'
+  - id: gale:crown
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/islands[3]'
+  - id: gale:barrel-01
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/salvage[0]'
+  - id: gale:wreck-01
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/salvage[1]'
+  - id: gale:barrel-02
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/salvage[2]'
+  - id: gale:wreck-02
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/salvage[3]'
+  - id: gale:barrel-03
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/salvage[4]'
+  - id: gale:wreck-03
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/salvage[5]'
+  - id: gale:encounter-01
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/encounters[0]'
+  - id: gale:encounter-02
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/encounters[1]'
+  - id: gale:encounter-03
+    origin: 'Assets/_Game/Content/World/Galewater/GalewaterReach.asset/encounters[2]'

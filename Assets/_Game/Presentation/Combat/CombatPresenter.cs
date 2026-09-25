@@ -51,6 +51,9 @@ namespace PirateGame.Presentation.Combat
 
         private void OnDestroy() => Unbind();
 
+        // Enemies streamed in after binding: a restored defeated hull vanishes, no replay of its sinking.
+        public void Adopt(CombatTarget target) => Track(target, true);
+
         // Restored defeated hulls vanish at once; fresh defeats animate.
         private void Track(CombatTarget target, bool initial)
         {

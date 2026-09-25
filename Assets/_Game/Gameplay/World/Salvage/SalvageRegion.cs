@@ -35,7 +35,8 @@ namespace PirateGame.Gameplay.World
                     return new RuleResult(RuleError.InvalidRequest, detail: "Missing or incompatible salvage: " + site.id);
                 states.Add(state);
             }
-            states.AddRange(expedition.Entities.Values.Where(e => e.Id.AuthoredId == null && IsSalvage(e.DefinitionId))
+            states.AddRange(expedition.Entities.Values.Where(e => e.Id.AuthoredId == null && IsSalvage(e.DefinitionId) &&
+                    e.Position.RegionId == content.regionId)
                 .OrderBy(e => e.Id.SpawnId, StringComparer.Ordinal));
             Clear();
             Sources = states.Select(state => {

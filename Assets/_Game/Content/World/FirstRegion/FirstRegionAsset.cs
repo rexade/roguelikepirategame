@@ -38,12 +38,27 @@ namespace PirateGame.Content.World
         public Vector2 position;
         // Ships spawned here per voyage; their types are drawn from the voyage seed.
         [Min(1)] public int ships = 1;
+        // Optional lower bound: when set, each voyage draws a count in [minShips, ships].
+        [Min(0)] public int minShips;
+    }
+    // Weighted entry of a region's encounter table (T10). Empty table = all enemy types equally.
+    [Serializable] public sealed class WeightedEnemy
+    {
+        public string enemyId;
+        [Min(1)] public int weight = 1;
     }
 
+    // Authored description of one region (the type predates T10 and now serves every region).
     [CreateAssetMenu(menuName = "Pirate Game/First Region")]
     public sealed class FirstRegionAsset : ScriptableObject
     {
         public string regionId = "first-region", homeId = "home-harbor", homeName = "Homeward Harbor";
+        public string displayName = "Homeward Reach";
+        // Additive scene holding this region's static art and collision (T10 streaming).
+        public string sceneName = "";
+        // XZ extent owned by this region; neighbouring regions share edges but never overlap.
+        public Rect bounds = new Rect(-70, -60, 180, 225);
+        public WeightedEnemy[] encounterTable = Array.Empty<WeightedEnemy>();
         public Vector2 dock = new Vector2(0, -12);
         public float dockRadius = 5, dockMaximumSpeed = 1;
         public Vector2 homeLandmass = new Vector2(-8, -33), homeLandmassSize = new Vector2(30, 20);
@@ -53,6 +68,12 @@ namespace PirateGame.Content.World
         public EncounterSite[] encounters = Array.Empty<EncounterSite>();
         public Vector2[] route = Array.Empty<Vector2>();
         public HubDefinition Home => new HubDefinition(homeId, new SeaPosition(regionId, dock.x, dock.y), dockRadius, dockMaximumSpeed);
+        public bool Contains(Vector2 xz) => bounds.Contains(xz);
+        public float DistanceTo(Vector2 xz)
+        {
+            float dx = Mathf.Max(bounds.xMin - xz.x, 0, xz.x - bounds.xMax), dz = Mathf.Max(bounds.yMin - xz.y, 0, xz.y - bounds.yMax);
+            return Mathf.Sqrt(dx * dx + dz * dz);
+        }
         public IEnumerable<HubDefinition> Hubs => new[] { Home }.Concat(outposts.Select(o =>
             new HubDefinition(o.id, new SeaPosition(regionId, o.dock.x, o.dock.y), o.dockRadius, o.dockMaximumSpeed)));
         public string HubName(string id) =>
@@ -108,8 +129,17 @@ namespace PirateGame.Content.World
             foreach (var site in encounters)
             {
                 Finite(site.position);
-                if (site.ships < 1 || site.ships > 8) throw new ArgumentException("Invalid encounter size: " + site.id);
+                if (site.ships < 1 || site.ships > 8 || site.minShips < 0 || site.minShips > site.ships)
+                    throw new ArgumentException("Invalid encounter size: " + site.id);
             }
+            foreach (var entry in encounterTable)
+                if (string.IsNullOrWhiteSpace(entry.enemyId) || entry.weight < 1 || !catalog.EntityDefinitionIds.Contains(entry.enemyId))
+                    throw new ArgumentException("Invalid encounter table entry in " + regionId + ": " + entry.enemyId);
+            if (bounds.width <= 0 || bounds.height <= 0) throw new ArgumentException("Region bounds required: " + regionId);
+            var points = islands.Select(i => i.position).Concat(salvage.Select(s => s.position)).Concat(encounters.Select(e => e.position))
+                .Concat(new[] { dock, homeLandmass }).Concat(outposts.SelectMany(o => new[] { o.dock, o.landmass }));
+            foreach (var point in points)
+                if (!bounds.Contains(point)) throw new ArgumentException("Authored point " + point + " lies outside " + regionId + " bounds.");
             if (route.Length < 2 || route[0] != dock || route[route.Length - 1] != dock) throw new ArgumentException("Route must return home.");
             foreach (var point in route) Finite(point);
         }

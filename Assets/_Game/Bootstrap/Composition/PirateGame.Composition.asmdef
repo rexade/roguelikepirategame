@@ -20,7 +20,8 @@
     "PirateGame.Persistence",
     "Unity.InputSystem",
     "PirateGame.Audio",
-    "PirateGame.Weather"
+    "PirateGame.Weather",
+    "PirateGame.Streaming"
   ],
   "autoReferenced": true
 }

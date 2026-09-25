@@ -11,6 +11,7 @@ using PirateGame.Gameplay.Combat;
 using PirateGame.Gameplay.Input;
 using PirateGame.Gameplay.Ships;
 using PirateGame.Gameplay.World;
+using PirateGame.Gameplay.World.Streaming;
 using PirateGame.Presentation.Audio;
 using PirateGame.Presentation.Cameras;
 using PirateGame.Presentation.Weather;
@@ -42,6 +43,8 @@ namespace PirateGame.Composition.Editor
         public const string Prefabs = "Assets/_Game/Prefabs/Production/";
         private const string Art = "Assets/_Game/Art/Prototype/";
         private const string RegionAsset = "Assets/_Game/Content/World/FirstRegion/FirstRegion.asset";
+        private const string GalewaterAsset = "Assets/_Game/Content/World/Galewater/GalewaterReach.asset";
+        public const string RegionScenes = "Assets/_Game/Scenes/Regions/";
 
         [MenuItem("Pirate Game/Author Production World")]
         public static void CreateAll()
@@ -50,12 +53,16 @@ namespace PirateGame.Composition.Editor
             AssetDatabase.Refresh();
             var region = AssetDatabase.LoadAssetAtPath<FirstRegionAsset>(RegionAsset);
             AuthorRegionContent(region);
-            var rules = AuthorRules(region);
+            var galewater = AuthorGalewater();
+            var regions = new[] { region, galewater };
+            var rules = AuthorRules(regions);
             var combat = AuthorCombat(rules);
             var kit = new Kit();
-            var raider = EnemyPrefab("Raider", kit);
-            var gunner = EnemyPrefab("Gunner", kit);
-            AuthorScene(region, rules, combat, raider, gunner, kit);
+            var raider = EnemyPrefab("Raider", kit, kit.RaiderSail);
+            var gunner = EnemyPrefab("Gunner", kit, kit.GunnerSail);
+            var corsair = EnemyPrefab("Corsair", kit, kit.CorsairSail, "Raider");
+            foreach (var r in regions) AuthorRegionScene(r, kit);
+            AuthorScene(regions, rules, combat, raider, gunner, corsair, kit);
             ConfigureBuildScenes();
             AssetDatabase.SaveAssets();
             Validate();
@@ -69,14 +76,54 @@ namespace PirateGame.Composition.Editor
             // Second encounter is an escorted pair; everything else keeps T06's layout.
             foreach (var site in region.encounters) site.ships = site.id == "first:encounter-02" ? 2 : 1;
             region.homeName = "Homeward Harbor";
+            region.displayName = "Homeward Reach";
+            region.sceneName = "HomewardReach";
+            region.bounds = new Rect(-70, -60, 180, 225);
+            region.encounterTable = new[] { new WeightedEnemy { enemyId = "raider", weight = 1 }, new WeightedEnemy { enemyId = "gunner", weight = 1 } };
             // T09: a second harbor in the same region, north-east beyond the escorted pair.
             region.outposts = new[] { new HarborSite { id = "saltmarsh-harbor", name = "Saltmarsh Harbor", dock = new Vector2(58, 124),
                 dockRadius = 5, dockMaximumSpeed = 1, landmass = new Vector2(66, 145), landmassSize = new Vector2(26, 18) } };
             EditorUtility.SetDirty(region);
         }
 
-        private static DefinitionCatalogAsset AuthorRules(FirstRegionAsset region)
+        // T10: a second, more dangerous region north of Homeward Reach.
+        private static FirstRegionAsset AuthorGalewater()
         {
+            Directory.CreateDirectory(Path.GetDirectoryName(GalewaterAsset));
+            AssetDatabase.Refresh();
+            var gale = LoadOrCreate<FirstRegionAsset>(GalewaterAsset);
+            gale.regionId = "galewater-reach"; gale.displayName = "Galewater Reach"; gale.sceneName = "GalewaterReach";
+            gale.bounds = new Rect(-70, 165, 180, 235);
+            gale.homeId = "stormwatch-harbor"; gale.homeName = "Stormwatch Harbor";
+            gale.dock = new Vector2(-6, 332); gale.dockRadius = 5; gale.dockMaximumSpeed = 1;
+            gale.homeLandmass = new Vector2(-14, 353); gale.homeLandmassSize = new Vector2(28, 18);
+            gale.outposts = new HarborSite[0];
+            gale.islands = new[] {
+                new IslandSite { id = "gale:shoal", position = new Vector2(30, 200), size = new Vector2(22, 16) },
+                new IslandSite { id = "gale:spire", position = new Vector2(-34, 238), size = new Vector2(16, 24) },
+                new IslandSite { id = "gale:bastion", position = new Vector2(48, 268), size = new Vector2(24, 20) },
+                new IslandSite { id = "gale:crown", position = new Vector2(-38, 300), size = new Vector2(22, 18) } };
+            gale.salvage = new[] {
+                Site("gale:barrel-01", "barrel", 0, 185, 2, 1), Site("gale:wreck-01", "wreck", -12, 220, 3, 3),
+                Site("gale:barrel-02", "barrel", 18, 240, 1, 2), Site("gale:wreck-02", "wreck", 62, 300, 4, 4),
+                Site("gale:barrel-03", "barrel", -52, 268, 2, 2), Site("gale:wreck-03", "wreck", 14, 292, 5, 3) };
+            gale.encounters = new[] {
+                new EncounterSite { id = "gale:encounter-01", position = new Vector2(6, 212), ships = 2, minShips = 1 },
+                new EncounterSite { id = "gale:encounter-02", position = new Vector2(-14, 262), ships = 2 },
+                new EncounterSite { id = "gale:encounter-03", position = new Vector2(30, 318), ships = 3, minShips = 1 } };
+            gale.encounterTable = new[] { new WeightedEnemy { enemyId = "raider", weight = 3 },
+                new WeightedEnemy { enemyId = "gunner", weight = 3 }, new WeightedEnemy { enemyId = "corsair", weight = 4 } };
+            gale.route = new[] { gale.dock, new Vector2(0, 300), new Vector2(20, 250), new Vector2(0, 190), new Vector2(-20, 250), gale.dock };
+            EditorUtility.SetDirty(gale);
+            return gale;
+        }
+
+        private static SalvageSite Site(string id, string definition, float x, float z, int wood, int iron) =>
+            new SalvageSite { id = id, definitionId = definition, position = new Vector2(x, z), wood = wood, iron = iron };
+
+        private static DefinitionCatalogAsset AuthorRules(FirstRegionAsset[] regions)
+        {
+            var region = regions[0];
             var rules = LoadOrCreate<DefinitionCatalogAsset>(Content + "GameCatalog.asset");
             rules.resources = new[] { new ResourceRow { id = "wood", weight = 1 }, new ResourceRow { id = "iron", weight = 2 } };
             rules.hulls = new[] { new HullRow { id = "cutter",
@@ -84,7 +131,7 @@ namespace PirateGame.Composition.Editor
                 stats = new[] { Stat("health", 100, 1, 1000), Stat("cargo", 10, 0, 1000), Stat("speed", 8, 1, 30), Stat("damage-scale", 1, 0.1, 4) } } };
             rules.equipment = new[] { new EquipmentRow { id = "cannon", kind = SlotKind.Weapon },
                 new EquipmentRow { id = "repeater", kind = SlotKind.Weapon }, new EquipmentRow { id = "brace", kind = SlotKind.Ability } };
-            rules.hubs = region.Hubs.Select(h => new HubRow { id = h.Id, regionId = h.Dock.RegionId, x = h.Dock.X, z = h.Dock.Z, radius = h.Radius, maximumSpeed = h.MaximumSpeed }).ToArray();
+            rules.hubs = regions.SelectMany(r => r.Hubs).Select(h => new HubRow { id = h.Id, regionId = h.Dock.RegionId, x = h.Dock.X, z = h.Dock.Z, radius = h.Radius, maximumSpeed = h.MaximumSpeed }).ToArray();
             rules.upgrades = new[] {
                 Upgrade("harbor-storehouse", "harbor", 1, new[] { Cost("wood", 5) }, new string[0], new[] { "storehouse" }, Mod("cargo", ModifierOperation.Flat, 5)),
                 Upgrade("shipwright-slip", "harbor", 2, new[] { Cost("wood", 8), Cost("iron", 3) }, new[] { "storehouse" }, new string[0], Mod("speed", ModifierOperation.Percent, 0.15)),
@@ -92,11 +139,16 @@ namespace PirateGame.Composition.Editor
                 Upgrade("iron-bound-guns", "ship", 2, new[] { Cost("wood", 8), Cost("iron", 4) }, new string[0], new string[0], Mod("damage-scale", ModifierOperation.Percent, 0.35)),
                 Upgrade("navigators-charts", "charts", 1, new[] { Cost("wood", 6), Cost("iron", 3) }, new string[0], new[] { "fast-travel" }) };
             rules.unlockIds = new[] { "storehouse", "fast-travel" };
-            rules.entityDefinitionIds = new[] { "barrel", "wreck", "raider", "gunner", CombatCatalog.ContextDefinition };
-            rules.regionIds = new[] { region.regionId };
-            rules.worldIdentities = region.Identities(RegionAsset).Select(i => new IdentityRow { id = i.Id, origin = i.Origin }).ToArray();
+            rules.entityDefinitionIds = new[] { "barrel", "wreck", "raider", "gunner", "corsair", CombatCatalog.ContextDefinition };
+            rules.regionIds = regions.Select(r => r.regionId).ToArray();
+            rules.worldIdentities = regions.SelectMany(r => r.Identities(AssetDatabase.GetAssetPath(r))).Select(i => new IdentityRow { id = i.Id, origin = i.Origin }).ToArray();
             EditorUtility.SetDirty(rules);
-            region.Validate(rules.Freeze());
+            var frozen = rules.Freeze();
+            foreach (var r in regions) r.Validate(frozen);
+            FirstRegionAsset.ValidateIdentities(regions.SelectMany(r => r.Identities(AssetDatabase.GetAssetPath(r))));
+            for (int i = 0; i < regions.Length; i++)
+                for (int j = i + 1; j < regions.Length; j++)
+                    if (regions[i].bounds.Overlaps(regions[j].bounds)) throw new BuildFailedException("Region bounds overlap: " + regions[i].regionId + " / " + regions[j].regionId);
             return rules;
         }
 
@@ -111,7 +163,9 @@ namespace PirateGame.Composition.Editor
                 new EnemyRow { id = "raider", weaponId = "repeater", tactic = EnemyTactic.Pursue, health = 70, speed = 5, engagementRange = 38, preferredRange = 9, reloadScale = 3,
                     wreckLoot = new[] { Cost("wood", 2), Cost("iron", 1) } },
                 new EnemyRow { id = "gunner", weaponId = "cannon", tactic = EnemyTactic.KeepRange, health = 90, speed = 3.5f, engagementRange = 42, preferredRange = 23, reloadScale = 3,
-                    wreckLoot = new[] { Cost("wood", 3), Cost("iron", 2) } } };
+                    wreckLoot = new[] { Cost("wood", 3), Cost("iron", 2) } },
+                new EnemyRow { id = "corsair", weaponId = "cannon", tactic = EnemyTactic.Pursue, health = 140, speed = 4.6f, engagementRange = 40, preferredRange = 14, reloadScale = 2.2f,
+                    wreckLoot = new[] { Cost("wood", 4), Cost("iron", 4) } } };
             combat.abilityId = "brace"; combat.abilityCooldown = 6; combat.braceDuration = 2; combat.damageMultiplier = 0.25f;
             EditorUtility.SetDirty(combat);
             combat.Freeze();
@@ -156,6 +210,7 @@ namespace PirateGame.Composition.Editor
                 Plaster = Lit("Plaster", new Color(0.86f, 0.8f, 0.68f), 0.15f),
                 RaiderSail = Lit("Raider sail", new Color(0.72f, 0.14f, 0.12f), 0.2f),
                 GunnerSail = Lit("Gunner sail", new Color(0.36f, 0.16f, 0.52f), 0.2f),
+                CorsairSail = Lit("Corsair sail", new Color(0.09f, 0.09f, 0.1f), 0.15f),
                 Cloth = Lit("Awning cloth", new Color(0.2f, 0.45f, 0.5f), 0.2f);
             private static Material Load(string name) =>
                 AssetDatabase.LoadAssetAtPath<Material>(Art + name + ".mat") ?? throw new InvalidOperationException("Missing art material " + name);
@@ -180,16 +235,15 @@ namespace PirateGame.Composition.Editor
 
         // ------------------------------------------------------------ prefabs
 
-        private static GameObject EnemyPrefab(string name, Kit kit)
+        private static GameObject EnemyPrefab(string name, Kit kit, Material sail, string sourceName = null)
         {
-            var source = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Game/Prefabs/Combat/" + name + ".prefab");
+            var source = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Game/Prefabs/Combat/" + (sourceName ?? name) + ".prefab");
             var ship = (GameObject)PrefabUtility.InstantiatePrefab(source);
             PrefabUtility.UnpackPrefabInstance(ship, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
             ship.name = name;
             ship.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-            var sail = name == "Raider" ? kit.RaiderSail : kit.GunnerSail;
             foreach (var renderer in ship.GetComponentsInChildren<Renderer>())
-                if (renderer.name == "Square sail" || renderer.name == "Pennant") renderer.sharedMaterial = sail;
+                if (renderer.name == "Square sail" || renderer.name == "Pennant") renderer.sharedMaterial = renderer.name == "Pennant" && name == "Corsair" ? kit.RaiderSail : sail;
             AddWake(ship, kit, 0.8f);
             var target = ship.GetComponent<CombatTarget>(); target.motor = ship.GetComponent<ShipMotor>();
             var prefab = PrefabUtility.SaveAsPrefabAsset(ship, Prefabs + name + ".prefab");
@@ -212,13 +266,44 @@ namespace PirateGame.Composition.Editor
 
         // ------------------------------------------------------------ scene
 
-        private static void AuthorScene(FirstRegionAsset region, DefinitionCatalogAsset rules, CombatCatalogAsset combat,
-            GameObject raider, GameObject gunner, Kit kit)
+        // Region art and collision live in additive scenes streamed by RegionStreamer.
+        private static void AuthorRegionScene(FirstRegionAsset region, Kit kit)
         {
+            Directory.CreateDirectory(RegionScenes);
+            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            var art = new GameObject(region.displayName).transform;
+            int seed = region.regionId.Length;
+            BuildHarbor(art, region.homeName, region.homeLandmass, region.homeLandmassSize, region.dock, kit, kit.Amber, seed++);
+            DockRing(art, new Vector3(region.dock.x, 0, region.dock.y), region.dockRadius, kit);
+            Lamp(art, region.homeName, LampLight(region.homeLandmass, region.dock));
+            foreach (var island in region.islands) BuildIsland(art, island.id, island.position, island.size, kit, seed++, true);
+            foreach (var outpost in region.outposts)
+            {
+                BuildHarbor(art, outpost.name, outpost.landmass, outpost.landmassSize, outpost.dock, kit, kit.Cloth, seed++);
+                DockRing(art, new Vector3(outpost.dock.x, 0, outpost.dock.y), outpost.dockRadius, kit);
+                Lamp(art, outpost.name, LampLight(outpost.landmass, outpost.dock));
+            }
+            EditorSceneManager.SaveScene(scene, RegionScenes + region.sceneName + ".unity");
+        }
+
+        private static void Lamp(Transform parent, string harbor, Vector3 position)
+        {
+            var go = new GameObject(harbor + " lamp", typeof(Light), typeof(HDAdditionalLightData));
+            go.transform.SetParent(parent, false);
+            go.transform.position = position;
+            var light = go.GetComponent<Light>();
+            light.type = LightType.Point; light.color = new Color(1, 0.56f, 0.18f);
+            light.intensity = 3000; light.range = 16; light.shadows = LightShadows.None;
+        }
+
+        private static void AuthorScene(FirstRegionAsset[] regions, DefinitionCatalogAsset rules, CombatCatalogAsset combat,
+            GameObject raider, GameObject gunner, GameObject corsair, Kit kit)
+        {
+            var region = regions[0];
             var scene = EditorSceneManager.OpenScene(OceanTestScene, OpenSceneMode.Single);
             EditorSceneManager.SaveScene(scene, WorldScene);
             scene = EditorSceneManager.OpenScene(WorldScene, OpenSceneMode.Single);
-            var keep = new HashSet<string> { "Main Camera", "Sun", "Environment", "Ocean", "Harbor reflection", "Harbor light" };
+            var keep = new HashSet<string> { "Main Camera", "Sun", "Environment", "Ocean", "Harbor reflection" };
             foreach (var root in scene.GetRootGameObjects())
                 if (!keep.Contains(root.name)) Object.DestroyImmediate(root);
 
@@ -229,30 +314,22 @@ namespace PirateGame.Composition.Editor
             ConfigureEnvironment(sun, volume, ocean);
 
             var world = new GameObject("World").transform;
-            var art = new GameObject("Region art").transform; art.SetParent(world);
-            BuildHarbor(art, region.homeName, region.homeLandmass, region.homeLandmassSize, region.dock, kit, kit.Amber, 1);
-            int seed = 3;
-            foreach (var island in region.islands) BuildIsland(art, island.id, island.position, island.size, kit, seed++, true);
             var dock = new Vector3(region.dock.x, 0, region.dock.y);
-            DockRing(art, dock, region.dockRadius, kit);
             var probe = GameObject.Find("Harbor reflection").transform; probe.SetParent(world); probe.position = new Vector3(-4, 5, -22);
-            var lamp = GameObject.Find("Harbor light"); lamp.transform.SetParent(world);
-            lamp.transform.position = LampLight(region.homeLandmass, region.dock);
-            var light = lamp.GetComponent<Light>(); light.intensity = 3000; light.range = 16;
-            foreach (var outpost in region.outposts)
+            var streamer = new GameObject("Region streamer").AddComponent<RegionStreamer>();
+            streamer.transform.SetParent(world);
+            streamer.regions = regions;
+            var salvageRoots = new List<SalvageRegion>();
+            foreach (var r in regions)
             {
-                BuildHarbor(art, outpost.name, outpost.landmass, outpost.landmassSize, outpost.dock, kit, kit.Cloth, seed++);
-                DockRing(art, new Vector3(outpost.dock.x, 0, outpost.dock.y), outpost.dockRadius, kit);
-                var outpostLamp = Object.Instantiate(lamp, world);
-                outpostLamp.name = outpost.name + " light";
-                outpostLamp.transform.position = LampLight(outpost.landmass, outpost.dock);
+                var salvageRoot = new GameObject("Salvage " + r.displayName).AddComponent<SalvageRegion>();
+                salvageRoot.transform.SetParent(world);
+                salvageRoot.content = r;
+                salvageRoot.barrelPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Game/Prefabs/World/Barrel.prefab");
+                salvageRoot.wreckPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Game/Prefabs/World/Wreck.prefab");
+                salvageRoots.Add(salvageRoot);
             }
-
-            var salvageRoot = new GameObject("Salvage").AddComponent<SalvageRegion>();
-            salvageRoot.transform.SetParent(world);
-            salvageRoot.content = region;
-            salvageRoot.barrelPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Game/Prefabs/World/Barrel.prefab");
-            salvageRoot.wreckPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Game/Prefabs/World/Wreck.prefab");
+            var salvageRoot0 = salvageRoots[0];
 
             // Player: the accepted T04 cutter with input, combat target, salvage reach and wake.
             var playerObject = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Game/Prefabs/Ships/PlayerCutter.prefab"));
@@ -295,10 +372,11 @@ namespace PirateGame.Composition.Editor
             var menus = menuObject.AddComponent<GameMenus>(); menus.stylesheet = style;
 
             var director = new GameObject("Game director").AddComponent<GameDirector>();
-            director.rules = rules; director.combatContent = combat; director.region = region;
+            director.rules = rules; director.combatContent = combat; director.region = region; director.regions = regions;
+            director.streamer = streamer; director.salvageRegions = salvageRoots.ToArray(); director.corsairPrefab = corsair;
             director.homeHub = region.homeId;
             director.player = simulation; director.playerInput = input; director.playerTarget = target; director.interaction = interaction;
-            director.salvage = salvageRoot; director.raiderPrefab = raider; director.gunnerPrefab = gunner;
+            director.salvage = salvageRoot0; director.raiderPrefab = raider; director.gunnerPrefab = gunner;
             director.followCamera = follow; director.worldCamera = camera; director.presenter = effects; director.aimMarker = aim;
             director.sound = audio; director.weather = skies;
             director.harbor = harborObject.GetComponent<HarborView>(); director.hud = hud; director.menus = menus;
@@ -482,7 +560,7 @@ namespace PirateGame.Composition.Editor
 
         private static void ConfigureBuildScenes()
         {
-            EditorBuildSettings.scenes = new[] { BootstrapScene, WorldScene, OceanTestScene }
+            EditorBuildSettings.scenes = new[] { BootstrapScene, WorldScene, RegionScenes + "HomewardReach.unity", RegionScenes + "GalewaterReach.unity", OceanTestScene }
                 .Select(p => new EditorBuildSettingsScene(p, true)).ToArray();
         }
 
@@ -497,7 +575,11 @@ namespace PirateGame.Composition.Editor
                 throw new BuildFailedException("OceanWorld must contain exactly one campaign owner.");
             if (Object.FindFirstObjectByType<WaterSurface>() == null) throw new BuildFailedException("OceanWorld has no water surface.");
             var definitions = director.rules.Freeze();
-            director.region.Validate(definitions);
+            foreach (var r in director.regions) r.Validate(definitions);
+            if (director.streamer == null || director.salvageRegions.Length != director.regions.Length)
+                throw new BuildFailedException("Every region needs streaming and salvage views.");
+            foreach (var r in director.regions)
+                if (!File.Exists(RegionScenes + r.sceneName + ".unity")) throw new BuildFailedException("Missing region scene " + r.sceneName);
             director.combatContent.Freeze();
             if (director.combatContent.rules != director.rules) throw new BuildFailedException("Combat content must use the production rule catalog.");
             if (Mathf.Abs(director.followCamera.transform.eulerAngles.x - 60) > 0.01f) throw new BuildFailedException("D05 camera pitch changed.");

@@ -12,47 +12,74 @@ using EntityId = PirateGame.Core.EntityId;
 
 namespace PirateGame.Composition
 {
-    // Builds a NEW voyage's ledger: every authored salvage site at full contents
-    // plus seeded enemy spawns at the authored encounter markers. Geography never
-    // varies; the seed only chooses which ships appear where. Existing voyages are
-    // always restored from their saved ledger, never re-planned.
+    // Builds a NEW voyage's ledger for every region: each authored salvage site at
+    // full contents, plus seeded enemy spawns at the authored encounter markers
+    // drawn from the region's encounter table. Geography never varies; the seed only
+    // chooses which ships appear where and how many. Existing voyages are always
+    // restored from their saved ledger, never re-planned.
     public sealed class ExpeditionPlanner
     {
-        private readonly FirstRegionAsset region;
+        private readonly FirstRegionAsset[] regions;
         private readonly CombatCatalog combat;
-        private readonly string[] enemyTypes;
 
-        public ExpeditionPlanner(FirstRegionAsset region, CombatCatalog combat)
+        public ExpeditionPlanner(IEnumerable<FirstRegionAsset> regions, CombatCatalog combat)
         {
-            this.region = region ?? throw new ArgumentNullException(nameof(region));
+            this.regions = (regions ?? throw new ArgumentNullException(nameof(regions))).ToArray();
             this.combat = combat ?? throw new ArgumentNullException(nameof(combat));
-            enemyTypes = combat.Enemies.Keys.OrderBy(k => k, StringComparer.Ordinal).ToArray();
-            if (enemyTypes.Length == 0) throw new ArgumentException("No enemy definitions to place.");
+            if (this.regions.Length == 0) throw new ArgumentException("At least one region is required.");
+            if (combat.Enemies.Count == 0) throw new ArgumentException("No enemy definitions to place.");
+            foreach (var region in this.regions)
+                foreach (var entry in region.encounterTable)
+                    if (!combat.Enemies.ContainsKey(entry.enemyId)) throw new ArgumentException("Unknown enemy in encounter table: " + entry.enemyId);
         }
+
+        public ExpeditionPlanner(FirstRegionAsset region, CombatCatalog combat) : this(new[] { region }, combat) { }
 
         public static string SpawnId(string site, int index) => site + "#" + index.ToString(CultureInfo.InvariantCulture);
 
         public EmbarkPlan Plan(Guid expeditionId, int seed)
         {
             var rng = new SplitMix64(unchecked((ulong)(uint)seed * 0x9E3779B97F4A7C15UL + 0x632BE59BD9B4E019UL));
-            var entities = region.salvage.Select(s => s.Initial(region.regionId)).ToList();
+            var entities = new List<EntityState>();
             var encounters = new Dictionary<string, string>(StringComparer.Ordinal);
-            foreach (var site in region.encounters)
+            foreach (var region in regions)
             {
-                float spread = rng.NextFloat() * Mathf.PI * 2;
-                for (int i = 0; i < site.ships; i++)
+                entities.AddRange(region.salvage.Select(s => s.Initial(region.regionId)));
+                var table = Table(region);
+                int total = table.Sum(t => t.weight);
+                foreach (var site in region.encounters)
                 {
-                    var spec = combat.Enemies[enemyTypes[rng.NextInt(enemyTypes.Length)]];
-                    // Escorts fan out around the marker so hulls never start overlapping.
-                    float angle = spread + i * Mathf.PI * 2 / Math.Max(1, site.ships);
-                    var offset = i == 0 && site.ships == 1 ? Vector2.zero : new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * 7f;
-                    var position = site.position + offset;
-                    string spawn = SpawnId(site.id, i);
-                    encounters[spawn] = spec.Id;
-                    entities.Add(Enemy(EntityId.Generated(expeditionId, spawn), spec, region.regionId, position, rng.NextFloat() * 360f));
+                    int minimum = site.minShips > 0 ? site.minShips : site.ships;
+                    int count = minimum + rng.NextInt(site.ships - minimum + 1);
+                    float spread = rng.NextFloat() * Mathf.PI * 2;
+                    for (int i = 0; i < count; i++)
+                    {
+                        var spec = combat.Enemies[Pick(table, total, rng)];
+                        // Escorts fan out around the marker so hulls never start overlapping.
+                        float angle = spread + i * Mathf.PI * 2 / Math.Max(1, count);
+                        var offset = count == 1 ? Vector2.zero : new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * 7f;
+                        string spawn = SpawnId(site.id, i);
+                        encounters[spawn] = spec.Id;
+                        entities.Add(Enemy(EntityId.Generated(expeditionId, spawn), spec, region.regionId, site.position + offset, rng.NextFloat() * 360f));
+                    }
                 }
             }
             return new EmbarkPlan(expeditionId, seed, "splitmix64:" + rng.State.ToString("x16", CultureInfo.InvariantCulture), entities, encounters);
+        }
+
+        private WeightedEnemy[] Table(FirstRegionAsset region) =>
+            region.encounterTable.Length > 0 ? region.encounterTable
+                : combat.Enemies.Keys.OrderBy(k => k, StringComparer.Ordinal).Select(k => new WeightedEnemy { enemyId = k, weight = 1 }).ToArray();
+
+        private static string Pick(WeightedEnemy[] table, int total, SplitMix64 rng)
+        {
+            int roll = rng.NextInt(total);
+            foreach (var entry in table)
+            {
+                if (roll < entry.weight) return entry.enemyId;
+                roll -= entry.weight;
+            }
+            return table[table.Length - 1].enemyId;
         }
 
         public static EntityState Enemy(EntityId id, EnemySpec spec, string regionId, Vector2 position, float yaw) =>

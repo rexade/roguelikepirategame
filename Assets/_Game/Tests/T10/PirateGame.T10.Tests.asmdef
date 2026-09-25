@@ -1,0 +1,7 @@
+{
+  "name": "PirateGame.T10.Tests",
+  "references": ["PirateGame.Core", "PirateGame.Composition", "PirateGame.CombatContent", "PirateGame.FirstRegion", "PirateGame.Definitions"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}

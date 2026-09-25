@@ -11,6 +11,7 @@ using PirateGame.Gameplay.Combat;
 using PirateGame.Gameplay.Input;
 using PirateGame.Gameplay.Ships;
 using PirateGame.Gameplay.World;
+using PirateGame.Gameplay.World.Streaming;
 using PirateGame.Persistence;
 using PirateGame.Presentation.Audio;
 using PirateGame.Presentation.Cameras;
@@ -38,6 +39,8 @@ namespace PirateGame.Composition
         public DefinitionCatalogAsset rules;
         public CombatCatalogAsset combatContent;
         public FirstRegionAsset region;
+        // Every region of the archipelago (T10); the first is the home region.
+        public FirstRegionAsset[] regions = Array.Empty<FirstRegionAsset>();
         public string homeHub = "home-harbor";
         public string startingHull = "cutter";
         public string regionTitle = "Homeward Reach";
@@ -50,7 +53,9 @@ namespace PirateGame.Composition
 
         [Header("World")]
         public SalvageRegion salvage;
-        public GameObject raiderPrefab, gunnerPrefab;
+        public SalvageRegion[] salvageRegions = Array.Empty<SalvageRegion>();
+        public RegionStreamer streamer;
+        public GameObject raiderPrefab, gunnerPrefab, corsairPrefab;
         public ShipFollowCamera followCamera;
         public Camera worldCamera;
         public CombatPresenter presenter;
@@ -74,7 +79,9 @@ namespace PirateGame.Composition
         public IReadOnlyList<EnemyShip> Enemies => enemies;
         public ExpeditionPlanner Planner { get; private set; }
         public string LastNotice { get; private set; } = "";
-        public bool Ready => Session != null;
+        // A session exists and its saved location has fully arrived (regions loaded).
+        public bool Ready => Session != null && !Session.ArrivalPending;
+        public bool Holding => holding;
         public bool MenuPaused => pausedByMenu;
         public bool CardOpen => resultsOpen && menus.IsOpen;
         public string CardTitle => menus.CurrentTitle;
@@ -98,7 +105,21 @@ namespace PirateGame.Composition
         private bool braced;
         public SeaCondition Weather => weather != null ? weather.Current : SeaCondition.Daylight;
 
-        public string HubName(string id) => region.HubName(id);
+        public IReadOnlyList<FirstRegionAsset> Regions => regions.Length > 0 ? regions : new[] { region };
+        private IEnumerable<SalvageRegion> SalvageRegions => salvageRegions.Length > 0 ? salvageRegions : new[] { salvage };
+        public string HubName(string id) => Regions.Select(r => r.HubName(id)).FirstOrDefault(n => n != id) ?? id;
+        private float DockYaw(string hubId) => (Regions.FirstOrDefault(r => r.Hubs.Any(h => h.Id == hubId)) ?? region).DockYaw(hubId);
+        private bool Loaded(string regionId) => streamer == null || streamer.IsReady(regionId);
+        public string RegionIdAt(Vector3 position) => streamer != null ? streamer.RegionIdAt(position) : region.regionId;
+        private FirstRegionAsset RegionAt(Vector3 position) => streamer != null ? streamer.RegionAt(position) : region;
+        private GameObject PrefabFor(string enemy) =>
+            enemy == "gunner" ? gunnerPrefab : enemy == "corsair" && corsairPrefab != null ? corsairPrefab : raiderPrefab;
+
+        private bool arrivalWaiting, holding, fogWarned;
+        private Vector3 arrivalAt;
+        private readonly Queue<string> regionsToPopulate = new Queue<string>();
+        private readonly HashSet<string> populated = new HashSet<string>();
+        private readonly Dictionary<EnemyShip, string> enemyRegion = new Dictionary<EnemyShip, string>();
         private string CurrentHarbor => HubName(Session.Snapshot.Campaign.CurrentHub);
 
         private static readonly Dictionary<string, string> StartingEquipment = new Dictionary<string, string>
@@ -112,8 +133,11 @@ namespace PirateGame.Composition
         {
             Definitions = rules.Freeze();
             Combat = combatContent.Freeze();
-            region.Validate(Definitions);
-            Planner = new ExpeditionPlanner(region, Combat);
+            foreach (var r in Regions) r.Validate(Definitions);
+            FirstRegionAsset.ValidateIdentities(Regions.SelectMany(r => r.Identities(r.name)));
+            Planner = new ExpeditionPlanner(Regions, Combat);
+            player.RegionOf = RegionIdAt;
+            if (streamer != null) streamer.RegionReady += r => regionsToPopulate.Enqueue(r.regionId);
             Store = new JsonSaveStore(LaunchOptions.SaveDirectory, Definitions);
             interaction.collectOnInteractIntent = false;
             player.TickStarted += OnTickStarted;
@@ -183,7 +207,7 @@ namespace PirateGame.Composition
             player.Bind(Session);
             harbor.Bind(Session, Definitions, PlanEmbark, HubName);
             var arrived = Session.RetryArrival();
-            if (!arrived.IsSuccess) ShowRecovery();
+            if (!arrived.IsSuccess && !arrivalWaiting) ShowRecovery();
         }
 
         public EmbarkPlan PlanEmbark()
@@ -198,6 +222,14 @@ namespace PirateGame.Composition
         {
             try
             {
+                // Collision and art for the destination must be loaded before the world is restored.
+                var destination = new Vector3((float)request.Destination.X, 0, (float)request.Destination.Z);
+                if (streamer != null && !streamer.Require(destination))
+                {
+                    arrivalWaiting = true; arrivalAt = destination;
+                    return new RuleResult(RuleError.None, pending: true, detail: "Charting the destination waters.");
+                }
+                arrivalWaiting = false;
                 return request.ExpeditionId == null ? ArriveDocked(request) : ArriveAtSea(request);
             }
             catch (Exception e) when (!(e is OutOfMemoryException))
@@ -211,7 +243,7 @@ namespace PirateGame.Composition
         {
             if (!Definitions.Hubs.TryGetValue(request.HubId ?? "", out var hub)) return new RuleResult(RuleError.ArrivalFailed, detail: "Unknown harbor.");
             TeardownExpedition();
-            Place(hub.Dock, region.DockYaw(hub.Id), 0);
+            Place(hub.Dock, DockYaw(hub.Id), 0);
             ApplyWeather(SeaCondition.Daylight);
             if (followCamera.FocusOverride == null) followCamera.Snap();
             return new RuleResult();
@@ -225,22 +257,12 @@ namespace PirateGame.Composition
             TeardownExpedition();
             // Upgrades bought in harbor change hull stats; rebind at each departure.
             player.Bind(Session);
-            var rebuilt = salvage.Recreate(Session);
-            if (!rebuilt.IsSuccess) return new RuleResult(RuleError.ArrivalFailed, detail: rebuilt.Detail);
-            interaction.sources = salvage.Sources;
             expeditionRoot = new GameObject("Voyage " + voyage.Id.ToString("N").Substring(0, 8));
-            foreach (var entity in voyage.Entities.Values.Where(e => Combat.Enemies.ContainsKey(e.DefinitionId))
-                         .OrderBy(e => e.Id.ToString(), StringComparer.Ordinal))
+            // Only loaded regions get views and ships; the ledger keeps the rest.
+            foreach (var loaded in Regions.Where(r => Loaded(r.regionId)))
             {
-                var prefab = entity.DefinitionId == "gunner" ? gunnerPrefab : raiderPrefab;
-                var ship = Instantiate(prefab, new Vector3((float)entity.Position.X, 0, (float)entity.Position.Z), Quaternion.identity, expeditionRoot.transform);
-                ship.name = entity.DefinitionId + " " + (entity.Id.SpawnId ?? entity.Id.AuthoredId);
-                var enemy = ship.GetComponent<EnemyShip>();
-                enemy.Initialize(entity.Id, entity.Position.RegionId, Combat.Enemies[entity.DefinitionId]);
-                var restored = enemy.Restore(entity);
-                if (!restored.IsSuccess) return new RuleResult(RuleError.ArrivalFailed, detail: "Enemy " + entity.Id + ": " + restored.Detail);
-                enemy.Target.Died += OnEnemyDied;
-                enemies.Add(enemy);
+                var populatedRegion = Populate(loaded.regionId);
+                if (!populatedRegion.IsSuccess) return populatedRegion;
             }
             var world = expeditionRoot.AddComponent<CombatWorld>();
             world.Bind(player, Combat, playerTarget, enemies.Cast<ICombatEnemy>(), ContextId(voyage.Id));
@@ -249,10 +271,10 @@ namespace PirateGame.Composition
             ApplyWeather(SeaConditions.ForSeed(voyage.Seed));
             if (voyage.Entities.ContainsKey(ContextId(voyage.Id)))
             {
-                var restored = world.Restore(voyage);
+                var restored = world.Restore(ForLoadedWorld(voyage));
                 if (!restored.IsSuccess) return new RuleResult(RuleError.ArrivalFailed, detail: "Combat state: " + restored.Detail);
             }
-            else Place(voyage.Position, region.DockYaw(Session.Snapshot.Campaign.CurrentHub), voyage.Speed);
+            else Place(voyage.Position, DockYaw(Session.Snapshot.Campaign.CurrentHub), voyage.Speed);
             presenter.Bind(world);
             lastCheckpointTick = voyage.Tick;
             voyageCargo = voyage.Cargo;
@@ -263,12 +285,90 @@ namespace PirateGame.Composition
             return new RuleResult();
         }
 
+        // Builds views and ships for one loaded region from the saved ledger.
+        private RuleResult Populate(string regionId)
+        {
+            var voyage = Session.Snapshot.Expedition;
+            if (voyage == null || expeditionRoot == null || !Loaded(regionId) || populated.Contains(regionId)) return new RuleResult();
+            var view = SalvageRegions.FirstOrDefault(s => s != null && s.content != null && s.content.regionId == regionId);
+            if (view != null)
+            {
+                var rebuilt = view.Recreate(Session);
+                if (!rebuilt.IsSuccess) return new RuleResult(RuleError.ArrivalFailed, detail: rebuilt.Detail);
+            }
+            foreach (var entity in voyage.Entities.Values.Where(e => Combat.Enemies.ContainsKey(e.DefinitionId) && e.Position.RegionId == regionId)
+                         .OrderBy(e => e.Id.ToString(), StringComparer.Ordinal))
+            {
+                if (enemies.Any(e => e.Id.Equals(entity.Id))) continue;
+                var ship = Instantiate(PrefabFor(entity.DefinitionId), new Vector3((float)entity.Position.X, 0, (float)entity.Position.Z),
+                    Quaternion.identity, expeditionRoot.transform);
+                ship.name = entity.DefinitionId + " " + (entity.Id.SpawnId ?? entity.Id.AuthoredId);
+                var enemy = ship.GetComponent<EnemyShip>();
+                enemy.Initialize(entity.Id, entity.Position.RegionId, Combat.Enemies[entity.DefinitionId]);
+                var restored = enemy.Restore(entity);
+                if (!restored.IsSuccess) return new RuleResult(RuleError.ArrivalFailed, detail: "Enemy " + entity.Id + ": " + restored.Detail);
+                enemy.Target.Died += OnEnemyDied;
+                enemies.Add(enemy);
+                enemyRegion[enemy] = regionId;
+                if (CombatWorld != null) { CombatWorld.Attach(enemy); presenter.Adopt(enemy.Target); }
+            }
+            populated.Add(regionId);
+            RefreshSources();
+            return new RuleResult();
+        }
+
+        // Captures a region's ships into the ledger, removes its views, then retires its scene.
+        private bool Retire(FirstRegionAsset target)
+        {
+            var leaving = enemies.Where(e => enemyRegion.TryGetValue(e, out var r) && r == target.regionId).ToList();
+            var ship = player.motor.Body.position;
+            if (leaving.Any(e => !e.Target.Defeated && (e.transform.position - ship).sqrMagnitude < 60 * 60)) return false;
+            if (Session.Snapshot.Expedition != null && CombatWorld != null && (leaving.Count > 0 || pendingWrecks.Count > 0))
+            {
+                var saved = Checkpoint();
+                if (!saved.IsSuccess) return false;
+            }
+            foreach (var enemy in leaving)
+            {
+                CombatWorld?.Detach(enemy.Id);
+                enemy.Target.Died -= OnEnemyDied;
+                enemies.Remove(enemy); enemyRegion.Remove(enemy);
+                Destroy(enemy.gameObject);
+            }
+            SalvageRegions.FirstOrDefault(s => s != null && s.content != null && s.content.regionId == target.regionId)?.Clear();
+            populated.Remove(target.regionId);
+            RefreshSources();
+            streamer.Unload(target.regionId);
+            return true;
+        }
+
+        private void RefreshSources() =>
+            interaction.sources = SalvageRegions.Where(s => s != null).SelectMany(s => s.Sources).Where(s => s != null).ToArray();
+
+        // Shots owned by ships outside the loaded world are dropped on restore (they were
+        // retired when their region unloaded); everything else restores exactly.
+        private ExpeditionState ForLoadedWorld(ExpeditionState voyage)
+        {
+            var id = ContextId(voyage.Id);
+            if (!voyage.Entities.TryGetValue(id, out var context)) return voyage;
+            var payload = JsonUtility.FromJson<CombatContext>(context.BehaviorState);
+            if (payload?.shots == null) return voyage;
+            var owners = new HashSet<string>(enemies.Select(e => e.Target.Key)) { CombatWorld.PlayerKey };
+            var kept = payload.shots.Where(s => s != null && owners.Contains(s.owner ?? "")).ToArray();
+            if (kept.Length == payload.shots.Length) return voyage;
+            payload.shots = kept;
+            var cleaned = new EntityState(context.Id, context.DefinitionId, context.Position, context.Health, context.Defeated,
+                context.Loot, context.Cooldowns, JsonUtility.ToJson(payload));
+            return new ExpeditionState(voyage.Id, voyage.Seed, voyage.RngState, voyage.Tick, voyage.Health, voyage.Speed, voyage.Position,
+                voyage.Cargo, voyage.Modifiers, voyage.Cooldowns, voyage.Encounters, voyage.Entities.Values.Select(e => e.Id.Equals(id) ? cleaned : e));
+        }
+
         private void TeardownExpedition()
         {
             presenter.Unbind();
             aimMarker.Hide();
             foreach (var enemy in enemies) if (enemy != null && enemy.Target != null) enemy.Target.Died -= OnEnemyDied;
-            enemies.Clear(); pendingWrecks.Clear();
+            enemies.Clear(); pendingWrecks.Clear(); enemyRegion.Clear(); populated.Clear();
             if (expeditionRoot != null)
             {
                 // Disable first so the combat world unsubscribes from the tick this frame.
@@ -276,7 +376,7 @@ namespace PirateGame.Composition
                 Destroy(expeditionRoot);
             }
             expeditionRoot = null; CombatWorld = null;
-            salvage.Clear();
+            foreach (var view in SalvageRegions) view?.Clear();
             interaction.sources = Array.Empty<SalvageSource>();
             dockTarget = null; dockRequestedTick = -1; interactRequested = false;
             playerInput.ForceBrake = false;
@@ -319,10 +419,22 @@ namespace PirateGame.Composition
         {
             if (!started || Session == null) return;
             HandleEvents();
+            Stream();
             WatchLocks();
             bool atSea = Session.Lifecycle == Lifecycle.AtSea && Session.Snapshot.Expedition != null;
             if (atSea && player.motor.Body != null) lastSeaPosition = player.motor.Body.position;
             bool idle = atSea && !Session.InputLocked && !player.HasPendingStep && !menus.IsOpen;
+            if (idle && CombatWorld != null)
+            {
+                while (regionsToPopulate.Count > 0)
+                {
+                    var populatedRegion = Populate(regionsToPopulate.Dequeue());
+                    if (!populatedRegion.IsSuccess) Debug.LogWarning("Region population failed: " + populatedRegion.Detail);
+                }
+                foreach (var far in streamer != null ? streamer.Unwanted(player.motor.Body.position).ToList() : new List<FirstRegionAsset>())
+                    Retire(far);
+            }
+            else if (!atSea) regionsToPopulate.Clear();
             var keyboard = Keyboard.current;
             bool escape = keyboard != null && keyboard.escapeKey.wasPressedThisFrame;
             if (escape && pausedByMenu) Resume();
@@ -408,11 +520,50 @@ namespace PirateGame.Composition
             }
         }
 
+        // Keeps the regions around the ship (or the harbor) loaded, retries a waiting
+        // arrival once its regions are ready, and holds the ship at the edge of any
+        // region whose collision is not ready yet (it never sails into missing collision).
+        private void Stream()
+        {
+            if (streamer == null) return;
+            bool atSea = Session.Lifecycle == Lifecycle.AtSea && Session.Snapshot.Expedition != null;
+            if (arrivalWaiting && Session.ArrivalPending)
+            {
+                if (streamer.AllReady(arrivalAt))
+                {
+                    arrivalWaiting = false;
+                    var arrived = Session.RetryArrival();
+                    if (!arrived.IsSuccess && !arrivalWaiting) ShowRecovery();
+                }
+                return;
+            }
+            if (Session.ArrivalPending) return;
+            var here = player.motor.Body.position;
+            streamer.Require(here);
+            if (!atSea)
+            {
+                foreach (var far in streamer.Unwanted(here).ToList()) streamer.Unload(far.regionId);
+                return;
+            }
+            bool ready = streamer.IsReady(RegionIdAt(here));
+            if (!ready && !holding && !player.HasPendingStep && !Session.InputLocked)
+            {
+                holding = true; player.SetPaused(true);
+                if (!fogWarned) { fogWarned = true; hud.Toast("Charting unknown waters…", ToastKind.Info, 2f); }
+            }
+            else if (ready && holding)
+            {
+                holding = false; fogWarned = false;
+                if (!pausedByMenu) player.SetPaused(false);
+            }
+        }
+
         // Frozen saves or unfinished arrivals keep input locked until resolved.
         private void WatchLocks()
         {
-            if (errorOpen || pausedByMenu) return;
-            if (Session.PendingSave != null || Session.ArrivalPending) ShowRecovery();
+            if (errorOpen || pausedByMenu || holding) return;
+            bool loadFailed = arrivalWaiting && streamer != null && streamer.Wanted(arrivalAt).Any(r => streamer.StateOf(r.regionId) == RegionState.Failed);
+            if (Session.PendingSave != null || (Session.ArrivalPending && (!arrivalWaiting || loadFailed))) ShowRecovery();
         }
 
         private void ShowRecovery()
@@ -426,6 +577,7 @@ namespace PirateGame.Composition
                 Lines(save ? Store.Directory : null),
                 new MenuAction("Retry", "retry", () =>
                 {
+                    if (streamer != null) foreach (var r in Regions) streamer.Retry(r.regionId);
                     var result = Session.PendingSave != null ? Session.RetrySave() : Session.RetryArrival();
                     errorOpen = false; menus.Hide();
                     if (!result.IsSuccess && Session.InputLocked) ShowRecovery();
@@ -449,7 +601,7 @@ namespace PirateGame.Composition
                 var id = EntityId.Generated(voyage.Id, "wreck/" + (enemy.Id.SpawnId ?? enemy.Id.AuthoredId));
                 if (captured.Entities.ContainsKey(id)) continue;
                 var at = enemy.Target.transform.position;
-                wrecks.Add(new EntityState(id, CombatCatalog.WreckDefinition, new SeaPosition(voyage.Position.RegionId, at.x, at.z), 1, false,
+                wrecks.Add(new EntityState(id, CombatCatalog.WreckDefinition, new SeaPosition(RegionIdAt(at), at.x, at.z), 1, false,
                     spec.WreckLoot, new Dictionary<string, double>(), "salvage"));
             }
             if (wrecks.Count > 0)
@@ -473,11 +625,16 @@ namespace PirateGame.Composition
         {
             var voyage = Session.Snapshot.Expedition;
             if (voyage == null) return;
-            var existing = new HashSet<EntityId>(salvage.Sources.Where(s => s != null).Select(s => s.Id));
+            var existing = new HashSet<EntityId>(SalvageRegions.Where(s => s != null).SelectMany(s => s.Sources).Where(s => s != null).Select(s => s.Id));
             bool added = false;
             foreach (var entity in voyage.Entities.Values.Where(e => e.Id.AuthoredId == null && SalvageRegion.IsSalvage(e.DefinitionId)))
-                if (!existing.Contains(entity.Id)) { salvage.Add(Session, entity); added = true; }
-            if (added) interaction.sources = salvage.Sources;
+            {
+                if (existing.Contains(entity.Id) || !populated.Contains(entity.Position.RegionId)) continue;
+                var view = SalvageRegions.FirstOrDefault(s => s != null && s.content != null && s.content.regionId == entity.Position.RegionId);
+                if (view == null) continue;
+                view.Add(Session, entity); added = true;
+            }
+            if (added) RefreshSources();
         }
 
         private void Interact()
@@ -566,7 +723,7 @@ namespace PirateGame.Composition
         {
             menus.Hide();
             pausedByMenu = false;
-            player.SetPaused(false);
+            if (!holding) player.SetPaused(false);
         }
 
         private void ShowHarborMenu()
@@ -630,7 +787,7 @@ namespace PirateGame.Composition
             model.AbilityActive = CombatWorld.BraceRemaining;
             if (CombatWorld.BraceRemaining > 0 && !braced) sound?.Play(Sfx.Brace, player.transform.position, 0.8f, 0.02f);
             braced = CombatWorld.BraceRemaining > 0;
-            model.Region = regionTitle.ToUpperInvariant();
+            model.Region = (RegionAt(player.motor.Body.position)?.displayName ?? regionTitle).ToUpperInvariant();
             model.Condition = SeaConditions.Describe(Weather).ToUpperInvariant();
             bool full = model.CargoUsed >= model.CargoCapacity;
             model.Objective = full ? "Hold full: return to a harbor to bank it."
@@ -688,7 +845,7 @@ namespace PirateGame.Composition
         {
             foreach (var hub in Definitions.Hubs.Values)
             {
-                if (Session.Snapshot.Campaign.Hubs[hub.Id].Activated || sighted.Contains(hub.Id) || hub.Dock.RegionId != voyage.Position.RegionId) continue;
+                if (Session.Snapshot.Campaign.Hubs[hub.Id].Activated || sighted.Contains(hub.Id)) continue;
                 double dx = voyage.Position.X - hub.Dock.X, dz = voyage.Position.Z - hub.Dock.Z;
                 if (dx * dx + dz * dz > 45 * 45) continue;
                 sighted.Add(hub.Id);
@@ -699,7 +856,7 @@ namespace PirateGame.Composition
         private void RenderHomeMarker(ExpeditionState voyage)
         {
             var ship = player.motor.Body.position;
-            var hub = Definitions.Hubs.Values.Where(h => Session.Snapshot.Campaign.Hubs[h.Id].Activated && h.Dock.RegionId == voyage.Position.RegionId)
+            var hub = Definitions.Hubs.Values.Where(h => Session.Snapshot.Campaign.Hubs[h.Id].Activated)
                 .OrderBy(h => (h.Dock.X - ship.x) * (h.Dock.X - ship.x) + (h.Dock.Z - ship.z) * (h.Dock.Z - ship.z)).FirstOrDefault();
             if (hub == null) { hud.RenderHome(false, default, 0, null); return; }
             var target = new Vector3((float)hub.Dock.X, 0, (float)hub.Dock.Z);

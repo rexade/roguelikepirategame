@@ -31,6 +31,8 @@ namespace PirateGame.Gameplay.Combat
             Position = position; Direction = direction.normalized; Weapon = weapon;
             Remaining = weapon.Range; Damage = damage; Active = true;
         }
+        // Removes a shot without effect (its owner left the loaded world).
+        public void Retire() { Active = false; }
         public bool Hit(CombatTarget target, long callbackGeneration)
         {
             if (!Active || callbackGeneration != Generation || target == null || target.Key == Owner || target.Team == Team || target.Defeated) return false;

@@ -53,6 +53,19 @@ MonoBehaviour:
       quantity: 3
     - id: iron
       quantity: 2
+  - id: corsair
+    weaponId: cannon
+    tactic: 0
+    health: 140
+    speed: 4.6
+    engagementRange: 40
+    preferredRange: 14
+    reloadScale: 2.2
+    wreckLoot:
+    - id: wood
+      quantity: 4
+    - id: iron
+      quantity: 4
   abilityId: brace
   abilityCooldown: 6
   braceDuration: 2

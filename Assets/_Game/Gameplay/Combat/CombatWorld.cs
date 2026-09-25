@@ -118,6 +118,30 @@ namespace PirateGame.Gameplay.Combat
             shot.Launch(checked(++generation), target.Key, target.Team, target.motor.weaponOrigin.position, direction, weapon, damage);
             ShotFired?.Invoke(shot);
         }
+        // T10 streaming: add or remove an enemy at an idle boundary without rebinding.
+        // The session ledger keeps a detached enemy's last captured state; take a
+        // checkpoint before detaching so that state is current.
+        public void Attach(ICombatEnemy enemy)
+        {
+            Boundary();
+            if (enemy == null || !enemy.Id.IsValid || enemy.Id.Equals(contextId) || enemies.Any(e => e.Id.Equals(enemy.Id)))
+                throw new ArgumentException("Duplicate or invalid combat entity identity.");
+            enemies.Add(enemy);
+            enemy.Suspend();
+        }
+
+        public bool Detach(EntityId id)
+        {
+            Boundary();
+            var enemy = enemies.FirstOrDefault(e => e.Id.Equals(id));
+            if (enemy == null) return false;
+            enemy.Suspend();
+            enemies.Remove(enemy);
+            // Shots of a ship leaving the loaded world vanish rather than outlive their owner.
+            foreach (var shot in shots) if (shot.Active && shot.Owner == enemy.Target.Key) shot.Retire();
+            return true;
+        }
+
         private void Boundary()
         {
             if (Simulation == null || Simulation.HasPendingStep || Simulation.Session.Snapshot.Expedition == null)

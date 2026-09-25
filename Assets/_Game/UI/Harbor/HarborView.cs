@@ -106,7 +106,8 @@ namespace PirateGame.UI.Harbor
                 case RuleError.TierAlreadyOwned: return "This upgrade tier is already owned.";
                 case RuleError.InvalidLoadout: return "Invalid loadout: choose different, compatible owned items.";
                 case RuleError.SaveFailed: return "Save failed. Your last committed bank and equipment are unchanged. Retry to continue.";
-                case RuleError.ArrivalFailed: return "Arrival is not ready. Retry to continue.";
+                case RuleError.ArrivalFailed:
+                    return result.Detail != null && result.Detail.StartsWith("Charting") ? "Charting the way…" : "Arrival is not ready. Retry to continue.";
                 case RuleError.PrerequisiteMissing: return "Required upgrade or unlock is missing.";
                 default: return result.Error + (string.IsNullOrEmpty(result.Detail) ? "" : ": " + result.Detail);
             }

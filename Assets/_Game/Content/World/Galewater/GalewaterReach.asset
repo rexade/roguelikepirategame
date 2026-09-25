@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a1d77a3802f38459c008369353fe84, type: 3}
+  m_Name: GalewaterReach
+  m_EditorClassIdentifier: PirateGame.FirstRegion::PirateGame.Content.World.FirstRegionAsset
+  regionId: galewater-reach
+  homeId: stormwatch-harbor
+  homeName: Stormwatch Harbor
+  displayName: Galewater Reach
+  sceneName: GalewaterReach
+  bounds:
+    serializedVersion: 2
+    x: -70
+    y: 165
+    width: 180
+    height: 235
+  encounterTable:
+  - enemyId: raider
+    weight: 3
+  - enemyId: gunner
+    weight: 3
+  - enemyId: corsair
+    weight: 4
+  dock: {x: -6, y: 332}
+  dockRadius: 5
+  dockMaximumSpeed: 1
+  homeLandmass: {x: -14, y: 353}
+  homeLandmassSize: {x: 28, y: 18}
+  outposts: []
+  islands:
+  - id: gale:shoal
+    position: {x: 30, y: 200}
+    size: {x: 22, y: 16}
+  - id: gale:spire
+    position: {x: -34, y: 238}
+    size: {x: 16, y: 24}
+  - id: gale:bastion
+    position: {x: 48, y: 268}
+    size: {x: 24, y: 20}
+  - id: gale:crown
+    position: {x: -38, y: 300}
+    size: {x: 22, y: 18}
+  salvage:
+  - id: gale:barrel-01
+    definitionId: barrel
+    position: {x: 0, y: 185}
+    wood: 2
+    iron: 1
+  - id: gale:wreck-01
+    definitionId: wreck
+    position: {x: -12, y: 220}
+    wood: 3
+    iron: 3
+  - id: gale:barrel-02
+    definitionId: barrel
+    position: {x: 18, y: 240}
+    wood: 1
+    iron: 2
+  - id: gale:wreck-02
+    definitionId: wreck
+    position: {x: 62, y: 300}
+    wood: 4
+    iron: 4
+  - id: gale:barrel-03
+    definitionId: barrel
+    position: {x: -52, y: 268}
+    wood: 2
+    iron: 2
+  - id: gale:wreck-03
+    definitionId: wreck
+    position: {x: 14, y: 292}
+    wood: 5
+    iron: 3
+  encounters:
+  - id: gale:encounter-01
+    position: {x: 6, y: 212}
+    ships: 2
+    minShips: 1
+  - id: gale:encounter-02
+    position: {x: -14, y: 262}
+    ships: 2
+    minShips: 0
+  - id: gale:encounter-03
+    position: {x: 30, y: 318}
+    ships: 3
+    minShips: 1
+  route:
+  - {x: -6, y: 332}
+  - {x: 0, y: 300}
+  - {x: 20, y: 250}
+  - {x: 0, y: 190}
+  - {x: -20, y: 250}
+  - {x: -6, y: 332}
