@@ -16,15 +16,20 @@ cargo. Sinking loses the hold but never your bank, upgrades or equipment. Five
 upgrades in three tracks, a second harbor to claim (Saltmarsh), and fast travel
 between claimed harbors. Everything is saved to disk and resumes exactly.
 
+North of the home waters lies **Galewater Reach**, a streamed second region with
+corsairs, richer iron salvage and Stormwatch Harbor to claim. Each voyage rolls its
+encounters from the voyage seed; islands never move. Sound is synthesized in-game,
+and voyages come in fair weather, dusk or rough seas.
+
 Controls: W/S sail, A/D steer, Space brake, mouse aims, left mouse fires, right
 mouse braces (75% damage reduction for 2 s), E salvages / claims / docks,
 Escape pauses (and saves).
 
 Task status: T00-T05 accepted; T06/T07 technically accepted (owner visual review
 pending); T08 (saves + integrated loop) and T09 (shared hubs + fast travel) are
-implemented and in review; T10 (region streaming, encounter variation) and T11
-(slice gate) remain. See [the dispatch board](docs/tasks/README.md), the
-[T08 report](docs/evidence/T08/REPORT.md), the [T09 report](docs/evidence/T09/REPORT.md)
+implemented and in review; T10 (region streaming, encounter variation) is
+implemented and in review; T11 (slice gate) remains. See [the dispatch board](docs/tasks/README.md), the
+[T08](docs/evidence/T08/REPORT.md), [T09](docs/evidence/T09/REPORT.md) and [T10](docs/evidence/T10/REPORT.md) reports
 and [build instructions](docs/BUILD.md).
 
 - [Game direction and terminology](CONTEXT.md)

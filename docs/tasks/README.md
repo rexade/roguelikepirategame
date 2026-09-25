@@ -8,7 +8,7 @@ review. T04-r2 is accepted and T04-R1 closed. T05-r2 is accepted following techn
 review and owner visual approval; T05-R1 is closed.
 T06 (with R1) and T07 passed Lead technical review on 2026-09-25; owner visual
 dispositions remain pending. On the owner's 2026-09-25 instruction to "implement
-all you can", the Lead (Claude Opus 5.5) implemented T08 and T09; both are in
+all you can", the Lead (Claude Opus 5.5) implemented T08, T09 and T10; all are in
 review awaiting the owner's hands-on play and visual review.
 D01-D06 qualifications remain in force.
 
@@ -29,7 +29,7 @@ D01-D06 qualifications remain in force.
 | [T07: Build harbor economy and loadout UI](T07-harbor-progression.md) | Codex (systems/UI engineer) | done (technical; owner visual pending) | T03 |
 | [T08: Integrate durable saves and the expedition loop](T08-persistence-integration.md) | Lead (Claude Opus 5.5) | review | T05, T06, T07 |
 | [T09: Integrate shared hubs and fast travel](T09-shared-hubs-travel.md) | Lead (Claude Opus 5.5) | review | T08 |
-| [T10: Implement region continuity and voyage variation](T10-region-streaming.md) | World engineer | waiting | T08 |
+| [T10: Implement region continuity and voyage variation](T10-region-streaming.md) | Lead (Claude Opus 5.5) | review | T08 |
 | [T11: Verify and accept the integrated playable slice](T11-slice-acceptance.md) | QA engineer with lead integration | waiting | T09, T10 |
 
 ## Dispatch Order

@@ -1,7 +1,7 @@
 # T10: Implement region continuity and voyage variation
 
-Status: waiting
-Assignee: unassigned
+Status: review
+Assignee: Lead (Claude Opus 5.5), 2026-09-25
 Role: World engineer
 Depends on: T08
 
@@ -33,11 +33,13 @@ single-owner; coordinate changes as specified in the dispatch rules.
 Rules: INV-10, INV-11, INV-12, INV-16.
 Cases from [the backlog](../TASKS.md): AC-05 with streaming/resume, AC-15; encounter persistence and new-expedition reset.
 
-- [ ] Crossing, returning, and save/reload do not duplicate loot/enemies.
-- [ ] New expeditions vary encounters without moving islands; campaign flags survive resets.
-- [ ] Duplicate IDs fail validation; region-readiness failure is handled without entering incomplete collision.
-- [ ] Handoff report includes changed files, exact checks/results, reproduction
+- [x] Crossing, returning, and save/reload do not duplicate loot/enemies.
+- [x] New expeditions vary encounters without moving islands; campaign flags survive resets.
+- [x] Duplicate IDs fail validation; region-readiness failure is handled without entering incomplete collision.
+- [x] Handoff report includes changed files, exact checks/results, reproduction
   steps, evidence locations, and unresolved defects. Unrun checks are labeled.
+
+Evidence: [T10 report](../evidence/T10/REPORT.md). Owner review pending.
 
 ## Scope and Handoff
 

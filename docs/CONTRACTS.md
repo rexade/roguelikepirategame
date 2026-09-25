@@ -263,7 +263,8 @@ exceptions for invalid data; application commands return structured errors.
 
 ## Lead Extensions 2026-09-25
 
-Backwards-compatible additions; existing consumers and fixtures are unchanged.
+Backwards-compatible additions; existing consumers and fixtures are unchanged
+(r1.3 for T10 is listed at the end).
 Affected consumers were re-tested (T03-T09 suites, 141 tests).
 
 ### r1.1 (T08 integration)
@@ -293,3 +294,16 @@ RuleResult ActivateHub(Guid requestId, Guid expeditionId, string hubId);
 `RuleError.AlreadyActivated` is appended to the enum. Regions may author further
 harbors (`FirstRegionAsset.outposts`); every region hub must exist in the catalog
 with identical dock data, which `FirstRegionAsset.Validate` enforces.
+
+### r1.3 (T10 regions)
+
+- `ShipSimulation.RegionOf : Func<Vector3, string>` (optional): the region ID
+  published with each tick's position. Unset keeps the voyage's current region.
+- `CombatWorld.Attach(ICombatEnemy)` / `Detach(EntityId)` at idle boundaries only.
+  Take a captured checkpoint before detaching so the ledger holds the ship's last
+  state; detaching retires that ship's in-flight shots (`SweptProjectile.Retire`).
+- `IWorldArrival.EnsureReady` may return a successful *pending* result while the
+  destination region loads; the session treats it as `ArrivalFailed`, keeps input
+  locked and the composition calls `RetryArrival` when the regions are ready.
+- A region's enemies keep the region ID of their spawn in their `EntityState`
+  position; generated wrecks take the region of the water they lie in.
