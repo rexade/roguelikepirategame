@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/_Game/Scenes/OceanWorld.unity
     guid: 36130d0e8cadce543a37ae316105cbfb
   - enabled: 1
+    path: Assets/_Game/Scenes/Regions/HomewardReach.unity
+    guid: 6c1af6ba68c81e9449f992cd97aabffb
+  - enabled: 1
+    path: Assets/_Game/Scenes/Regions/GalewaterReach.unity
+    guid: 770e979db72e767428fd6343ab9b97e8
+  - enabled: 1
     path: Assets/_Game/Scenes/Tests/T02/WaterTest.unity
     guid: 933c40bdba28fd642a12a9b259f4d743
   m_configObjects: {}
