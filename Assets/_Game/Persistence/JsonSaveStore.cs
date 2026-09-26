@@ -45,8 +45,16 @@ namespace PirateGame.Persistence
         public SessionSnapshot Snapshot { get; }
         public string Detail { get; }
         public IReadOnlyList<string> PreservedFiles { get; }
-        public SaveLoadResult(SaveLoadStatus status, SessionSnapshot snapshot, string detail, IReadOnlyList<string> preserved)
-        { Status = status; Snapshot = snapshot; Detail = detail ?? ""; PreservedFiles = preserved ?? Array.Empty<string>(); }
+        // Why the saved voyage was resolved as lost at sea on load (see SaveMigration); empty otherwise.
+        public string Notice { get; }
+        // The voyage that was dropped, for reporting (for example its lost cargo); null otherwise.
+        public ExpeditionState AbandonedVoyage { get; }
+        public SaveLoadResult(SaveLoadStatus status, SessionSnapshot snapshot, string detail, IReadOnlyList<string> preserved,
+            string notice = null, ExpeditionState abandonedVoyage = null)
+        {
+            Status = status; Snapshot = snapshot; Detail = detail ?? ""; PreservedFiles = preserved ?? Array.Empty<string>();
+            Notice = notice ?? ""; AbandonedVoyage = abandonedVoyage;
+        }
         public bool HasCampaign => Snapshot != null;
     }
 
@@ -54,6 +62,9 @@ namespace PirateGame.Persistence
     // temporary file, reads it back, then atomically replaces the main save and
     // keeps the previous committed snapshot as the backup. Unreadable or
     // unsupported files are preserved under new names, never overwritten.
+    // An optional voyage check lets composition reject a saved voyage that the
+    // current world cannot restore; such a voyage is resolved as lost at sea in
+    // memory (the file is only rewritten by the next normal commit).
     public sealed class JsonSaveStore : ISaveStore
     {
         public const string MainName = "campaign.json";
@@ -63,6 +74,7 @@ namespace PirateGame.Persistence
         private readonly ISaveFileSystem files;
         private readonly DefinitionCatalog definitions;
         private readonly Func<DateTime> clock;
+        private readonly Func<ExpeditionState, string> voyageProblem;
         private bool ready;
         private long committedRevision;
         private Guid committedRequest;
@@ -74,13 +86,16 @@ namespace PirateGame.Persistence
         public bool HasSaveFiles => files.Exists(MainPath) || files.Exists(BackupPath);
         public long? CommittedRevision => ready ? committedRevision : (long?)null;
 
-        public JsonSaveStore(string directory, DefinitionCatalog definitions, ISaveFileSystem files = null, Func<DateTime> clock = null)
+        // voyageProblem returns null or "" when a saved voyage can be restored, else the reason it cannot.
+        public JsonSaveStore(string directory, DefinitionCatalog definitions, ISaveFileSystem files = null, Func<DateTime> clock = null,
+            Func<ExpeditionState, string> voyageProblem = null)
         {
             if (string.IsNullOrWhiteSpace(directory)) throw new ArgumentException("A save directory is required.");
             Directory = Path.GetFullPath(directory);
             this.definitions = definitions ?? throw new ArgumentNullException(nameof(definitions));
             this.files = files ?? new DiskFileSystem();
             this.clock = clock ?? (() => DateTime.UtcNow);
+            this.voyageProblem = voyageProblem;
         }
 
         public RuleResult Commit(SaveCandidate candidate)
@@ -125,7 +140,7 @@ namespace PirateGame.Persistence
             if (!HasSaveFiles) return new SaveLoadResult(SaveLoadStatus.NoSave, null, "No saved campaign.", null);
             var problems = new List<string>();
             var main = TryRead(MainPath, problems);
-            if (main != null) { Adopt(main); return new SaveLoadResult(SaveLoadStatus.Loaded, main.Item1, "", null); }
+            if (main != null) { Adopt(main); return new SaveLoadResult(SaveLoadStatus.Loaded, main.Snapshot, "", null, main.Notice, main.Abandoned); }
             var backup = TryRead(BackupPath, problems);
             if (backup == null)
                 return new SaveLoadResult(SaveLoadStatus.Unreadable, null, string.Join(" ", problems), null);
@@ -134,7 +149,7 @@ namespace PirateGame.Persistence
             {
                 // Keep the unreadable original, then reinstate the verified backup as main.
                 if (files.Exists(MainPath)) { var target = Aside(MainPath, "unreadable"); files.Move(MainPath, target); preserved.Add(target); }
-                files.WriteAllBytes(TempPath, backup.Item2);
+                files.WriteAllBytes(TempPath, backup.Bytes);
                 files.Move(TempPath, MainPath);
             }
             catch (Exception e) when (IsStorage(e))
@@ -142,16 +157,25 @@ namespace PirateGame.Persistence
                 return new SaveLoadResult(SaveLoadStatus.Unreadable, null, string.Join(" ", problems) + " Backup recovery failed: " + e.Message, preserved);
             }
             Adopt(backup);
-            return new SaveLoadResult(SaveLoadStatus.RecoveredFromBackup, backup.Item1,
-                "Recovered the previous save. " + string.Join(" ", problems), preserved);
+            return new SaveLoadResult(SaveLoadStatus.RecoveredFromBackup, backup.Snapshot,
+                "Recovered the previous save. " + string.Join(" ", problems), preserved, backup.Notice, backup.Abandoned);
         }
 
-        private void Adopt(Tuple<SessionSnapshot, byte[], Guid> loaded)
+        private sealed class ReadResult
         {
-            ready = true; committedRevision = loaded.Item1.Revision; committedRequest = loaded.Item3;
+            public SessionSnapshot Snapshot;
+            public byte[] Bytes;
+            public Guid Request;
+            public string Notice;
+            public ExpeditionState Abandoned;
         }
 
-        private Tuple<SessionSnapshot, byte[], Guid> TryRead(string path, List<string> problems)
+        private void Adopt(ReadResult loaded)
+        {
+            ready = true; committedRevision = loaded.Snapshot.Revision; committedRequest = loaded.Request;
+        }
+
+        private ReadResult TryRead(string path, List<string> problems)
         {
             string name = Path.GetFileName(path);
             try
@@ -160,14 +184,28 @@ namespace PirateGame.Persistence
                 var bytes = files.ReadAllBytes(path);
                 var dto = SaveCodec.Decode(bytes);
                 var snapshot = SaveMapper.FromDto(dto);
+                // Checked before validation: a voyage from an older world may name
+                // regions or definitions this catalog no longer has.
+                string notice = VoyageProblem(snapshot.Expedition);
+                var abandoned = notice.Length > 0 ? snapshot.Expedition : null;
+                if (abandoned != null) snapshot = SaveMigration.AbandonVoyage(snapshot);
                 var valid = CampaignSession.ValidateSnapshot(definitions, snapshot);
                 if (!valid.IsSuccess) { problems.Add(name + ": " + valid.Error + " " + valid.Detail); return null; }
                 var request = dto.request == null ? Guid.Empty : Guid.ParseExact(dto.request, "D");
-                return Tuple.Create(snapshot, bytes, request);
+                return new ReadResult { Snapshot = snapshot, Bytes = bytes, Request = request, Notice = notice, Abandoned = abandoned };
             }
             catch (SaveFormatException e) { problems.Add(name + ": " + e.Message); return null; }
             catch (FormatException e) { problems.Add(name + ": " + e.Message); return null; }
             catch (Exception e) when (IsStorage(e)) { problems.Add(name + ": " + e.Message); return null; }
+        }
+
+        // A failing check counts as a problem: losing one voyage's cargo is better
+        // than a campaign that cannot be loaded at all.
+        private string VoyageProblem(ExpeditionState voyage)
+        {
+            if (voyage == null || voyageProblem == null) return "";
+            try { return voyageProblem(voyage) ?? ""; }
+            catch (Exception e) when (!(e is OutOfMemoryException)) { return "The voyage could not be checked: " + e.Message; }
         }
 
         private RuleResult Write(SessionSnapshot snapshot, Guid request, string command)

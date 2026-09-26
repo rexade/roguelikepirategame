@@ -1,0 +1,7 @@
+{
+  "name": "PirateGame.T12.SaveTests",
+  "references": ["PirateGame.Core", "PirateGame.Persistence"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}

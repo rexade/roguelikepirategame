@@ -1,0 +1,14 @@
+{
+  "name": "PirateGame.T12.Tests",
+  "references": [
+    "PirateGame.ArtKit",
+    "PirateGame.Core",
+    "PirateGame.WorldPresentation",
+    "PirateGame.ShipCamera",
+    "Unity.RenderPipelines.HighDefinition.Runtime",
+    "Unity.RenderPipelines.Core.Runtime"
+  ],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}

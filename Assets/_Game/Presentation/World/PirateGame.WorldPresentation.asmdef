@@ -1,0 +1,9 @@
+{
+  "name": "PirateGame.WorldPresentation",
+  "rootNamespace": "PirateGame.Presentation.World",
+  "references": [
+    "Unity.RenderPipelines.HighDefinition.Runtime",
+    "Unity.RenderPipelines.Core.Runtime"
+  ],
+  "autoReferenced": true
+}

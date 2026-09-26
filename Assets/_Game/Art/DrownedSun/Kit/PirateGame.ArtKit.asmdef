@@ -1,0 +1,6 @@
+{
+  "name": "PirateGame.ArtKit",
+  "rootNamespace": "PirateGame.Art",
+  "references": [],
+  "autoReferenced": true
+}
