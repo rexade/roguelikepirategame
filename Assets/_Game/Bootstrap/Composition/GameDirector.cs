@@ -119,7 +119,7 @@ namespace PirateGame.Composition
         private GameObject PrefabFor(string enemy) =>
             enemy == "gunner" ? gunnerPrefab : enemy == "corsair" && corsairPrefab != null ? corsairPrefab : raiderPrefab;
 
-        private bool arrivalWaiting, holding, fogWarned, chartPaused;
+        private bool arrivalWaiting, holding, fogWarned, chartPaused, focusLost;
         public bool ChartOpen => chart != null && chart.IsOpen;
         private Vector3 arrivalAt;
         private readonly Queue<string> regionsToPopulate = new Queue<string>();
@@ -418,6 +418,15 @@ namespace PirateGame.Composition
             if (intent.Interact) interactRequested = true;
         }
 
+        // Players keep simulating in the background (Run In Background), so losing
+        // window focus pauses the voyage like Esc does. The editor, batch runs and
+        // the benchmark/capture automation keep running unfocused.
+        private void OnApplicationFocus(bool focused)
+        {
+            focusLost = !focused && !Application.isEditor && !Application.isBatchMode &&
+                !GameBenchmark.Active && LaunchOptions.Argument("-capture") == null;
+        }
+
         private void OnShotFired(SweptProjectile shot)
         {
             if (sound == null) return;
@@ -473,7 +482,7 @@ namespace PirateGame.Composition
             else if (idle)
             {
                 if (pendingWrecks.Count > 0) Checkpoint();
-                if (escape) Pause();
+                if (escape || focusLost) { focusLost = false; Pause(); }
                 else
                 {
                     if (interactRequested) { interactRequested = false; Interact(); }
