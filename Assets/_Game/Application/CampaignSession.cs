@@ -9,6 +9,12 @@ namespace PirateGame.Rules.Application
     // Every persistent command builds a detached candidate before invoking storage.
     public sealed class CampaignSession : IGameplayClock
     {
+        // Committed request IDs kept for duplicate detection. Every command gets a
+        // fresh ID and retries resubmit the pending candidate, so only recent IDs can
+        // repeat; revisions order everything older. Keeping all of them made every
+        // save, and every tick's snapshot, grow with the length of the campaign.
+        public const int RequestHistory = 128;
+
         private readonly DefinitionCatalog definitions;
         private readonly ISaveStore store;
         private readonly IWorldArrival arrival;
@@ -127,7 +133,7 @@ namespace PirateGame.Rules.Application
             var draft = new ExpeditionDraft(state.Expedition);
             draft.Tick = tick; draft.Health = Math.Max(0, draft.Health - damage); draft.Position = position; draft.Speed = speed;
             foreach (var id in draft.Cooldowns.Keys.ToArray()) draft.Cooldowns[id] = Math.Max(0, draft.Cooldowns[id] - FixedDeltaSeconds);
-            state = new SessionSnapshot(state.Revision, state.Campaign, draft.Freeze(), state.CommittedRequests);
+            state = state.WithExpedition(draft.Freeze());
             Guid request = dockRequest; string hub = dockHub; dockRequest = Guid.Empty; dockHub = null;
             if (draft.Health == 0) return ResolveSink(request == Guid.Empty ? Guid.NewGuid() : request, expeditionId);
             return request == Guid.Empty ? new RuleResult() : Dock(request, hub);
@@ -264,7 +270,9 @@ namespace PirateGame.Rules.Application
         {
             try
             {
-                var snapshot = new SessionSnapshot(checked(state.Revision + 1), campaign, expedition, state.CommittedRequests.Concat(new[] { request }));
+                var history = state.CommittedRequests.Concat(new[] { request });
+                int excess = state.CommittedRequests.Count + 1 - RequestHistory;
+                var snapshot = new SessionSnapshot(checked(state.Revision + 1), campaign, expedition, excess > 0 ? history.Skip(excess) : history);
                 var valid = ValidateSnapshot(definitions, snapshot); if (!valid.IsSuccess) return valid;
                 pending = new SaveCandidate(request, state.Revision, snapshot, command);
                 candidateArrival = needsArrival ? ArrivalFor(request, snapshot) : null;

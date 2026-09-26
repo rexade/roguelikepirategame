@@ -108,5 +108,16 @@ namespace PirateGame.Core
             Lifecycle = expedition == null ? Lifecycle.Docked : Lifecycle.AtSea;
             CommittedRequests = Values.List(committedRequests);
         }
+
+        // Same revision, campaign and request history with another expedition. The
+        // shared parts are immutable, so this avoids copying them every simulation tick.
+        public SessionSnapshot WithExpedition(ExpeditionState expedition) => new SessionSnapshot(this, expedition);
+
+        private SessionSnapshot(SessionSnapshot source, ExpeditionState expedition)
+        {
+            Revision = source.Revision; Campaign = source.Campaign; Expedition = expedition;
+            Lifecycle = expedition == null ? Lifecycle.Docked : Lifecycle.AtSea;
+            CommittedRequests = source.CommittedRequests;
+        }
     }
 }

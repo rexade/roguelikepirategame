@@ -352,5 +352,34 @@ namespace PirateGame.Tests.T03
             Assert.That(session.LastCommitted.Expedition.RngState, Is.EqualTo("rng:42:22"));
             Assert.That(session.LastCommitted.Expedition.Cooldowns["gun"], Is.EqualTo(1.5));
         }
+
+        [Test]
+        public void RequestHistoryKeepsARecentWindowAndTicksShareIt()
+        {
+            Start(); Sail();
+            var first = Guid.NewGuid(); Ok(session.Checkpoint(first));
+            var last = Guid.Empty;
+            for (int i = 0; i < CampaignSession.RequestHistory + 20; i++) { last = Guid.NewGuid(); Ok(session.Checkpoint(last)); }
+            var history = session.Snapshot.CommittedRequests;
+            Assert.That(history.Count, Is.EqualTo(CampaignSession.RequestHistory));
+            Assert.That(history.Last(), Is.EqualTo(last));
+            Assert.That(history, Does.Not.Contain(first));
+            Error(session.Checkpoint(last), RuleError.DuplicateRequest);
+            Ok(Tick(5));
+            Assert.That(session.Snapshot.CommittedRequests, Is.SameAs(history), "A tick shares the committed history instead of copying it");
+        }
+
+        [Test]
+        public void LongerHistoryFromOlderSavesLoadsAndTrimsOnTheNextCommit()
+        {
+            definitions = RuleFixtures.Catalog();
+            var initial = RuleFixtures.Initial(definitions);
+            var old = Enumerable.Range(0, CampaignSession.RequestHistory * 3).Select(_ => Guid.NewGuid()).ToArray();
+            Load(new SessionSnapshot(initial.Revision, initial.Campaign, null, old));
+            Error(session.Checkpoint(old.Last()), RuleError.DuplicateRequest);
+            Ok(session.Checkpoint(Guid.NewGuid()));
+            Assert.That(session.Snapshot.CommittedRequests.Count, Is.EqualTo(CampaignSession.RequestHistory));
+            Assert.That(session.Snapshot.CommittedRequests.Take(CampaignSession.RequestHistory - 1), Is.EqualTo(old.Skip(old.Length - CampaignSession.RequestHistory + 1)));
+        }
     }
 }
