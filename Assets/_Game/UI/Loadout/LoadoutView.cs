@@ -4,6 +4,7 @@ using System.Linq;
 using PirateGame.Core;
 using PirateGame.Rules.Application;
 using UnityEngine.UIElements;
+using Words = PirateGame.UI.Lexicon.Lexicon;
 
 namespace PirateGame.UI.Loadout
 {
@@ -24,8 +25,8 @@ namespace PirateGame.UI.Loadout
             var instances = owned.Keys.ToList();
             foreach (var slot in definitions.Hulls[session.Snapshot.Campaign.HullId].Slots)
             {
-                var field = new DropdownField(slot.Key.Replace('-', ' '), instances, instances.IndexOf(draft[slot.Key]),
-                    id => owned[id].Replace('-', ' '), id => owned[id].Replace('-', ' '));
+                var field = new DropdownField(Words.Title(slot.Key), instances, instances.IndexOf(draft[slot.Key]),
+                    id => Words.EquipmentName(owned[id]), id => Words.EquipmentName(owned[id]));
                 field.name = "slot-" + slot.Key;
                 field.RegisterValueChangedCallback(e => { draft[slot.Key] = e.newValue; RefreshValidation(); });
                 fields.Add(slot.Key, field); Add(field);

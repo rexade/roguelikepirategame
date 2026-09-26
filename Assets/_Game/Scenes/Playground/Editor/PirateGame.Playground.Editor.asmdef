@@ -1,0 +1,16 @@
+{
+  "name": "PirateGame.Playground.Editor",
+  "rootNamespace": "PirateGame.Playground.Editor",
+  "references": [
+    "PirateGame.Playground",
+    "PirateGame.ArtKit",
+    "PirateGame.ArtKit.Editor",
+    "PirateGame.WorldPresentation",
+    "PirateGame.ShipCamera",
+    "PirateGame.ShipPresentation",
+    "Unity.RenderPipelines.HighDefinition.Runtime",
+    "Unity.RenderPipelines.Core.Runtime"
+  ],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": false
+}

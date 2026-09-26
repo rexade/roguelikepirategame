@@ -1,0 +1,12 @@
+{
+  "name": "PirateGame.Playground",
+  "rootNamespace": "PirateGame.Playground",
+  "references": [
+    "PirateGame.WorldPresentation",
+    "PirateGame.ShipCamera",
+    "Unity.InputSystem",
+    "Unity.RenderPipelines.HighDefinition.Runtime",
+    "Unity.RenderPipelines.Core.Runtime"
+  ],
+  "autoReferenced": false
+}

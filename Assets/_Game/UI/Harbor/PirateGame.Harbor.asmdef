@@ -1,1 +1,1 @@
-{"name":"PirateGame.Harbor","references":["PirateGame.Core","PirateGame.Loadout","PirateGame.Travel"]}
+{"name":"PirateGame.Harbor","references":["PirateGame.Core","PirateGame.Loadout","PirateGame.Travel","PirateGame.Lexicon","PirateGame.GameUI"]}

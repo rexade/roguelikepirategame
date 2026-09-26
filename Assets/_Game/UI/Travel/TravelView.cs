@@ -6,8 +6,8 @@ using UnityEngine.UIElements;
 
 namespace PirateGame.UI.Travel
 {
-    // Fast-travel list for the harbor screen. It only issues FastTravel commands;
-    // eligibility (docked, unlock, activated destination) stays in the rules.
+    // Beacon paths (fast travel) in the beacon's ledger. It only issues FastTravel
+    // commands; eligibility (docked, unlock, lit destination) stays in the rules.
     public sealed class TravelView : VisualElement
     {
         public const string Unlock = "fast-travel";
@@ -30,12 +30,12 @@ namespace PirateGame.UI.Travel
             if (snapshot.Revision == shownRevision && childCount > 0) return;
             shownRevision = snapshot.Revision;
             Clear();
-            var heading = new Label("Fast travel"); heading.AddToClassList("heading"); Add(heading);
+            var heading = new Label("Beacon Paths"); heading.AddToClassList("heading"); Add(heading);
             var campaign = snapshot.Campaign;
             bool unlocked = campaign.Unlocks.Contains(Unlock);
             if (!unlocked)
             {
-                var hint = new Label("Buy Navigator's Charts to sail straight to any harbor that flies your flag.") { name = "travel-locked" };
+                var hint = new Label("Learn the Beacon Paths to sail straight to any beacon you have relit.") { name = "travel-locked" };
                 hint.AddToClassList("muted"); Add(hint);
             }
             foreach (var hub in definitions.Hubs.Keys.OrderBy(k => k, StringComparer.Ordinal))
@@ -43,13 +43,13 @@ namespace PirateGame.UI.Travel
                 if (hub == campaign.CurrentHub) continue;
                 if (!campaign.Hubs[hub].Activated)
                 {
-                    var unknown = new Label("Uncharted harbor: raise your flag in its berth to add it.") { name = "travel-unknown-" + hub };
+                    var unknown = new Label("A dark beacon: relight it to open its path.") { name = "travel-unknown-" + hub };
                     unknown.AddToClassList("muted"); Add(unknown);
                     continue;
                 }
                 var target = hub;
                 var button = new Button(() => completed(session.FastTravel(Guid.NewGuid(), target)))
-                    { text = "Travel to " + hubName(hub), name = "travel-" + hub };
+                    { text = "Sail to " + hubName(hub), name = "travel-" + hub };
                 button.SetEnabled(unlocked);
                 Add(button);
             }

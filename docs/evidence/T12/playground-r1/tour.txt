@@ -1,0 +1,12 @@
+shot,seconds
+device NVIDIA GeForce RTX 2070 SUPER 1920x1080
+voyage-lagoon,8.3
+tactical-wrecker,10.5
+approach-relic,12.6
+beacon-harbor,14.8
+forum-above,17.0
+gate-looking-home,19.2
+voyage-sun-gate,21.4
+causeway-mood,23.6
+deeps-mood,25.8
+frames 1006 median_ms 6.34 p95_ms 68.12 max_ms 146.93

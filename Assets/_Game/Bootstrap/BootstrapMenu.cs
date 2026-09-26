@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using PirateGame.Composition;
 using PirateGame.Persistence;
+using PirateGame.UI.Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -9,12 +10,12 @@ using UnityEngine.UIElements;
 namespace PirateGame.Bootstrap
 {
     // Title menu in the Bootstrap scene, and the Back button in the T02 ocean test.
+    // The Drowned Sun look (fonts, parchment) comes from a Resources stylesheet so
+    // the scene needs no extra wiring; without it the menu still works unstyled.
     [RequireComponent(typeof(UIDocument))]
     public sealed class BootstrapMenu : MonoBehaviour
     {
-        private static readonly Color Panel = new Color(0.055f, 0.1f, 0.11f, 0.9f), Edge = new Color(0.55f, 0.81f, 0.7f, 0.55f),
-            Amber = new Color(0.92f, 0.79f, 0.44f), Pale = new Color(0.75f, 0.85f, 0.8f), Body = new Color(0.94f, 0.94f, 0.9f),
-            ButtonFill = new Color(0.22f, 0.29f, 0.27f), Gold = new Color(0.76f, 0.64f, 0.31f), Focus = new Color(0.95f, 0.82f, 0.45f);
+        public const string StyleResource = "DrownedSun/Title";
         private Button startOver;
         private bool confirming;
 
@@ -24,61 +25,41 @@ namespace PirateGame.Bootstrap
             Application.targetFrameRate = -1;
             var root = GetComponent<UIDocument>().rootVisualElement;
             root.Clear();
+            var style = Resources.Load<StyleSheet>(StyleResource);
+            if (style != null) root.styleSheets.Add(style);
             bool ocean = SceneManager.GetActiveScene().name == "WaterTest";
             if (ocean) { BuildOceanTest(root); return; }
 
-            root.style.flexGrow = 1;
-            root.style.justifyContent = Justify.Center;
-            root.style.alignItems = Align.Center;
-            root.style.backgroundColor = new Color(0.02f, 0.06f, 0.08f, 0.35f);
-            var card = new VisualElement();
-            card.style.width = 520;
-            card.style.paddingLeft = card.style.paddingRight = 38;
-            card.style.paddingTop = 34; card.style.paddingBottom = 30;
-            card.style.backgroundColor = Panel;
-            card.style.borderTopLeftRadius = card.style.borderTopRightRadius = card.style.borderBottomLeftRadius = card.style.borderBottomRightRadius = 8;
-            SetBorder(card, Edge, 1);
-            root.Add(card);
-
-            card.Add(Text("PIRATE PROTOTYPE", 42, Amber, true, 3));
-            card.Add(Text("Homeward Reach  ·  Galewater Reach", 17, Pale, false, 1));
-            var tagline = Text("Salvage, fight and bank your plunder. Stronger ships reach more dangerous waters.", 15, Body, false, 0);
-            tagline.style.whiteSpace = WhiteSpace.Normal;
-            tagline.style.marginTop = 10; tagline.style.marginBottom = 18;
-            card.Add(tagline);
+            var page = Element("title-root", root);
+            page.pickingMode = PickingMode.Ignore;
+            var card = Element("title-card", page);
+            card.Add(new SunLogo());
+            card.Add(Text("THE DROWNED SUN", "game-title"));
+            card.Add(new SunRule());
+            card.Add(Text("Relight the beacons of drowned Aurelia.", "tagline"));
 
             Button first = null;
             if (LaunchOptions.HasSaveFiles)
             {
                 first = AddButton(card, "Continue voyage", () => Play(LaunchMode.Continue), true);
                 var saved = LastSaved();
-                if (saved != null)
-                {
-                    var note = Text(saved, 13, Pale, false, 0);
-                    note.style.marginTop = 2;
-                    card.Add(note);
-                }
+                if (saved != null) card.Add(Text(saved, "title-note"));
             }
             startOver = AddButton(card, "New campaign", StartOver, first == null);
             if (first == null) first = startOver;
             AddButton(card, "Ocean test", () => SceneManager.LoadScene("WaterTest"), false);
             AddButton(card, "Quit", Application.Quit, false);
-            var footer = Text("WASD sail  ·  Mouse aim, LMB fire, RMB brace  ·  E salvage / dock  ·  M chart  ·  Esc pause", 12, Pale, false, 0);
-            footer.style.marginTop = 18; footer.style.whiteSpace = WhiteSpace.Normal;
-            card.Add(footer);
+            card.Add(Text("WASD sail  ·  mouse aims, left fires, right braces  ·  E salvage and moor  ·  M chart  ·  Esc pause", "title-footer"));
             root.schedule.Execute(() => first.Focus());
         }
 
         private void BuildOceanTest(VisualElement root)
         {
-            root.style.paddingLeft = 24;
-            root.style.paddingTop = 24;
-            root.style.alignItems = Align.FlexStart;
-            root.Add(Text("Ocean", 24, Color.white, false, 0));
-            var back = AddButton(root, "Back", () => SceneManager.LoadScene("Bootstrap"), false);
-            back.style.width = 180;
-            var quit = AddButton(root, "Quit", Application.Quit, false);
-            quit.style.width = 180;
+            var page = Element("ocean-root", root);
+            var card = Element("ocean-card", page);
+            card.Add(Text("Ocean", "ocean-title"));
+            var back = AddButton(card, "Back", () => SceneManager.LoadScene("Bootstrap"), false);
+            AddButton(card, "Quit", Application.Quit, false);
             root.schedule.Execute(() => back.Focus());
         }
 
@@ -92,38 +73,28 @@ namespace PirateGame.Bootstrap
             return "Last saved " + when;
         }
 
-        private static Label Text(string text, int size, Color color, bool bold, float spacing)
+        private static VisualElement Element(string className, VisualElement parent)
+        {
+            var element = new VisualElement();
+            element.AddToClassList(className);
+            parent.Add(element);
+            return element;
+        }
+
+        private static Label Text(string text, string className)
         {
             var label = new Label(text);
-            label.style.fontSize = size;
-            label.style.color = color;
-            label.style.unityFontStyleAndWeight = bold ? FontStyle.Bold : FontStyle.Normal;
-            label.style.letterSpacing = spacing;
-            label.style.unityTextAlign = TextAnchor.MiddleCenter;
+            label.AddToClassList(className);
             return label;
         }
 
         private static Button AddButton(VisualElement parent, string text, Action action, bool primary)
         {
             var button = new Button(action) { text = text, name = text.ToLowerInvariant().Replace(' ', '-') };
-            button.style.height = 46;
-            button.style.marginTop = 10;
-            button.style.fontSize = 18;
-            button.style.backgroundColor = primary ? Gold : ButtonFill;
-            button.style.color = primary ? new Color(0.1f, 0.12f, 0.09f) : Body;
-            button.style.borderTopLeftRadius = button.style.borderTopRightRadius = button.style.borderBottomLeftRadius = button.style.borderBottomRightRadius = 4;
-            SetBorder(button, new Color(0.41f, 0.53f, 0.47f), 1);
-            // Visible keyboard focus: amber outline.
-            button.RegisterCallback<FocusInEvent>(_ => SetBorder(button, Focus, 2));
-            button.RegisterCallback<FocusOutEvent>(_ => SetBorder(button, new Color(0.41f, 0.53f, 0.47f), 1));
+            button.AddToClassList("title-button");
+            if (primary) button.AddToClassList("primary");
             parent.Add(button);
             return button;
-        }
-
-        private static void SetBorder(VisualElement element, Color color, float width)
-        {
-            element.style.borderTopColor = element.style.borderBottomColor = element.style.borderLeftColor = element.style.borderRightColor = color;
-            element.style.borderTopWidth = element.style.borderBottomWidth = element.style.borderLeftWidth = element.style.borderRightWidth = width;
         }
 
         // Replacing an existing campaign needs a second press; the old files are kept aside.

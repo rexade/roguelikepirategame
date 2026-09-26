@@ -1,0 +1,61 @@
+/* Title screen: a parchment card at the left over the live vista (1920x1080
+   reference of the Bootstrap panel settings). Loaded from Resources by BootstrapMenu. */
+
+.title-root {
+    flex-grow: 1; flex-direction: row; align-items: center;
+    padding-left: 7%;
+    background-color: rgba(8, 22, 30, 0.12);
+    -unity-font-definition: url("../../Fonts/EBGaramond-Regular.ttf");
+    color: rgb(43, 33, 24);
+}
+.title-card {
+    width: 600px; padding: 44px 56px 38px 56px;
+    background-image: url("../../Theme/parchment-panel.png");
+    -unity-slice-left: 48; -unity-slice-right: 48; -unity-slice-top: 48; -unity-slice-bottom: 48;
+}
+.title-card .sun-logo { height: 170px; margin-bottom: 2px; }
+.game-title {
+    -unity-font-definition: url("../../Fonts/Cinzel-Bold.ttf");
+    font-size: 54px; letter-spacing: 7px; -unity-text-align: middle-center; white-space: normal;
+}
+.title-card .sun-rule { height: 22px; margin: 6px 70px 8px 70px; }
+.tagline {
+    -unity-font-definition: url("../../Fonts/EBGaramond-Italic.ttf");
+    font-size: 23px; color: rgb(84, 60, 32); -unity-text-align: middle-center; white-space: normal;
+    margin-bottom: 20px;
+}
+.title-button {
+    height: 56px; margin: 10px 0 0 0; padding: 0;
+    -unity-font-definition: url("../../Fonts/Cinzel-Bold.ttf");
+    font-size: 21px; letter-spacing: 3px; color: rgb(43, 33, 24);
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("../../Theme/button.png");
+    -unity-slice-left: 14; -unity-slice-right: 14; -unity-slice-top: 14; -unity-slice-bottom: 14;
+    border-width: 0; border-radius: 0;
+}
+.title-button:hover { background-image: url("../../Theme/button-hover.png"); background-color: rgba(0, 0, 0, 0); }
+.title-button:active { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: rgb(225, 214, 190); }
+.title-button:focus { border-width: 3px; border-color: rgb(184, 137, 43); }
+.title-button.primary { background-image: url("../../Theme/button-primary.png"); color: rgb(36, 24, 8); }
+.title-button.primary:hover { -unity-background-image-tint-color: rgb(255, 244, 222); }
+.title-note {
+    -unity-font-definition: url("../../Fonts/EBGaramond-Italic.ttf");
+    font-size: 18px; color: rgb(84, 60, 32); -unity-text-align: middle-center; margin-top: 4px;
+}
+.title-footer {
+    font-size: 16px; color: rgba(43, 33, 24, 0.72); -unity-text-align: middle-center; white-space: normal;
+    margin-top: 22px; padding-top: 10px;
+    border-top-width: 1px; border-top-color: rgba(43, 33, 24, 0.22);
+}
+
+/* Ocean test: a small card in the corner of the water scene. */
+.ocean-root { padding: 24px; align-items: flex-start; -unity-font-definition: url("../../Fonts/EBGaramond-Regular.ttf"); }
+.ocean-card {
+    width: 260px; padding: 26px 30px 24px 30px;
+    background-image: url("../../Theme/parchment-panel.png");
+    -unity-slice-left: 48; -unity-slice-right: 48; -unity-slice-top: 48; -unity-slice-bottom: 48;
+}
+.ocean-title {
+    -unity-font-definition: url("../../Fonts/Cinzel-Bold.ttf");
+    font-size: 26px; letter-spacing: 4px; color: rgb(43, 33, 24); -unity-text-align: middle-center;
+}

@@ -72,16 +72,24 @@ namespace PirateGame.Presentation.World
             Current = Target(position);
             initialised = true;
             Apply(Current);
+            applied = true;
         }
 
         private void LateUpdate()
         {
             if (follow == null || profiles.Length == 0) return;
             var target = Target(follow.position);
-            Current = initialised ? AtmosphereState.Lerp(Current, target, 1 - Mathf.Exp(-Time.unscaledDeltaTime / response)) : target;
+            var next = initialised ? AtmosphereState.Lerp(Current, target, 1 - Mathf.Exp(-Time.unscaledDeltaTime / response)) : target;
+            // Settle exactly on the target and skip unchanged frames: every sky or
+            // volume change makes HDRP re-render the sky and ambient lighting.
+            if (AtmosphereState.Close(next, target)) next = target;
+            bool changed = !initialised || !AtmosphereState.Close(next, Current, 0) || !applied;
+            Current = next;
             initialised = true;
-            Apply(Current);
+            if (changed) { Apply(Current); applied = true; }
         }
+
+        private bool applied;
 
         public void Apply(AtmosphereState s)
         {
@@ -120,7 +128,11 @@ namespace PirateGame.Presentation.World
             if (profile.TryGet<Fog>(out var fog))
             {
                 fog.enabled.Override(true);
-                fog.colorMode.Override(FogColorMode.ConstantColor);
+                // Sky-coloured fog tinted by the zone: a constant fog colour is not scaled
+                // by exposure and paints a dark band along the horizon.
+                fog.colorMode.Override(FogColorMode.SkyColor);
+                float peak = Mathf.Max(0.001f, Mathf.Max(s.fogColor.r, Mathf.Max(s.fogColor.g, s.fogColor.b)));
+                fog.tint.Override(new Color(s.fogColor.r / peak, s.fogColor.g / peak, s.fogColor.b / peak));
                 fog.color.Override(s.fogColor);
                 fog.meanFreePath.Override(Mathf.Max(1, s.fogDistance));
                 fog.baseHeight.Override(0);

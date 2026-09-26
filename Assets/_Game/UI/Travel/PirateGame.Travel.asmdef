@@ -1,1 +1,1 @@
-{"name":"PirateGame.Travel","references":["PirateGame.Core"]}
+{"name":"PirateGame.Travel","references":["PirateGame.Core","PirateGame.Lexicon"]}

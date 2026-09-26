@@ -1,63 +1,239 @@
-/* In-voyage HUD and modal cards. Palette follows the harbor UI: deep teal
-   panels, parchment text, amber accents; readable over bright water. */
-.hud { position: absolute; left: 0; top: 0; right: 0; bottom: 0; color: rgb(238, 236, 224); font-size: 16px; }
+/* The Drowned Sun: engraved-chart UI for the voyage HUD, cards and sea chart.
+   Parchment (#E8DCC0), iron-gall ink (#2B2118), gold leaf (#B8892B), deep-sea blue
+   overlays. Cinzel (Roman capitals) for titles, EB Garamond for text. Sizes are at
+   the 1280x720 reference of the game's panel settings. */
+
+.hud, .menus, .chart {
+    -unity-font-definition: url("../Fonts/EBGaramond-Regular.ttf");
+    color: rgb(43, 33, 24);
+}
+
+/* ---------------------------------------------------------------- HUD */
+
+.hud { position: absolute; left: 0; top: 0; right: 0; bottom: 0; font-size: 16px; }
 .layer { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
-.hud-panel { position: absolute; background-color: rgba(14, 26, 28, 0.78); border-radius: 6px; border-width: 1px; border-color: rgba(120, 160, 145, 0.45); padding: 10px 14px; }
-#vitals { left: 18px; top: 16px; width: 330px; }
-#voyage { right: 18px; top: 16px; width: 300px; align-items: flex-end; }
-.region { font-size: 18px; -unity-font-style: bold; color: rgb(140, 207, 180); letter-spacing: 2px; }
-.condition { font-size: 13px; color: rgb(234, 202, 113); letter-spacing: 1px; margin-bottom: 4px; }
-.objective { font-size: 14px; color: rgb(214, 214, 196); white-space: normal; -unity-text-align: upper-right; }
-.meter-row { flex-direction: row; align-items: center; height: 26px; }
-.meter-caption { width: 54px; font-size: 14px; -unity-font-style: bold; color: rgb(190, 205, 196); }
-.meter { flex-grow: 1; height: 14px; background-color: rgba(0, 0, 0, 0.55); border-radius: 3px; overflow: hidden; }
-.meter-fill { height: 100%; width: 100%; border-radius: 3px; }
-.hull-fill { background-color: rgb(96, 196, 120); }
-.hull-fill.critical { background-color: rgb(231, 92, 70); }
-.cargo-fill { background-color: rgb(222, 180, 84); }
-.cargo-fill.full { background-color: rgb(240, 120, 60); }
-.meter-value { width: 78px; -unity-text-align: middle-right; font-size: 14px; }
-.detail { font-size: 14px; color: rgb(234, 202, 113); margin-top: 2px; }
-.toasts { position: absolute; top: 18px; left: 360px; right: 340px; align-items: center; }
-.toast { background-color: rgba(14, 26, 28, 0.86); border-radius: 5px; padding: 6px 14px; margin-bottom: 6px; font-size: 17px; border-left-width: 4px; border-left-color: rgb(140, 207, 180); }
-.toast.gain { border-left-color: rgb(234, 202, 113); color: rgb(250, 232, 170); }
-.toast.warning { border-left-color: rgb(240, 110, 80); color: rgb(255, 196, 180); }
-.prompt { position: absolute; bottom: 118px; left: 0; right: 0; -unity-text-align: middle-center; font-size: 20px; -unity-font-style: bold; color: rgb(250, 240, 210); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9); }
-.prompt.warning { color: rgb(255, 170, 140); }
-.slots { position: absolute; bottom: 22px; left: 0; right: 0; flex-direction: row; justify-content: center; }
-.slot { width: 150px; height: 70px; margin: 0 8px; background-color: rgba(14, 26, 28, 0.82); border-radius: 6px; border-width: 2px; border-color: rgba(120, 160, 145, 0.5); overflow: hidden; justify-content: center; align-items: center; }
-.slot.ready { border-color: rgb(234, 202, 113); }
-.slot.active { border-color: rgb(80, 230, 200); background-color: rgba(20, 70, 64, 0.9); }
-.slot-cooldown { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background-color: rgba(0, 0, 0, 0.55); }
-.slot-key { font-size: 12px; color: rgb(170, 190, 180); }
-.slot-name { font-size: 18px; -unity-font-style: bold; letter-spacing: 1px; }
-.enemy-bar { position: absolute; width: 60px; height: 8px; background-color: rgba(0, 0, 0, 0.7); border-radius: 2px; overflow: hidden; }
-.enemy-bar-fill { height: 100%; background-color: rgb(236, 88, 64); }
+
+.hud-panel {
+    position: absolute;
+    background-image: url("../Theme/parchment-tag.png");
+    -unity-slice-left: 20; -unity-slice-right: 20; -unity-slice-top: 20; -unity-slice-bottom: 20;
+    padding: 12px 16px 12px 16px;
+}
+#vitals { left: 16px; top: 14px; width: 292px; }
+#voyage { right: 16px; top: 14px; width: 300px; align-items: center; }
+
+.region {
+    -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf");
+    font-size: 15px; letter-spacing: 3px; -unity-text-align: middle-center; white-space: normal;
+}
+#voyage-rule { width: 78%; height: 14px; margin-top: 1px; margin-bottom: 1px; }
+.condition {
+    -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf");
+    font-size: 15px; color: rgb(122, 86, 30); -unity-text-align: middle-center; white-space: normal;
+}
+.objective { font-size: 14px; color: rgb(62, 50, 38); white-space: normal; -unity-text-align: upper-center; margin-top: 2px; }
+
+.meter-row { flex-direction: row; align-items: center; height: 24px; }
+.meter-caption {
+    width: 50px; -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf");
+    font-size: 12px; letter-spacing: 2px;
+}
+.meter {
+    flex-grow: 1; height: 12px; overflow: hidden;
+    background-color: rgba(43, 33, 24, 0.1);
+    border-width: 1px; border-color: rgb(43, 33, 24);
+}
+.meter-fill { height: 100%; width: 100%; background-image: url("../Theme/hatch.png"); background-repeat: repeat; }
+.hull-fill { background-color: rgb(142, 42, 28); }
+.hull-fill.critical { background-color: rgb(200, 64, 36); }
+.cargo-fill { background-color: rgb(184, 137, 43); }
+.cargo-fill.full { background-color: rgb(214, 112, 38); }
+.meter-value { width: 72px; -unity-text-align: middle-right; font-size: 15px; }
+.detail {
+    -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf");
+    font-size: 14px; color: rgb(112, 80, 30); margin-top: 1px; white-space: normal;
+}
+
+.toasts { position: absolute; top: 16px; left: 330px; right: 330px; align-items: center; }
+.toast {
+    background-image: url("../Theme/parchment-tag.png");
+    -unity-slice-left: 20; -unity-slice-right: 20; -unity-slice-top: 20; -unity-slice-bottom: 20;
+    padding: 7px 20px 7px 20px; margin-bottom: 5px;
+    font-size: 16px; -unity-text-align: middle-center; white-space: normal;
+}
+.toast.gain { color: rgb(118, 82, 16); -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); }
+.toast.warning { color: rgb(142, 42, 28); }
+
+/* Lore inscription: a gilded banner that fades in near the top of the screen. */
+.inscription {
+    position: absolute; top: 118px; left: 20%; right: 20%; height: 92px;
+    background-image: url("../Theme/banner.png");
+    justify-content: center; align-items: center;
+    opacity: 0; translate: 0 -10px;
+    transition-property: opacity, translate; transition-duration: 1.2s, 1.2s;
+    transition-timing-function: ease-out-sine, ease-out-sine;
+}
+.inscription.shown { opacity: 1; translate: 0 0; }
+.inscription-title {
+    -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf");
+    font-size: 21px; letter-spacing: 4px; -unity-text-align: middle-center;
+}
+.inscription-line {
+    -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf");
+    font-size: 17px; color: rgb(84, 60, 32); margin-top: 1px; -unity-text-align: middle-center;
+}
+
+/* Zone title: gold capitals engraved over the sea when a new zone begins. */
+.zone-title {
+    position: absolute; left: 0; right: 0; top: 29%;
+    align-items: center; opacity: 0;
+    transition-property: opacity; transition-duration: 1.6s; transition-timing-function: ease-in-out-sine;
+}
+.zone-title.shown { opacity: 1; }
+.zone-name {
+    -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf");
+    font-size: 40px; letter-spacing: 10px; color: rgb(246, 226, 170); -unity-text-align: middle-center;
+    -unity-text-outline-width: 1px; -unity-text-outline-color: rgba(43, 33, 24, 0.9);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.75);
+}
+.zone-rule { width: 420px; height: 16px; margin-top: 4px; margin-bottom: 4px; }
+.zone-mood {
+    -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf");
+    font-size: 20px; color: rgb(248, 236, 208); -unity-text-align: middle-center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.prompt-row { position: absolute; left: 0; right: 0; bottom: 100px; align-items: center; }
+.prompt {
+    background-image: url("../Theme/parchment-tag.png");
+    -unity-slice-left: 20; -unity-slice-right: 20; -unity-slice-top: 20; -unity-slice-bottom: 20;
+    padding: 7px 22px 7px 22px; font-size: 18px; -unity-text-align: middle-center;
+}
+.prompt.warning { color: rgb(142, 42, 28); }
+
+.slots { position: absolute; bottom: 18px; left: 0; right: 0; flex-direction: row; justify-content: center; }
+.slot {
+    width: 140px; height: 64px; margin: 0 8px 0 8px; overflow: hidden;
+    justify-content: center; align-items: center;
+    background-image: url("../Theme/parchment-tag.png");
+    -unity-slice-left: 20; -unity-slice-right: 20; -unity-slice-top: 20; -unity-slice-bottom: 20;
+}
+.slot.ready .slot-name { color: rgb(122, 84, 16); }
+.slot.active { -unity-background-image-tint-color: rgb(255, 232, 176); }
+.slot.active .slot-name { color: rgb(46, 93, 102); }
+.slot-cooldown {
+    position: absolute; left: 6px; right: 6px; bottom: 6px; height: 0;
+    background-color: rgba(43, 33, 24, 0.3); background-image: url("../Theme/hatch.png"); background-repeat: repeat;
+}
+.slot-key {
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+    font-size: 11px; letter-spacing: 2px; color: rgba(43, 33, 24, 0.7);
+}
+.slot-name { -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf"); font-size: 15px; letter-spacing: 2px; }
+
+.enemy-bar {
+    position: absolute; width: 60px; height: 8px; overflow: hidden;
+    background-color: rgba(232, 220, 192, 0.85); border-width: 1px; border-color: rgb(43, 33, 24);
+}
+.enemy-bar-fill { height: 100%; background-color: rgb(142, 42, 28); background-image: url("../Theme/hatch.png"); background-repeat: repeat; }
+
 .home-arrow { position: absolute; width: 52px; height: 52px; align-items: center; justify-content: center; }
-.home-glyph { width: 0; height: 0; border-left-width: 11px; border-right-width: 11px; border-bottom-width: 22px; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-bottom-color: rgb(234, 202, 113); }
-#home-label { position: absolute; top: -8px; width: 180px; left: -64px; -unity-text-align: lower-center; font-size: 13px; color: rgb(250, 232, 170); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9); }
+.home-glyph { width: 40px; height: 40px; }
+#home-label {
+    position: absolute; top: -14px; width: 200px; left: -74px; -unity-text-align: lower-center;
+    -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); font-size: 15px; color: rgb(250, 238, 204);
+    -unity-text-outline-width: 0.4px; -unity-text-outline-color: rgba(43, 33, 24, 0.8);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}
 
-.menus { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(6, 12, 14, 0.62); justify-content: center; align-items: center; color: rgb(238, 236, 224); }
-.menu-card { width: 520px; background-color: rgba(18, 30, 32, 0.96); border-radius: 8px; border-width: 1px; border-color: rgba(140, 207, 180, 0.6); padding: 26px 30px; }
-.menu-title { font-size: 30px; -unity-font-style: bold; color: rgb(234, 202, 113); letter-spacing: 2px; }
-.menu-subtitle { font-size: 16px; color: rgb(190, 205, 196); margin-top: 4px; white-space: normal; }
-.menu-lines { margin-top: 16px; margin-bottom: 8px; }
-.menu-line { font-size: 17px; white-space: normal; margin-bottom: 4px; }
+/* ---------------------------------------------------------------- cards */
+
+.menus {
+    position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+    background-image: url("../Theme/vignette.png");
+    justify-content: center; align-items: center;
+}
+.menu-card {
+    width: 540px; padding: 34px 44px 30px 44px;
+    background-image: url("../Theme/parchment-panel.png");
+    -unity-slice-left: 48; -unity-slice-right: 48; -unity-slice-top: 48; -unity-slice-bottom: 48;
+}
+.menu-title {
+    -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf");
+    font-size: 28px; letter-spacing: 4px; -unity-text-align: middle-center; white-space: normal;
+}
+.menu-card.dire .menu-title { color: rgb(142, 42, 28); }
+.menu-card.radiant .menu-title { color: rgb(150, 104, 20); }
+.menu-rule { height: 18px; margin: 6px 40px 8px 40px; }
+.menu-subtitle {
+    -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf");
+    font-size: 17px; color: rgb(84, 60, 32); -unity-text-align: middle-center; white-space: normal;
+}
+.menu-lines { margin-top: 14px; margin-bottom: 6px; }
+.menu-line { font-size: 16px; white-space: normal; margin-bottom: 5px; -unity-text-align: upper-center; }
 .menu-buttons { margin-top: 12px; }
-.menu-button { height: 40px; margin-top: 8px; font-size: 17px; background-color: rgb(57, 75, 69); color: rgb(249, 249, 240); border-radius: 4px; border-width: 1px; border-color: rgb(105, 136, 120); }
-.menu-button:hover { background-color: rgb(73, 100, 88); }
-.menu-button:focus { border-width: 2px; border-color: rgb(242, 209, 116); }
-.menu-button.primary { background-color: rgb(193, 163, 79); color: rgb(26, 32, 24); }
-.menu-button.primary:hover { background-color: rgb(212, 182, 98); }
+.menu-button {
+    height: 42px; margin: 8px 0 0 0; padding: 0;
+    -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf");
+    font-size: 15px; letter-spacing: 2px; color: rgb(43, 33, 24);
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("../Theme/button.png");
+    -unity-slice-left: 14; -unity-slice-right: 14; -unity-slice-top: 14; -unity-slice-bottom: 14;
+    border-width: 0; border-radius: 0;
+}
+.menu-button:hover { background-image: url("../Theme/button-hover.png"); background-color: rgba(0, 0, 0, 0); }
+.menu-button:active { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: rgb(225, 214, 190); }
+.menu-button:focus { border-width: 2px; border-color: rgb(184, 137, 43); }
+.menu-button.primary { background-image: url("../Theme/button-primary.png"); color: rgb(36, 24, 8); }
+.menu-button.primary:hover { -unity-background-image-tint-color: rgb(255, 244, 222); }
 
-/* Sea chart (M): parchment overview of the archipelago. */
-.chart { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(6, 12, 14, 0.55); justify-content: center; align-items: center; }
-.chart-frame { width: 64%; height: 90%; background-color: rgb(214, 196, 150); border-radius: 6px; border-width: 3px; border-color: rgb(92, 66, 38); padding: 12px 18px; }
-.chart-title { font-size: 26px; -unity-font-style: bold; color: rgb(70, 48, 26); -unity-text-align: upper-center; letter-spacing: 4px; }
-.chart-canvas { flex-grow: 1; margin-top: 6px; margin-bottom: 6px; }
-.chart-legend { font-size: 13px; color: rgb(80, 60, 36); -unity-text-align: middle-center; white-space: normal; }
-.chart-name { font-size: 14px; color: rgb(60, 42, 22); }
-.chart-region { font-size: 15px; -unity-font-style: bold; letter-spacing: 2px; color: rgb(90, 64, 36); }
-.chart-harbor { -unity-font-style: bold; color: rgb(120, 60, 12); }
-.chart-uncharted { color: rgb(110, 96, 72); font-size: 17px; -unity-font-style: bold; }
-.chart-north { -unity-font-style: bold; font-size: 15px; }
+/* ---------------------------------------------------------------- sea chart */
+
+.chart {
+    position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+    background-image: url("../Theme/vignette.png");
+    justify-content: center; align-items: center;
+}
+.chart-frame {
+    width: 62%; height: 94%; flex-direction: row;
+    padding: 28px 28px 24px 28px;
+    background-image: url("../Theme/chart-paper.png");
+    -unity-slice-left: 60; -unity-slice-right: 60; -unity-slice-top: 60; -unity-slice-bottom: 60;
+}
+.chart-canvas { flex-grow: 1; margin-right: 12px; }
+.chart-side {
+    width: 214px; align-items: center; padding: 8px 0 0 14px;
+    border-left-width: 1px; border-left-color: rgba(43, 33, 24, 0.35);
+}
+.chart-title {
+    -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf");
+    font-size: 19px; letter-spacing: 3px; -unity-text-align: middle-center; white-space: normal;
+}
+.chart-subtitle {
+    -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf");
+    font-size: 14px; color: rgb(84, 60, 32); -unity-text-align: middle-center; white-space: normal;
+}
+.chart-side .sun-rule { width: 90%; height: 16px; margin: 4px 0 4px 0; }
+.chart-compass { width: 150px; height: 150px; margin: 10px 0 6px 0; }
+.compass-north {
+    position: absolute; top: -2px; left: 0; right: 0; -unity-text-align: upper-center;
+    -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf"); font-size: 14px;
+}
+.chart-legend { align-self: stretch; margin-top: 6px; }
+.legend-row { flex-direction: row; align-items: center; margin-bottom: 5px; }
+.legend-icon { width: 26px; height: 20px; margin-right: 6px; flex-shrink: 0; }
+.legend-text { font-size: 13px; white-space: normal; flex-shrink: 1; }
+.chart-close {
+    margin-top: auto; margin-bottom: 4px;
+    -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); font-size: 13px; color: rgba(43, 33, 24, 0.7);
+}
+
+.chart-name { font-size: 12px; }
+.chart-zone { -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf"); font-size: 13px; letter-spacing: 3px; }
+.chart-mood { -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); font-size: 11px; color: rgb(90, 64, 36); }
+.chart-landmark { -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); font-size: 11px; color: rgb(60, 45, 30); }
+.chart-harbor { -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf"); font-size: 11px; letter-spacing: 1px; color: rgb(122, 84, 16); }
+.chart-uncharted { -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); font-size: 11px; color: rgb(110, 96, 72); }
+.chart-veil { -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf"); font-size: 12px; letter-spacing: 6px; color: rgba(43, 33, 24, 0.7); }
+.chart-scale { font-size: 11px; }
+.chart-region { -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf"); font-size: 13px; letter-spacing: 2px; }

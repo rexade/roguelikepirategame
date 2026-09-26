@@ -18,7 +18,9 @@ namespace PirateGame.Presentation.Cameras
         public Vector3 offset = new Vector3(0, 49, -28.29f);
         [Min(0.01f)] public float followSharpness = 6;
         public bool framings;
-        [Header("Voyage")] public float voyagePitch = 28, voyageDistance = 30, voyageLookAhead = 12, voyageLookHeight = 2;
+        // Voyage: camera about 13 m up and 24 m behind the ship; the ship sits about two
+        // thirds down the frame and the horizon about a tenth below the top edge.
+        [Header("Voyage")] public float voyagePitch = 21, voyageDistance = 38, voyageLookAhead = 11, voyageLookHeight = 0;
         [Header("Approach")] public float approachPitch = 45, approachDistance = 34, approachLookAhead = 3;
         [Header("Harbor")] public float harborPitch = 16, harborDistance = 46, harborLookHeight = 9, harborOrbitDegrees = 9, harborOrbitSeconds = 50;
         [Min(0.05f)] public float blendSeconds = 1.1f;

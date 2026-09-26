@@ -1,38 +1,112 @@
-.harbor { flex-grow: 1; background-color: rgba(18, 28, 29, 0.9); color: rgb(235, 239, 231); padding: 28px 40px; font-size: 18px; }
-.header { flex-direction: row; justify-content: space-between; align-items: center; height: 50px; border-bottom-width: 1px; border-bottom-color: rgb(88, 105, 98); }
-#title { font-size: 26px; -unity-font-style: bold; }
-#bank { height: 54px; padding-top: 15px; color: rgb(234, 202, 113); }
+/* The beacon's ledger: a parchment sheet over the slow beacon shot, which shows
+   around its edges. Cinzel headings, EB Garamond text, iron-gall ink, gold leaf. */
+
+.harbor {
+    flex-grow: 1; justify-content: center;
+    padding: 26px 6% 26px 6%;
+    background-color: rgba(8, 22, 30, 0.3);
+    -unity-font-definition: url("../Fonts/EBGaramond-Regular.ttf");
+    color: rgb(43, 33, 24); font-size: 16px;
+}
+.ledger {
+    flex-grow: 1; flex-shrink: 1;
+    padding: 30px 42px 18px 42px;
+    background-image: url("../Theme/parchment-panel.png");
+    -unity-slice-left: 48; -unity-slice-right: 48; -unity-slice-top: 48; -unity-slice-bottom: 48;
+}
+
+.header { align-items: center; }
+#title {
+    -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf");
+    font-size: 28px; letter-spacing: 5px; -unity-text-align: middle-center;
+}
+#title-rule { width: 420px; height: 18px; margin-top: 3px; margin-bottom: 1px; }
+#location {
+    -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf");
+    font-size: 16px; color: rgb(84, 60, 32); -unity-text-align: middle-center;
+}
+#bank {
+    padding: 8px 0 8px 0; margin-bottom: 12px;
+    -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf");
+    font-size: 15px; letter-spacing: 2px; color: rgb(118, 82, 16); -unity-text-align: middle-center;
+    border-bottom-width: 1px; border-bottom-color: rgba(43, 33, 24, 0.25);
+}
+
 .columns { flex-direction: row; flex-grow: 1; flex-shrink: 1; }
-.section { width: 34%; padding-right: 26px; flex-shrink: 0; }
+.section {
+    width: 29%; flex-shrink: 0; padding-right: 20px; margin-right: 20px;
+    border-right-width: 1px; border-right-color: rgba(43, 33, 24, 0.2);
+}
 .section.upgrades { width: 44%; }
-.side { flex-grow: 1; flex-shrink: 1; justify-content: space-between; padding-left: 6px; }
+.side { flex-grow: 1; flex-shrink: 1; justify-content: space-between; }
 .section > *, .side > * { flex-shrink: 0; }
-.heading { font-size: 22px; margin-bottom: 14px; color: rgb(140, 207, 180); }
-.upgrade { flex-direction: row; align-items: center; margin-bottom: 8px; border-bottom-width: 1px; border-bottom-color: rgb(75, 86, 82); padding-bottom: 6px; }
+.heading {
+    -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf");
+    font-size: 16px; letter-spacing: 3px; margin-bottom: 10px; padding-bottom: 3px;
+    border-bottom-width: 1px; border-bottom-color: rgba(184, 137, 43, 0.9);
+}
+
+.upgrade {
+    flex-direction: row; align-items: center; margin-bottom: 7px; padding-bottom: 6px;
+    border-bottom-width: 1px; border-bottom-color: rgba(43, 33, 24, 0.14);
+}
 .upgrade-info { flex-grow: 1; flex-shrink: 1; }
-.upgrade-heading { flex-direction: row; align-items: flex-end; }
-.upgrade-name { font-size: 17px; -unity-font-style: bold; margin-right: 10px; }
-.upgrade-effect { font-size: 15px; color: rgb(140, 207, 180); }
-.upgrade-cost { font-size: 15px; color: rgb(234, 202, 113); }
-.upgrade-cost.unaffordable { color: rgb(200, 140, 120); }
-.upgrade Button { width: 118px; height: 32px; margin-top: 0; margin-left: 10px; }
+.upgrade-heading { flex-direction: row; align-items: flex-end; flex-wrap: wrap; }
+.upgrade-name { -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf"); font-size: 14px; letter-spacing: 1px; margin-right: 10px; }
+.upgrade-effect { -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); font-size: 15px; color: rgb(46, 93, 102); }
+.upgrade-line { -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); font-size: 14px; color: rgba(43, 33, 24, 0.72); }
+.upgrade-cost { font-size: 15px; color: rgb(118, 82, 16); }
+.upgrade-cost.unaffordable { color: rgb(150, 66, 44); }
+.upgrade Button { width: 112px; height: 32px; margin: 0 0 0 10px; }
 .upgrade Button.owned { opacity: 0.55; }
 .upgrade Button.unaffordable { opacity: 0.75; }
+
 Label { white-space: normal; }
-Button { height: 36px; margin-top: 8px; margin-bottom: 3px; background-color: rgb(57, 75, 69); color: rgb(249, 249, 240); border-radius: 3px; border-width: 1px; border-color: rgb(105, 136, 120); }
-Button:hover { background-color: rgb(73, 100, 88); }
-Button:focus, .unity-base-field__input:focus { border-width: 2px; border-color: rgb(242, 209, 116); }
+Button {
+    height: 34px; margin: 8px 0 3px 0; padding: 0 10px 0 10px;
+    -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf");
+    font-size: 13px; letter-spacing: 1px; color: rgb(43, 33, 24);
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("../Theme/button.png");
+    -unity-slice-left: 14; -unity-slice-right: 14; -unity-slice-top: 14; -unity-slice-bottom: 14;
+    border-width: 0; border-radius: 0;
+}
+Button:hover { background-image: url("../Theme/button-hover.png"); background-color: rgba(0, 0, 0, 0); }
+Button:active { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: rgb(225, 214, 190); }
+Button:focus, .unity-base-field__input:focus { border-width: 2px; border-color: rgb(184, 137, 43); }
 Button:disabled { opacity: 0.5; }
-.unity-base-field { margin-bottom: 12px; min-height: 36px; }
-.unity-base-field__label { min-width: 85px; color: rgb(230, 235, 229); }
-.unity-base-field__input { background-color: rgb(223, 233, 222); color: rgb(21, 36, 30); }
-.muted { color: rgb(174, 189, 181); font-size: 16px; min-height: 44px; }
-.error { color: rgb(255, 160, 143); }
-#embark { width: 150px; align-self: flex-end; background-color: rgb(193, 163, 79); color: rgb(26, 32, 24); margin-bottom: 20px; }
-#status { min-height: 54px; padding-top: 12px; }
-#retry { width: 180px; }
-#unlocks { font-size: 16px; color: rgb(174, 189, 181); }
+
+.unity-base-field { margin-bottom: 10px; min-height: 34px; }
+.unity-base-field__label {
+    min-width: 80px; color: rgb(43, 33, 24);
+    -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf"); font-size: 12px; letter-spacing: 2px;
+}
+.unity-base-field__input {
+    background-color: rgba(206, 186, 146, 0.55); color: rgb(43, 33, 24);
+    border-width: 1px; border-color: rgba(43, 33, 24, 0.7); border-radius: 0;
+    -unity-font-definition: url("../Fonts/EBGaramond-Regular.ttf"); font-size: 15px;
+}
+.muted {
+    -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf");
+    color: rgba(43, 33, 24, 0.68); font-size: 15px; min-height: 40px;
+}
+.error { color: rgb(142, 42, 28); }
+
+#embark {
+    width: 172px; height: 48px; align-self: flex-end; margin-bottom: 14px;
+    background-image: url("../Theme/button-primary.png");
+    font-size: 17px; letter-spacing: 3px; color: rgb(36, 24, 8);
+}
+#embark:hover { -unity-background-image-tint-color: rgb(255, 244, 222); background-image: url("../Theme/button-primary.png"); }
+
+.footer { flex-direction: row; align-items: center; justify-content: center; min-height: 40px; }
+#status {
+    flex-shrink: 1; padding-top: 6px;
+    -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); font-size: 16px; -unity-text-align: middle-center;
+}
+#retry { width: 160px; margin-left: 14px; }
+#unlocks { font-size: 15px; color: rgba(43, 33, 24, 0.72); -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); }
+#stats { margin-top: 10px; font-size: 16px; }
 .travel .heading { margin-bottom: 6px; }
 .travel Button { height: 34px; }
 .travel .muted { min-height: 0; margin-bottom: 6px; font-size: 15px; }
-#stats { margin-top: 10px; font-size: 17px; }

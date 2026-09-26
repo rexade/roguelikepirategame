@@ -15,6 +15,21 @@ namespace PirateGame.Presentation.World
         [Header("Grading")] public float saturation, contrast, temperature, bloom, vignette; public Color filter;
         [Header("Ambience 0..1")] public float gulls, breeze, groans;
 
+        // True when every value differs by at most `tolerance`, relative to its magnitude.
+        public static bool Close(AtmosphereState a, AtmosphereState b, float tolerance = 1e-3f)
+        {
+            bool F(float x, float y) => Mathf.Abs(x - y) <= tolerance * Mathf.Max(1, Mathf.Max(Mathf.Abs(x), Mathf.Abs(y)));
+            bool C(Color x, Color y) => F(x.r, y.r) && F(x.g, y.g) && F(x.b, y.b) && F(x.a, y.a);
+            return F(a.sunPitch, b.sunPitch) && F(Mathf.DeltaAngle(a.sunYaw, b.sunYaw), 0) && C(a.sunColor, b.sunColor) && F(a.sunIntensity, b.sunIntensity)
+                && C(a.skyTop, b.skyTop) && C(a.skyMiddle, b.skyMiddle) && C(a.skyBottom, b.skyBottom) && F(a.skyExposure, b.skyExposure) && F(a.exposure, b.exposure)
+                && C(a.fogColor, b.fogColor) && F(a.fogDistance, b.fogDistance) && F(a.fogHeight, b.fogHeight)
+                && C(a.refraction, b.refraction) && C(a.scattering, b.scattering) && F(a.absorption, b.absorption) && F(a.wind, b.wind)
+                && F(a.swell0, b.swell0) && F(a.swell1, b.swell1) && F(a.foam, b.foam)
+                && F(a.saturation, b.saturation) && F(a.contrast, b.contrast) && F(a.temperature, b.temperature) && F(a.bloom, b.bloom)
+                && F(a.vignette, b.vignette) && C(a.filter, b.filter)
+                && F(a.gulls, b.gulls) && F(a.breeze, b.breeze) && F(a.groans, b.groans);
+        }
+
         public static AtmosphereState Lerp(AtmosphereState a, AtmosphereState b, float t)
         {
             t = Mathf.Clamp01(t);

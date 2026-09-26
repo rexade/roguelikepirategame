@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576c3bd28eb1b954fa90c9b4d0f4110a, type: 3}
+  m_Name: Shallows
+  m_EditorClassIdentifier: PirateGame.WorldPresentation::PirateGame.Presentation.World.AtmosphereProfile
+  mood: Glass-clear shallows
+  anchorZ: 0
+  look:
+    sunPitch: 54
+    sunYaw: -32
+    sunColor: {r: 1, g: 0.96, b: 0.88, a: 1}
+    sunIntensity: 110000
+    skyTop: {r: 0.08, g: 0.3, b: 0.7, a: 1}
+    skyMiddle: {r: 0.34, g: 0.64, b: 0.92, a: 1}
+    skyBottom: {r: 0.76, g: 0.87, b: 0.95, a: 1}
+    skyExposure: 13
+    exposure: 12.75
+    fogColor: {r: 0.66, g: 0.82, b: 0.95, a: 1}
+    fogDistance: 1100
+    fogHeight: 70
+    refraction: {r: 0.06, g: 0.7, b: 0.8, a: 1}
+    scattering: {r: 0.01, g: 0.16, b: 0.3, a: 1}
+    absorption: 14
+    wind: 18
+    swell0: 0.1
+    swell1: 0.16
+    foam: 0.12
+    saturation: 4
+    contrast: 14
+    temperature: 8
+    bloom: 0.22
+    vignette: 0.2
+    filter: {r: 1, g: 1, b: 1, a: 1}
+    gulls: 0.85
+    breeze: 0.2
+    groans: 0

@@ -1,0 +1,7 @@
+{
+  "name": "PirateGame.Lexicon",
+  "rootNamespace": "PirateGame.UI.Lexicon",
+  "references": [],
+  "noEngineReferences": true,
+  "autoReferenced": true
+}

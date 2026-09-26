@@ -23,7 +23,9 @@ namespace PirateGame.Composition
         {
             if (LaunchOptions.Argument("-capture") == null) return;
             UnityEngine.SceneManagement.SceneManager.sceneLoaded += (scene, mode) => Attach();
-            if (!Attach()) new GameObject("Title capture").AddComponent<TitleShot>();
+            // Other players (playgrounds, previews) share -capture but not this tour.
+            if (!Attach() && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == LaunchOptions.TitleScene)
+                new GameObject("Title capture").AddComponent<TitleShot>();
         }
 
         // Photographs the title menu, then starts a new campaign in the world scene.
