@@ -1,7 +1,7 @@
 # Shared Rules Contracts
 
-Contract revision: **T03-r1**, 2026-09-18, with Lead extensions **r1.1 (T08)** and
-**r1.2 (T09)** of 2026-09-25 listed at the end of this document. Developer verification is recorded in
+Contract revision: **T03-r1**, 2026-09-18, with Lead extensions **r1.1 (T08)**,
+**r1.2 (T09)**, **r1.3 (T10)** and **r1.4 (review fixes, 2026-09-26)** listed at the end of this document. Developer verification is recorded in
 [T03 evidence](evidence/T03/REPORT.md). **Lead-reviewed revision: T03-r1**;
 accepted 2026-09-18 for downstream task pickup at rule-layer scope.
 These contracts now transfer to Lead ownership. Changes must list
@@ -149,8 +149,9 @@ An outcome begins a frozen Resolving phase. Failure leaves the old committed sav
 intact and the exact candidate retryable. It does not resume a zero-health ship.
 Old expedition callbacks and repeated request IDs reject. Resolved IDs and
 committed request IDs are saved so reload cannot replay a bank/purchase effect.
-Request history is unbounded in this initial prototype; retention/compaction is
-a future explicit persistence policy, not an implicit expiry of idempotence.
+Since r1.4 the saved request history keeps the latest `CampaignSession.RequestHistory`
+(128) IDs: every command uses a fresh ID and retries resubmit the pending candidate,
+so only recent IDs can repeat, and revisions order everything older.
 
 `IGameplayClock` has `long Tick`, `double FixedDeltaSeconds` (default 0.02), and
 `bool IsPaused`. Pause includes transition/arrival locks and Docked state. There
@@ -175,7 +176,7 @@ interface ISaveStore { RuleResult Commit(SaveCandidate candidate); }
 
 The synchronous call is deliberate: no second write or simulation step can pass
 a pending write. A store may perform asynchronous work internally but must not
-acknowledge before completion. ExpectedRevision is the previous committed revision;
+acknowledge before completion, except for the at-sea background writes of r1.4. ExpectedRevision is the previous committed revision;
 the candidate revision is exactly one greater, with checked arithmetic. Storage
 must compare revisions, reject stale candidates, and make retries of the identical
 request/revision idempotent. Reentrant commands are Busy. T03's fake proves this
@@ -307,3 +308,22 @@ with identical dock data, which `FirstRegionAsset.Validate` enforces.
   locked and the composition calls `RetryArrival` when the regions are ready.
 - A region's enemies keep the region ID of their spawn in their `EntityState`
   position; generated wrecks take the region of the water they lie in.
+
+### r1.4 (review fixes, 2026-09-26)
+
+- Request history: snapshots keep only the latest `CampaignSession.RequestHistory` (128)
+  committed request IDs; older saves trim on their next commit. A tick's snapshot shares
+  the committed history (`SessionSnapshot.WithExpedition`) instead of copying it.
+- Save migration: `SaveMigration.AddNewHubs` runs on load before validation. Hubs added to
+  the catalog after a save was written start undiscovered; hubs the catalog no longer has
+  still fail validation (INV-12). Loading never rewrites the file.
+- Background writes: `JsonSaveStore(..., backgroundWrites: true)`, used by `GameDirector`,
+  acknowledges `Checkpoint` and `CollectLoot` candidates once queued and writes them in
+  order on a worker thread. Every other commit, `Load`, `Initialize` and `HasSaveFiles`
+  first waits for all queued writes to the same folder, across store instances. A crash
+  can lose only at-sea saves still queued (INV-17). After a failed background write the
+  next commit runs synchronously and reports `SaveFailed` through the normal retry path.
+  `Flush()` waits for the queue; the director calls it on quit and on scene teardown.
+- `ShipSimulation.TickSkipped` fires in `FixedUpdate` for physics steps outside a tick.
+  `CombatWorld` freezes enemies then (and while the simulation is disabled) instead of
+  after every physics step, so enemies keep Rigidbody interpolation between ticks.
