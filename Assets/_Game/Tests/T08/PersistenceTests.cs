@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using PirateGame.Core;
 using PirateGame.Persistence;
@@ -34,6 +36,23 @@ namespace PirateGame.Tests.T08
             Failures++;
             throw new IOException("Injected " + step + " failure");
         }
+    }
+
+    // Holds every file write until the gate opens, to observe saves still queued.
+    public sealed class GatedFileSystem : ISaveFileSystem
+    {
+        public readonly ManualResetEventSlim Gate = new ManualResetEventSlim(true);
+        private readonly DiskFileSystem disk = new DiskFileSystem();
+        public bool Exists(string path) => disk.Exists(path);
+        public byte[] ReadAllBytes(string path) => disk.ReadAllBytes(path);
+        public void WriteAllBytes(string path, byte[] bytes)
+        {
+            if (!Gate.Wait(TimeSpan.FromSeconds(10))) throw new IOException("Gate stayed closed");
+            disk.WriteAllBytes(path, bytes);
+        }
+        public void Replace(string source, string destination, string backup) => disk.Replace(source, destination, backup);
+        public void Move(string source, string destination) => disk.Move(source, destination);
+        public void CreateDirectory(string path) => disk.CreateDirectory(path);
     }
 
     public sealed class ReadyArrival : IWorldArrival
@@ -79,6 +98,8 @@ namespace PirateGame.Tests.T08
             new Dictionary<string, int> { ["wood"] = wood }, new Dictionary<string, double>(), "salvage");
 
         private JsonSaveStore Store(ISaveFileSystem files = null) => new JsonSaveStore(directory, definitions, files);
+        private JsonSaveStore BackgroundStore(ISaveFileSystem files) => new JsonSaveStore(directory, definitions, files, backgroundWrites: true);
+        private static long Revision(string path) => SaveMapper.FromDto(SaveCodec.Decode(File.ReadAllBytes(path))).Revision;
 
         private CampaignSession Begin(JsonSaveStore store, SessionSnapshot initial = null)
         {
@@ -311,6 +332,82 @@ namespace PirateGame.Tests.T08
             var result = Store().Load();
             Assert.That(result.Status, Is.EqualTo(SaveLoadStatus.RecoveredFromBackup));
             Assert.That(result.Detail, Does.Contain("UnknownId"));
+        }
+
+        [Test]
+        public void BackgroundAtSeaSavesReturnBeforeTheDiskWriteAndLandInOrder()
+        {
+            var files = new GatedFileSystem();
+            var store = BackgroundStore(files);
+            var session = Begin(store);
+            var voyage = Sail(session, Barrel("barrel-a", 3));
+            long embarked = Revision(store.MainPath);
+            files.Gate.Reset();
+            Ok(session.Checkpoint(Guid.NewGuid()));
+            Ok(session.CollectLoot(Guid.NewGuid(), voyage, EntityId.Authored("barrel-a")));
+            Assert.That(Revision(store.MainPath), Is.EqualTo(embarked), "Both saves are still queued behind the closed gate");
+            files.Gate.Set();
+            // A store made by the next scene waits for this one's queue before reading.
+            var loaded = Store().Load().Snapshot;
+            Assert.That(loaded.Revision, Is.EqualTo(session.Snapshot.Revision));
+            Assert.That(loaded.Expedition.Cargo["wood"], Is.EqualTo(3));
+        }
+
+        [Test]
+        public void TransitionsWaitForQueuedSaves()
+        {
+            var files = new GatedFileSystem();
+            var store = BackgroundStore(files);
+            var session = Begin(store);
+            var voyage = Sail(session, Barrel("wreck", 7));
+            files.Gate.Reset();
+            Ok(session.CollectLoot(Guid.NewGuid(), voyage, EntityId.Authored("wreck")));
+            long pickup = session.Snapshot.Revision;
+            Assert.That(session.RequestDock(Guid.NewGuid(), voyage, "home").IsPending, Is.True);
+            var opener = Task.Run(() => { Thread.Sleep(100); files.Gate.Set(); });
+            Ok(Tick(session));
+            opener.Wait();
+            Assert.That(Revision(store.BackupPath), Is.EqualTo(pickup), "The queued pickup landed before the dock replaced it");
+            Assert.That(Revision(store.MainPath), Is.EqualTo(session.Snapshot.Revision));
+            Assert.That(Store().Load().Snapshot.Campaign.Bank["wood"], Is.EqualTo(7));
+        }
+
+        [Test]
+        public void TransitionsStayDurableBeforeAcknowledgementInBackgroundMode()
+        {
+            var files = new FaultyFileSystem();
+            var store = BackgroundStore(files);
+            var session = Begin(store);
+            var voyage = Sail(session, Barrel("wreck", 7));
+            Ok(session.CollectLoot(Guid.NewGuid(), voyage, EntityId.Authored("wreck")));
+            store.Flush();
+            session.RequestDock(Guid.NewGuid(), voyage, "home");
+            files.FailAt = FaultyFileSystem.Step.Replace;
+            Assert.That(Tick(session).Error, Is.EqualTo(RuleError.SaveFailed));
+            Assert.That(session.InputLocked, Is.True);
+            files.FailAt = FaultyFileSystem.Step.None;
+            Ok(session.RetrySave());
+            var disk = Store().Load().Snapshot;
+            Assert.That(disk.Expedition, Is.Null);
+            Assert.That(disk.Campaign.Bank["wood"], Is.EqualTo(7), "Banked exactly once");
+        }
+
+        [Test]
+        public void FailedBackgroundSaveSurfacesOnTheNextCommit()
+        {
+            var files = new FaultyFileSystem();
+            var store = BackgroundStore(files);
+            var session = Begin(store);
+            Sail(session);
+            files.FailAt = FaultyFileSystem.Step.Write;
+            Ok(session.Checkpoint(Guid.NewGuid()));
+            store.Flush();
+            Assert.That(files.Failures, Is.EqualTo(1), "The queued write failed after it was acknowledged");
+            Assert.That(session.Checkpoint(Guid.NewGuid()).Error, Is.EqualTo(RuleError.SaveFailed), "The next save runs synchronously and reports it");
+            Assert.That(session.InputLocked, Is.True);
+            files.FailAt = FaultyFileSystem.Step.None;
+            Ok(session.RetrySave());
+            Assert.That(Revision(store.MainPath), Is.EqualTo(session.Snapshot.Revision));
         }
 
         [Test]

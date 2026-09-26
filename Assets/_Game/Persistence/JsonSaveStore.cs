@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using PirateGame.Core;
 using PirateGame.Rules.Application;
 
@@ -54,11 +56,26 @@ namespace PirateGame.Persistence
     // temporary file, reads it back, then atomically replaces the main save and
     // keeps the previous committed snapshot as the backup. Unreadable or
     // unsupported files are preserved under new names, never overwritten.
+    //
+    // With background writes on, the frequent at-sea saves (checkpoints and
+    // pickups) are acknowledged once queued and written in order on a worker
+    // thread, so they no longer stall a frame. Every other commit, load and
+    // initialization first waits for the queue, so an older snapshot can never
+    // land after a newer one. A crash can lose only the saves still queued,
+    // which INV-17 allows for checkpoints. After a failed background write the
+    // next commit runs synchronously, so the failure reaches the normal
+    // SaveFailed/retry path.
     public sealed class JsonSaveStore : ISaveStore
     {
         public const string MainName = "campaign.json";
         public const string BackupName = "campaign.backup.json";
         public const string TempName = "campaign.json.tmp";
+
+        private static readonly HashSet<string> BackgroundCommands = new HashSet<string>(StringComparer.Ordinal) { "Checkpoint", "CollectLoot" };
+        // One queue per save folder, shared by every store in the process, so a
+        // store created by the next scene still sees the previous scene's writes.
+        private static readonly object QueueLock = new object();
+        private static readonly Dictionary<string, Task> Queues = new Dictionary<string, Task>(StringComparer.OrdinalIgnoreCase);
 
         private readonly ISaveFileSystem files;
         private readonly DefinitionCatalog definitions;
@@ -66,21 +83,25 @@ namespace PirateGame.Persistence
         private bool ready;
         private long committedRevision;
         private Guid committedRequest;
+        private volatile string backgroundFailure;
 
         public string Directory { get; }
         public string MainPath => Path.Combine(Directory, MainName);
         public string BackupPath => Path.Combine(Directory, BackupName);
         public string TempPath => Path.Combine(Directory, TempName);
-        public bool HasSaveFiles => files.Exists(MainPath) || files.Exists(BackupPath);
+        public bool BackgroundWrites { get; }
+        public bool HasSaveFiles { get { Flush(); return files.Exists(MainPath) || files.Exists(BackupPath); } }
         public long? CommittedRevision => ready ? committedRevision : (long?)null;
 
-        public JsonSaveStore(string directory, DefinitionCatalog definitions, ISaveFileSystem files = null, Func<DateTime> clock = null)
+        public JsonSaveStore(string directory, DefinitionCatalog definitions, ISaveFileSystem files = null, Func<DateTime> clock = null,
+            bool backgroundWrites = false)
         {
             if (string.IsNullOrWhiteSpace(directory)) throw new ArgumentException("A save directory is required.");
             Directory = Path.GetFullPath(directory);
             this.definitions = definitions ?? throw new ArgumentNullException(nameof(definitions));
             this.files = files ?? new DiskFileSystem();
             this.clock = clock ?? (() => DateTime.UtcNow);
+            BackgroundWrites = backgroundWrites;
         }
 
         public RuleResult Commit(SaveCandidate candidate)
@@ -92,10 +113,51 @@ namespace PirateGame.Persistence
             if (revision == committedRevision && candidate.RequestId == committedRequest) return new RuleResult();
             if (candidate.ExpectedRevision != committedRevision)
                 return Failed("Stale candidate: expected revision " + candidate.ExpectedRevision + ", committed " + committedRevision + ".");
+            if (BackgroundWrites && BackgroundCommands.Contains(candidate.Command) && backgroundFailure == null)
+            {
+                // Snapshots are immutable, so the worker can encode and write this one later.
+                var snapshot = candidate.Snapshot; var request = candidate.RequestId; var command = candidate.Command;
+                Enqueue(() => backgroundFailure = WriteSafely(snapshot, request, command));
+                committedRevision = revision; committedRequest = request;
+                return new RuleResult();
+            }
+            Flush();
             var written = Write(candidate.Snapshot, candidate.RequestId, candidate.Command);
             if (!written.IsSuccess) return written;
+            backgroundFailure = null;
             committedRevision = revision; committedRequest = candidate.RequestId;
             return written;
+        }
+
+        // Blocks until every queued write for this save folder has finished.
+        public void Flush() => Flush(Directory);
+
+        public static void Flush(string directory)
+        {
+            Task queue;
+            lock (QueueLock) Queues.TryGetValue(Path.GetFullPath(directory), out queue);
+            queue?.Wait();
+        }
+
+        private void Enqueue(Action write)
+        {
+            lock (QueueLock)
+            {
+                Queues.TryGetValue(Directory, out var queue);
+                Queues[Directory] = (queue ?? Task.CompletedTask).ContinueWith(_ => write(), CancellationToken.None,
+                    TaskContinuationOptions.None, TaskScheduler.Default);
+            }
+        }
+
+        // Worker-thread write: returns null on success or the failure detail.
+        private string WriteSafely(SessionSnapshot snapshot, Guid request, string command)
+        {
+            try
+            {
+                var written = Write(snapshot, request, command);
+                return written.IsSuccess ? null : written.Detail;
+            }
+            catch (Exception e) { return e.Message; }
         }
 
         // Creates a new campaign file. Existing files are renamed aside first.
@@ -105,6 +167,7 @@ namespace PirateGame.Persistence
             if (initial == null) return Failed("Missing initial snapshot.");
             var valid = CampaignSession.ValidateSnapshot(definitions, initial);
             if (!valid.IsSuccess) return valid;
+            Flush();
             try
             {
                 files.CreateDirectory(Directory);
@@ -122,6 +185,7 @@ namespace PirateGame.Persistence
         public SaveLoadResult Load()
         {
             ready = false;
+            Flush();
             if (!HasSaveFiles) return new SaveLoadResult(SaveLoadStatus.NoSave, null, "No saved campaign.", null);
             var problems = new List<string>();
             var main = TryRead(MainPath, problems);

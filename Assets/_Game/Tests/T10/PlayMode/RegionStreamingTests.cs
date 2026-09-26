@@ -36,6 +36,7 @@ namespace PirateGame.Tests.T10
         public void Cleanup()
         {
             LaunchOptions.SaveDirectoryOverride = null; LaunchOptions.SeedOverride = null; LaunchOptions.Mode = LaunchMode.Auto;
+            PirateGame.Persistence.JsonSaveStore.Flush(saves);
             if (Directory.Exists(saves)) Directory.Delete(saves, true);
         }
 

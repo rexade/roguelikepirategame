@@ -157,7 +157,8 @@ namespace PirateGame.Composition
             if (GameBenchmark.Stress) { Planner.ShipMultiplier = 4; Planner.ExtraBarrels = 100; }
             player.RegionOf = RegionIdAt;
             if (streamer != null) streamer.RegionReady += r => regionsToPopulate.Enqueue(r.regionId);
-            Store = new JsonSaveStore(LaunchOptions.SaveDirectory, Definitions);
+            // At-sea checkpoints and pickups are written off the main thread; transitions stay synchronous.
+            Store = new JsonSaveStore(LaunchOptions.SaveDirectory, Definitions, backgroundWrites: true);
             interaction.collectOnInteractIntent = false;
             player.TickStarted += OnTickStarted;
             if (sound != null)
@@ -174,6 +175,8 @@ namespace PirateGame.Composition
         private void OnDestroy()
         {
             if (player != null) player.TickStarted -= OnTickStarted;
+            // Leaving the scene (e.g. exit to title) finishes any queued save first.
+            Store?.Flush();
         }
 
         // ---------------------------------------------------------------- launch
@@ -490,6 +493,8 @@ namespace PirateGame.Composition
             // Best-effort final checkpoint; a crash may still roll back to the last one.
             if (Session != null && Session.Lifecycle == Lifecycle.AtSea && !Session.InputLocked && !player.HasPendingStep && CombatWorld != null)
                 Checkpoint();
+            // Background writes would not survive process exit.
+            Store?.Flush();
         }
 
         private void HandleEvents()
