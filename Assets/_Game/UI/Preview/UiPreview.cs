@@ -134,9 +134,9 @@ namespace PirateGame.UI.Preview
         private static ChartModel ChartData()
         {
             var data = new ChartModel { Limits = Rect.MinMaxRect(-300, -200, 700, 1450), ShipVisible = true, Ship = new Vector2(40, 210), ShipYaw = 30 };
-            data.Zones.Add(new ChartModel.Zone { Name = "The Gilded Shallows", Center = new Vector2(-10, 100), Mood = "paradise, still" });
-            data.Zones.Add(new ChartModel.Zone { Name = "The Broken Causeway", Center = new Vector2(420, 480), Mood = "golden haze" });
-            data.Zones.Add(new ChartModel.Zone { Name = "The Colossus Deeps", Center = new Vector2(120, 1260), Mood = "mist and old kings" });
+            data.Zones.Add(new ChartModel.Zone { Name = "The Gilded Shallows", Center = new Vector2(-190, 40), Mood = "paradise, still" });
+            data.Zones.Add(new ChartModel.Zone { Name = "The Broken Causeway", Center = new Vector2(560, 470), Mood = "golden haze" });
+            data.Zones.Add(new ChartModel.Zone { Name = "The Colossus Deeps", Center = new Vector2(-80, 1300), Mood = "mist and old kings" });
             data.Shapes.Add(Shape(ChartModel.ShapeKind.Shallows, Ring(new Vector2(0, 40), 150, 128, 28, 3, 0.05f)));
             data.Shapes.Add(Shape(ChartModel.ShapeKind.Reef, Ring(new Vector2(0, 40), 132, 112, 40, 5, 0.03f)));
             data.Shapes.Add(Shape(ChartModel.ShapeKind.Land, Ring(new Vector2(0, -52), 22, 14, 10, 7, 0.2f)));

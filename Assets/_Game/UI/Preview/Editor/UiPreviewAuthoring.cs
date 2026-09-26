@@ -26,12 +26,13 @@ namespace PirateGame.UI.Preview.Editor
         public static void Create()
         {
             AssetDatabase.Refresh();
+            // Open the scene first: NewScene(Single) unloads unused assets, which would
+            // leave references loaded before it pointing at destroyed objects.
+            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var gamePanel = Load<PanelSettings>(GamePanel);
             var titlePanel = Load<PanelSettings>(TitlePanel);
             var style = Load<StyleSheet>("Assets/_Game/UI/Game/Game.uss");
             var backdropPanel = BackdropPanel(gamePanel);
-
-            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var camera = new GameObject("Camera", typeof(Camera), typeof(HDAdditionalCameraData));
             var data = camera.GetComponent<HDAdditionalCameraData>();
             data.clearColorMode = HDAdditionalCameraData.ClearColorMode.Color;
@@ -68,12 +69,15 @@ namespace PirateGame.UI.Preview.Editor
             if (report.summary.result != BuildResult.Succeeded) throw new BuildFailedException("UI preview build failed.");
         }
 
+        // Serialized assignment: the panelSettings property setter does not persist on a
+        // document created in a fresh scene (ProjectSetup.AssignPanel does the same).
         private static GameObject Document(string name, PanelSettings panel, int order)
         {
             var go = new GameObject(name);
-            var document = go.AddComponent<UIDocument>();
-            document.panelSettings = panel;
-            document.sortingOrder = order;
+            var serialized = new SerializedObject(go.AddComponent<UIDocument>());
+            serialized.FindProperty("m_PanelSettings").objectReferenceValue = panel;
+            serialized.FindProperty("m_SortingOrder").floatValue = order;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
             return go;
         }
 

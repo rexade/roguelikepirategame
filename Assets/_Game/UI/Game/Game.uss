@@ -66,7 +66,7 @@
 
 /* Lore inscription: a gilded banner that fades in near the top of the screen. */
 .inscription {
-    position: absolute; top: 118px; left: 20%; right: 20%; height: 92px;
+    position: absolute; top: 118px; left: 26%; right: 26%; height: 92px;
     background-image: url("../Theme/banner.png");
     justify-content: center; align-items: center;
     opacity: 0; translate: 0 -10px;
@@ -85,7 +85,7 @@
 
 /* Zone title: gold capitals engraved over the sea when a new zone begins. */
 .zone-title {
-    position: absolute; left: 0; right: 0; top: 29%;
+    position: absolute; left: 0; right: 0; top: 34%;
     align-items: center; opacity: 0;
     transition-property: opacity; transition-duration: 1.6s; transition-timing-function: ease-in-out-sine;
 }

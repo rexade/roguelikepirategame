@@ -219,6 +219,11 @@ namespace PirateGame.UI.Game
             homeArrow.style.left = p.x - 26; homeArrow.style.top = p.y - 26;
             homeArrow[0].style.rotate = new Rotate(new Angle(degrees, AngleUnit.Degree));
             homeLabel.text = label;
+            // Near a side edge the label hangs inward instead of centring, so it stays readable.
+            float width = root.layout.width > 0 ? root.layout.width : Screen.width;
+            bool left = p.x < 120, right = p.x > width - 120;
+            homeLabel.style.left = left ? -6 : right ? -142 : -74;
+            homeLabel.style.unityTextAlign = left ? TextAnchor.LowerLeft : right ? TextAnchor.LowerRight : TextAnchor.LowerCenter;
         }
 
         public void Toast(string text, ToastKind kind = ToastKind.Info, float seconds = 3.2f)

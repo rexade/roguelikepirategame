@@ -185,26 +185,25 @@ namespace PirateGame.UI.Game
             private void Relabel()
             {
                 labels.Clear();
+                placed.Clear();
                 if (model == null || contentRect.width < 10) return;
-                if (model.Zones.Count > 0)
-                    foreach (var zone in model.Zones)
-                    {
-                        var at = Map(zone.Center);
-                        Name(zone.Name.ToUpperInvariant(), at, "chart-zone", true);
-                        if (!string.IsNullOrEmpty(zone.Mood)) Name(zone.Mood, at + new Vector2(0, 17), "chart-mood", true);
-                    }
-                else
-                    foreach (var region in model.Regions)
-                        Name(region.Name.ToUpperInvariant(), Map(new Vector2(region.Bounds.xMin, region.Bounds.yMax)) + new Vector2(10, 8), "chart-region", false);
-                foreach (var mark in model.Landmarks)
-                    Name(mark.Name, Map(mark.Position) + new Vector2(0, mark.Kind == ChartModel.LandmarkKind.Crown ? 26 : 13), "chart-landmark", true);
-                foreach (var harbor in model.Harbors)
-                    Name(harbor.Claimed ? harbor.Name : "Unlit beacon", Map(harbor.Position) + new Vector2(12, -9),
-                        harbor.Claimed ? "chart-harbor" : "chart-uncharted", false);
+                // Placed in priority order; later labels step aside from earlier ones.
                 if (model.Limits.width > 0)
                     Name("THE VEIL", Map(new Vector2(model.Limits.center.x, model.Limits.yMin)) + new Vector2(0, 14), "chart-veil", true);
                 var bar = ScaleBar(Scale);
                 Name(ScaleMetres + " m", bar.end + new Vector2(6, -11), "chart-scale", false);
+                if (model.Zones.Count > 0)
+                    foreach (var zone in model.Zones) Name(zone.Name.ToUpperInvariant(), Map(zone.Center), "chart-zone", true);
+                else
+                    foreach (var region in model.Regions)
+                        Name(region.Name.ToUpperInvariant(), Map(new Vector2(region.Bounds.xMin, region.Bounds.yMax)) + new Vector2(10, 8), "chart-region", false);
+                foreach (var harbor in model.Harbors)
+                    Name(harbor.Claimed ? harbor.Name : "Unlit beacon", Map(harbor.Position) + new Vector2(12, -9),
+                        harbor.Claimed ? "chart-harbor" : "chart-uncharted", false);
+                foreach (var mark in model.Landmarks)
+                    Name(mark.Name, Map(mark.Position) + new Vector2(0, mark.Kind == ChartModel.LandmarkKind.Crown ? 26 : 13), "chart-landmark", true);
+                foreach (var zone in model.Zones)
+                    if (!string.IsNullOrEmpty(zone.Mood)) Name(zone.Mood, Map(zone.Center) + new Vector2(0, 17), "chart-mood", true);
             }
 
             private const float ScaleMetres = 200;
@@ -215,12 +214,33 @@ namespace PirateGame.UI.Game
                 return (start, start + new Vector2(ScaleMetres * scale, 0));
             }
 
+            private readonly List<Rect> placed = new List<Rect>();
+
+            // Estimated label box: capitals (Cinzel, letter-spaced) run wider than italics.
+            private static Vector2 Estimate(string text, string style)
+            {
+                bool capitals = style == "chart-zone" || style == "chart-veil" || style == "chart-harbor" || style == "chart-region";
+                float size = style == "chart-zone" || style == "chart-region" ? 13 : style == "chart-veil" ? 12 : 11;
+                return new Vector2(text.Length * size * (capitals ? 0.86f : 0.5f) + 4, size * 1.45f);
+            }
+
             private void Name(string text, Vector2 at, string style, bool centred)
             {
+                var size = Estimate(text, style);
+                var box = centred ? new Rect(at - size * 0.5f, size) : new Rect(at, size);
+                foreach (float step in new[] { 0f, 12f, -12f, 24f, -24f, 36f })
+                {
+                    var candidate = new Rect(box.position + new Vector2(0, step), box.size);
+                    if (placed.Exists(r => r.Overlaps(candidate))) continue;
+                    box = candidate;
+                    break;
+                }
+                placed.Add(box);
                 var label = new Label(text) { pickingMode = PickingMode.Ignore };
                 label.AddToClassList("chart-name"); label.AddToClassList(style);
                 label.style.position = Position.Absolute;
-                label.style.left = at.x; label.style.top = at.y;
+                var anchor = centred ? box.center : box.position;
+                label.style.left = anchor.x; label.style.top = anchor.y;
                 // Centre on the point once the label knows its size.
                 if (centred) label.style.translate = new Translate(Length.Percent(-50), Length.Percent(-50));
                 labels.Add(label);
@@ -274,7 +294,7 @@ namespace PirateGame.UI.Game
             // clipping exactly (Liang-Barsky) so the hatching stops cleanly at the rule.
             private static void HatchOutside(Painter2D paint, Vector2 p0, Vector2 p1, Vector2 a, Vector2 b)
             {
-                var color = Ink.Alpha(Ink.Black, 0.16f);
+                var color = Ink.Alpha(Ink.Black, 0.3f);
                 var d = p1 - p0;
                 float t0 = 0, t1 = 1;
                 bool Clip(float p, float q, ref float lo, ref float hi)

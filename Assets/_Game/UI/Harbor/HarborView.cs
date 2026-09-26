@@ -75,8 +75,10 @@ namespace PirateGame.UI.Harbor
                 string lore = Themed ? Words.UpgradeLine(upgrade.Id) : "";
                 if (lore.Length > 0) { var line = new Label(lore) { name = "lore-" + upgrade.Id }; line.AddToClassList("upgrade-line"); info.Add(line); }
                 var cost = new Label(Themed ? Bundle(upgrade.Cost, " · ") : string.Join("  /  ", upgrade.Cost.Select(p => p.Value + " " + p.Key))) { name = "cost-" + upgrade.Id };
-                cost.AddToClassList("upgrade-cost"); info.Add(cost);
-                row.Add(new Button(() => ShowResult(session.PurchaseUpgrade(Guid.NewGuid(), upgrade.Id)))
+                // Cost above its button on the right keeps every row to two lines.
+                var buy = new VisualElement(); buy.AddToClassList("upgrade-buy"); row.Add(buy);
+                cost.AddToClassList("upgrade-cost"); buy.Add(cost);
+                buy.Add(new Button(() => ShowResult(session.PurchaseUpgrade(Guid.NewGuid(), upgrade.Id)))
                     { text = "Purchase", name = "buy-" + upgrade.Id });
             }
             unlocks = new Label { name = "unlocks" }; upgrades.Add(unlocks);
@@ -145,7 +147,7 @@ namespace PirateGame.UI.Harbor
             location.text = Themed ? (session.Lifecycle == Lifecycle.Docked ? "Moored beneath the beacon" : "At sea") : Title(campaign.CurrentHub) + "  /  " + session.Lifecycle;
             if (hubName != null) title.text = hubName(campaign.CurrentHub).ToUpperInvariant();
             travel?.Refresh();
-            stats.text = (Themed ? "THE SHIP\n" : "SHIP\n") + string.Join("\n", session.ShipStats().Select(p => StatName(p.Key, false) + "   " + p.Value.ToString("0.##", CultureInfo.InvariantCulture)));
+            stats.text = (Themed ? "" : "SHIP\n") + string.Join("\n", session.ShipStats().Select(p => StatName(p.Key, false) + "   " + p.Value.ToString("0.##", CultureInfo.InvariantCulture)));
             unlocks.text = (Themed ? "Granted: " : "Unlocks: ") + (campaign.Unlocks.Count == 0 ? "None" : string.Join(", ", campaign.Unlocks.Select(u => Themed ? Words.Unlock(u) : Title(u))));
             foreach (var upgrade in definitions.Upgrades.Values)
             {

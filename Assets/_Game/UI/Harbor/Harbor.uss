@@ -47,17 +47,18 @@
 }
 
 .upgrade {
-    flex-direction: row; align-items: center; margin-bottom: 7px; padding-bottom: 6px;
+    flex-direction: row; align-items: center; margin-bottom: 5px; padding-bottom: 5px;
     border-bottom-width: 1px; border-bottom-color: rgba(43, 33, 24, 0.14);
 }
+.upgrade-buy { width: 124px; flex-shrink: 0; align-items: flex-end; margin-left: 10px; }
 .upgrade-info { flex-grow: 1; flex-shrink: 1; }
 .upgrade-heading { flex-direction: row; align-items: flex-end; flex-wrap: wrap; }
 .upgrade-name { -unity-font-definition: url("../Fonts/Cinzel-Bold.ttf"); font-size: 14px; letter-spacing: 1px; margin-right: 10px; }
 .upgrade-effect { -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); font-size: 15px; color: rgb(46, 93, 102); }
 .upgrade-line { -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); font-size: 14px; color: rgba(43, 33, 24, 0.72); }
-.upgrade-cost { font-size: 15px; color: rgb(118, 82, 16); }
+.upgrade-cost { font-size: 14px; color: rgb(118, 82, 16); -unity-text-align: middle-right; }
 .upgrade-cost.unaffordable { color: rgb(150, 66, 44); }
-.upgrade Button { width: 112px; height: 32px; margin: 0 0 0 10px; }
+.upgrade Button { width: 112px; height: 28px; margin: 2px 0 0 0; }
 .upgrade Button.owned { opacity: 0.55; }
 .upgrade Button.unaffordable { opacity: 0.75; }
 
