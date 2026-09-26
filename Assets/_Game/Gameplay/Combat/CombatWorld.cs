@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using PirateGame.Core;
@@ -75,23 +74,27 @@ namespace PirateGame.Gameplay.Combat
         }
         private void Subscribe()
         {
-            if (!subscribed && Simulation != null && isActiveAndEnabled) { Simulation.TickStarted += Tick; subscribed = true; }
+            if (!subscribed && Simulation != null && isActiveAndEnabled)
+            { Simulation.TickStarted += Tick; Simulation.TickSkipped += FreezeEnemies; subscribed = true; }
         }
-        private void OnEnable() { Subscribe(); StartCoroutine(FreezeAfterPhysics()); }
+        private void OnEnable() => Subscribe();
         private void OnDisable()
         {
-            if (subscribed) Simulation.TickStarted -= Tick;
-            subscribed = false; StopAllCoroutines();
-            foreach (var enemy in enemies) enemy.Suspend();
+            if (subscribed) { Simulation.TickStarted -= Tick; Simulation.TickSkipped -= FreezeEnemies; }
+            subscribed = false;
+            FreezeEnemies();
         }
-        private IEnumerator FreezeAfterPhysics()
+        // Enemies move only inside accepted ticks. Between ticks they stay dynamic,
+        // so Rigidbody interpolation keeps them smooth on screen; they freeze before
+        // any physics step that belongs to no tick (TickSkipped).
+        private void FixedUpdate()
         {
-            while (true)
-            {
-                yield return new WaitForFixedUpdate();
-                if (Simulation == null) continue;
-                foreach (var enemy in enemies) enemy.Suspend();
-            }
+            // A disabled simulation raises no events: freeze before its physics step.
+            if (Simulation != null && !Simulation.isActiveAndEnabled) FreezeEnemies();
+        }
+        private void FreezeEnemies()
+        {
+            foreach (var enemy in enemies) enemy.Suspend();
         }
         private void Tick(InputIntent intent)
         {

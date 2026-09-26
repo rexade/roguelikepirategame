@@ -17,7 +17,7 @@ namespace PirateGame.Presentation.Combat
         public event System.Action<Vector3, bool> ShotRetired;
         public event System.Action<Vector3> HullSank;
 
-        private sealed class ShotView { public GameObject Root; public TrailRenderer Trail; public bool WasActive; public long Generation; public Vector3 Last; public float Remaining; }
+        private sealed class ShotView { public GameObject Root; public TrailRenderer Trail; public bool WasActive; public long Generation; public Vector3 From, Last; public float Since, Remaining; }
         private sealed class Puff { public Transform Root; public float Age, Duration, From, To; public Vector3 Drift; }
         private sealed class Sinking { public CombatTarget Target; public Transform Model; public Vector3 Start; public Quaternion StartRotation; public float Age; public bool Done; }
 
@@ -105,6 +105,7 @@ namespace PirateGame.Presentation.Combat
                 if (shot.Active && (!view.WasActive || relaunched))
                 {
                     view.Root.transform.position = shot.Position;
+                    view.From = view.Last = shot.Position; view.Since = Time.fixedTime;
                     view.Trail.Clear();
                     view.Root.GetComponent<Renderer>().sharedMaterial = shot.Team == 0 ? friendlyShot : hostileShot;
                     view.Trail.sharedMaterial = view.Root.GetComponent<Renderer>().sharedMaterial;
@@ -112,8 +113,11 @@ namespace PirateGame.Presentation.Combat
                 view.Root.SetActive(shot.Active);
                 if (shot.Active)
                 {
-                    view.Root.transform.position = shot.Position;
-                    view.Last = shot.Position; view.Remaining = shot.Remaining;
+                    // Shots advance once per 50 Hz tick. Ease between tick positions,
+                    // one tick behind like Rigidbody interpolation; a paused shot holds still.
+                    if (shot.Position != view.Last) { view.From = view.Last; view.Last = shot.Position; view.Since = Time.fixedTime; }
+                    view.Root.transform.position = Vector3.Lerp(view.From, view.Last, Mathf.Clamp01((Time.time - view.Since) / Time.fixedDeltaTime));
+                    view.Remaining = shot.Remaining;
                 }
                 view.WasActive = shot.Active; view.Generation = shot.Generation;
             }

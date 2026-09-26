@@ -17,6 +17,9 @@ namespace PirateGame.Gameplay.Ships
         public RuleResult LastTickResult { get; private set; }
         public RuleResult LastPickupResult { get; private set; }
         public event Action<InputIntent> TickStarted;
+        // Raised in FixedUpdate when this physics step belongs to no simulation tick
+        // (paused, locked or a retained step), before the physics engine runs it.
+        public event Action TickSkipped;
         // Optional (T10): maps the published XZ position to its region. Without it the
         // expedition keeps its current region, as in single-region fixtures.
         public Func<Vector3, string> RegionOf { get; set; }
@@ -99,9 +102,9 @@ namespace PirateGame.Gameplay.Ships
         private void FixedUpdate()
         {
             // A retained publication owns the next tick; never replay its physics.
-            if (stepped) { motor.Suspend(true); return; }
+            if (stepped) { motor.Suspend(true); TickSkipped?.Invoke(); return; }
             motor.Suspend(Session == null || Session.IsPaused);
-            if (Session == null || Session.IsPaused) return;
+            if (Session == null || Session.IsPaused) { TickSkipped?.Invoke(); return; }
             stepped = true;
             captured = false;
             expeditionId = Session.Snapshot.Expedition.Id;
