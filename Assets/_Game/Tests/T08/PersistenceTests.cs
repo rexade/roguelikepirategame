@@ -59,14 +59,14 @@ namespace PirateGame.Tests.T08
             if (Directory.Exists(directory)) Directory.Delete(directory, true);
         }
 
-        public static DefinitionCatalog Catalog() => new DefinitionCatalog(
+        public static DefinitionCatalog Catalog(params HubDefinition[] addedHubs) => new DefinitionCatalog(
             new Dictionary<string, int> { ["wood"] = 1, ["iron"] = 2 },
             new[] { new HullDefinition("cutter", new Dictionary<string, SlotKind> { ["weapon"] = SlotKind.Weapon, ["ability"] = SlotKind.Ability },
                 new[] { new StatDefinition("health", 100, 1, 1000), new StatDefinition("cargo", 10, 0, 1000), new StatDefinition("speed", 8, 1, 30) }) },
             new[] { new EquipmentDefinition("cannon", SlotKind.Weapon, Array.Empty<StatModifier>()),
                 new EquipmentDefinition("repeater", SlotKind.Weapon, Array.Empty<StatModifier>()),
                 new EquipmentDefinition("brace", SlotKind.Ability, Array.Empty<StatModifier>()) },
-            new[] { new HubDefinition("home", new SeaPosition("sea", 0, 0), 5, 1), new HubDefinition("far", new SeaPosition("sea", 90, 0), 5, 1) },
+            new[] { new HubDefinition("home", new SeaPosition("sea", 0, 0), 5, 1), new HubDefinition("far", new SeaPosition("sea", 90, 0), 5, 1) }.Concat(addedHubs),
             new[] { new UpgradeDefinition("hull-1", "hull", 1, new Dictionary<string, int> { ["wood"] = 6 }, Array.Empty<string>(), new[] { "charts" },
                 new[] { new StatModifier("health", ModifierOperation.Percent, 0.5) }) },
             new[] { "charts" }, Array.Empty<AuthoredIdentity>(), new[] { "barrel", "raider" }, new[] { "sea" });
@@ -311,6 +311,45 @@ namespace PirateGame.Tests.T08
             var result = Store().Load();
             Assert.That(result.Status, Is.EqualTo(SaveLoadStatus.RecoveredFromBackup));
             Assert.That(result.Detail, Does.Contain("UnknownId"));
+        }
+
+        [Test]
+        public void SavesFromBeforeANewHarborStillLoad()
+        {
+            var store = Store();
+            var session = Begin(store, WithBank(Fresh(definitions), 9));
+            Sail(session, Barrel("barrel-a", 3));
+            var before = File.ReadAllBytes(store.MainPath);
+
+            var expanded = Catalog(new HubDefinition("cove", new SeaPosition("sea", 40, 40), 5, 1));
+            var upgradedStore = new JsonSaveStore(directory, expanded);
+            var loaded = upgradedStore.Load();
+            Assert.That(loaded.Status, Is.EqualTo(SaveLoadStatus.Loaded), loaded.Detail);
+            var hubs = loaded.Snapshot.Campaign.Hubs;
+            Assert.That(hubs["cove"].Discovered || hubs["cove"].Activated, Is.False, "A new harbor starts undiscovered");
+            Assert.That(hubs["home"].Activated, Is.True);
+            Assert.That(loaded.Snapshot.Campaign.Bank["wood"], Is.EqualTo(9));
+            Assert.That(loaded.Snapshot.Expedition, Is.Not.Null, "The voyage at sea resumes");
+            Assert.That(File.ReadAllBytes(store.MainPath), Is.EqualTo(before), "Loading never rewrites the file");
+
+            // The next normal commit writes the upgraded campaign.
+            var resumed = new CampaignSession(expanded, loaded.Snapshot, upgradedStore, new ReadyArrival());
+            Ok(resumed.RetryArrival());
+            Ok(resumed.Checkpoint(Guid.NewGuid()));
+            Assert.That(new JsonSaveStore(directory, expanded).Load().Snapshot.Campaign.Hubs.ContainsKey("cove"), Is.True);
+        }
+
+        [Test]
+        public void SavesNamingARemovedHarborAreReportedAndUntouched()
+        {
+            var expanded = Catalog(new HubDefinition("cove", new SeaPosition("sea", 40, 40), 5, 1));
+            var store = new JsonSaveStore(directory, expanded);
+            Ok(store.Initialize(Fresh(expanded), out _));
+            var before = File.ReadAllBytes(store.MainPath);
+            var result = Store().Load();
+            Assert.That(result.Status, Is.EqualTo(SaveLoadStatus.Unreadable));
+            Assert.That(result.Detail, Does.Contain("UnknownId"));
+            Assert.That(File.ReadAllBytes(store.MainPath), Is.EqualTo(before), "Removed content needs an explicit migration");
         }
 
         [Test]

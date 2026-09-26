@@ -159,7 +159,7 @@ namespace PirateGame.Persistence
                 if (!files.Exists(path)) { problems.Add(name + " is missing."); return null; }
                 var bytes = files.ReadAllBytes(path);
                 var dto = SaveCodec.Decode(bytes);
-                var snapshot = SaveMapper.FromDto(dto);
+                var snapshot = SaveMigration.AddNewHubs(definitions, SaveMapper.FromDto(dto));
                 var valid = CampaignSession.ValidateSnapshot(definitions, snapshot);
                 if (!valid.IsSuccess) { problems.Add(name + ": " + valid.Error + " " + valid.Detail); return null; }
                 var request = dto.request == null ? Guid.Empty : Guid.ParseExact(dto.request, "D");
